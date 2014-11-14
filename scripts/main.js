@@ -1,7 +1,11 @@
 var API_URL = 'https://lissu-api.herokuapp.com';
 
+var config = {
+    animate: false
+};
+
 var state = {
-    markers: []
+    vehicles: {}
 };
 
 function initMap() {
@@ -19,14 +23,17 @@ function initMap() {
 }
 
 function updateVehicles(map) {
-    clearMarkers();
-
     get(API_URL, function(req) {
         var vehicles = JSON.parse(req.responseText).vehicles;
         vehicles.forEach(function(vehicle) {
-            var marker = addVehicleMarker(map, vehicle);
-            state.markers.push(marker);
+            if (state.vehicles.hasOwnProperty(vehicle.id)) {
+                updateVehicle(map, vehicle);
+            } else {
+                addVehicle(map, vehicle);
+            }
         });
+
+        removeLeftovers(map, vehicles);
 
         setTimeout(function() {
             updateVehicles(map);
@@ -34,27 +41,74 @@ function updateVehicles(map) {
     });
 }
 
-function clearMarkers() {
-    state.markers.forEach(function(marker) {
-        marker.setMap(null);
-    });
+function removeLeftovers(map, vehicles) {
+    for (var id in state.vehicles) {
+        if (state.vehicles.hasOwnProperty(id) &&
+            !findFromVehicles(vehicles, id)) {
+            delete state.vehicles[id];
+        }
+    }
+}
 
-    state.markers = [];
+function findFromVehicles(vehicles, id) {
+    for (var i = 0; i < vehicles.length; ++i) {
+        if (vehicles[i].id === id) {
+            return vehicles[i];
+        }
+    }
+
+    return null;
+}
+
+function addVehicle(map, vehicle) {
+    var marker = addVehicleMarker(map, vehicle);
+    state.vehicles[vehicle.id] = {
+        marker: marker,
+        data: vehicle
+    };
+}
+
+function updateVehicle(map, vehicle) {
+    var newPos = new google.maps.LatLng(vehicle.latitude, vehicle.longitude);
+    if (config.animate) {
+        state.vehicles[vehicle.id].marker.animateTo(newPos, {
+            easing: 'linear',
+            duration: 800
+        });
+    } else {
+        state.vehicles[vehicle.id].marker.setPosition(newPos);
+    }
+}
+
+function deleteMarker(marker) {
+    marker.setMap(null);
+    google.maps.event.clearListeners(map, 'click');
 }
 
 function addVehicleMarker(map, vehicle) {
-    var marker = new google.maps.Marker({
+    var image = {
+        url: 'images/bus.svg',
+        anchor: new google.maps.Point(13, 13)
+    };
+
+    var marker = new CustomMarker({
         position: {
             lat: vehicle.latitude,
             lng: vehicle.longitude
         },
         map: map,
-        title: vehicle.line
+        title: vehicle.line,
+        icon: image,
+        labelContent: vehicle.line,
+        labelAnchor: new google.maps.Point(13, 13),
+        labelClass: "bus-label", // the CSS class for the label
+        labelStyle: {opacity: 1, color: 'white'}
     });
+    console.log(marker.getElement());
     console.log('add', vehicle.line)
 
     google.maps.event.addDomListener(marker, 'click', function() {
-        console.log()
+        console.log('click marker')
     });
 
     return marker;
