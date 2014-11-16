@@ -1,12 +1,16 @@
-var API_URL = 'https://lissu-api.herokuapp.com';
+var API_URL = 'http://lissu-api.herokuapp.com';
 
 var config = {
-    animate: false
+    animate: false,
+    updateInterval: 2 * 1000,
+    busIconDiameter: 26  // px
 };
 
 var state = {
     vehicles: {}
 };
+
+var busIconTemplate = null;
 
 function initMap() {
     var mapOptions = {
@@ -19,10 +23,15 @@ function initMap() {
     };
     var map = new google.maps.Map(document.querySelector('#map'), mapOptions);
 
-    updateVehicles(map);
+    get('images/bus-template.svg', function(req) {
+        busIconTemplate = req.responseText;
+        updateVehicles(map);
+    });
 }
 
 function updateVehicles(map) {
+    console.log('Update vehicles');
+
     get(API_URL, function(req) {
         var vehicles = JSON.parse(req.responseText).vehicles;
         vehicles.forEach(function(vehicle) {
@@ -37,7 +46,7 @@ function updateVehicles(map) {
 
         setTimeout(function() {
             updateVehicles(map);
-        }, 1000);
+        }, config.updateInterval);
     });
 }
 
@@ -69,15 +78,16 @@ function addVehicle(map, vehicle) {
 }
 
 function updateVehicle(map, vehicle) {
+    var marker = state.vehicles[vehicle.id].marker;
     var newPos = new google.maps.LatLng(vehicle.latitude, vehicle.longitude);
-    if (config.animate) {
-        state.vehicles[vehicle.id].marker.animateTo(newPos, {
-            easing: 'linear',
-            duration: 800
-        });
-    } else {
-        state.vehicles[vehicle.id].marker.setPosition(newPos);
-    }
+
+    marker.setPosition(newPos);
+    var radius = config.busIconDiameter / 2;
+    var image = {
+        url: iconUrl(vehicle),
+        anchor: new google.maps.Point(radius, radius)
+    };
+    marker.setIcon(image);
 }
 
 function deleteMarker(marker) {
@@ -85,30 +95,39 @@ function deleteMarker(marker) {
     google.maps.event.clearListeners(map, 'click');
 }
 
+function iconUrl(vehicle) {
+    var svg = Mustache.render(busIconTemplate, {
+        rotation: vehicle.bearing,
+        line: vehicle.line,
+        diameter: config.busIconDiameter
+    });
+    console.log(svg)
+    var blob = new Blob([svg], {type: 'image/svg+xml'});
+    var url = URL.createObjectURL(blob);
+
+    return url;
+}
+
 function addVehicleMarker(map, vehicle) {
+    var radius = config.busIconDiameter / 2;
     var image = {
-        url: 'images/bus.svg',
-        anchor: new google.maps.Point(13, 13)
+        url: iconUrl(vehicle),
+        anchor: new google.maps.Point(radius, radius)
     };
 
-    var marker = new CustomMarker({
+    var marker = new google.maps.Marker({
         position: {
             lat: vehicle.latitude,
             lng: vehicle.longitude
         },
         map: map,
         title: vehicle.line,
-        icon: image,
-        labelContent: vehicle.line,
-        labelAnchor: new google.maps.Point(13, 13),
-        labelClass: "bus-label", // the CSS class for the label
-        labelStyle: {opacity: 1, color: 'white'}
+        icon: image
     });
-    console.log(marker.getElement());
     console.log('add', vehicle.line)
 
     google.maps.event.addDomListener(marker, 'click', function() {
-        console.log('click marker')
+        // hilight route
     });
 
     return marker;
