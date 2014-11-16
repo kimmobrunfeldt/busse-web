@@ -1,0 +1,29 @@
+{
+  "name": "lissu-web",
+  "version": "0.0.0",
+  "private": true,
+  "description": "",
+  "main": "",
+  "dependencies": {
+    "bluebird": "^2.3.11",
+    "lodash": "^2.4.1",
+    "mustache": "^0.8.2"
+  },
+  "devDependencies": {
+    "browserify": "^6.3.2",
+    "watchify": "^2.1.1"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/kimmobrunfeldt/lissu-web.git"
+  },
+  "author": "Kimmo Brunfeldt <kimmobrunfeldt@gmail.com> (http://kimmobrunfeldt.github.io/)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kimmobrunfeldt/lissu-web/issues"
+  },
+  "homepage": "https://github.com/kimmobrunfeldt/lissu-web"
+}

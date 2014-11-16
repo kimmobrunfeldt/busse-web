@@ -1,4 +1,27 @@
+var _ = require('lodash');
+var Mustache = require('mustache');
+
+var utils = require('./utils');
+var Timer = require('./timer');
+var Map = require('./map');
+
 var API_URL = 'http://lissu-api.herokuapp.com';
+var BUS_TEMPLATE = [
+    '<?xml version="1.0"?>',
+    '<svg width="{{ diameter }}px" height="{{ diameter }}px" viewBox="0 0 100 100" version="1.1" xmlns="http://www.w3.org/2000/svg">',
+        '<g transform="rotate({{ rotation }} 50 50)">',
+            '<circle stroke="#222" fill="{{ color }}" cx="50" cy="50" r="35"/>',
+            '{{#isMoving}}',
+            '<polyline fill="{{ color }}" stroke="#222" points="30,21.3 50,2 70,21.3"/>',
+            '{{/isMoving}}',
+        '</g>',
+
+        '<text fill="white" font-size="{{ fontSize }}"',
+            'x="50" y="50" style="font-family: Helvetica, sans-serif; text-anchor: middle; dominant-baseline: central;">',
+        '{{ line }}',
+        '</text>',
+    '</svg>'
+].join('\n');
 
 var config = {
     animate: false,
@@ -6,36 +29,29 @@ var config = {
     busIconDiameter: 34  // px
 };
 
-var state = {
-    vehicles: {}
-};
-
-var busIconTemplate = null;
 
 function initMap() {
-    var mapOptions = {
-        center: { lat: 61.487881, lng: 23.7810259},
-        zoom: 13,
-        zoomControl: true,
-        mapTypeControl: false,
-        scaleControl: false,
-        streetViewControl: false
-    };
-    var map = new google.maps.Map(document.querySelector('#map'), mapOptions);
+    var map = new Map('#map');
 
-    get('images/bus-template.svg', function(req) {
-        busIconTemplate = req.responseText;
-        updateVehicles(map);
+    var timer = new Timer(function() {
+        return updateVehicles(map);
+    }, {
+        interval: config.updateInterval
     });
+    timer.start();
 }
+
+google.maps.event.addDomListener(window, 'load', initMap);
 
 function updateVehicles(map) {
     console.log('Update vehicles');
 
-    get(API_URL, function(req) {
+    return utils.get(API_URL)
+    .then(function(req) {
         var vehicles = JSON.parse(req.responseText).vehicles;
-        vehicles.forEach(function(vehicle) {
-            if (state.vehicles.hasOwnProperty(vehicle.id)) {
+
+        _.each(vehicles, function(vehicle) {
+            if (_.has(map.markers, vehicle.id)) {
                 updateVehicle(map, vehicle);
             } else {
                 addVehicle(map, vehicle);
@@ -43,56 +59,52 @@ function updateVehicles(map) {
         });
 
         removeLeftovers(map, vehicles);
-
-        setTimeout(function() {
-            updateVehicles(map);
-        }, config.updateInterval);
     });
 }
 
-function removeLeftovers(map, vehicles) {
-    for (var id in state.vehicles) {
-        if (state.vehicles.hasOwnProperty(id) &&
-            !findFromVehicles(vehicles, id)) {
-            delete state.vehicles[id];
-        }
-    }
-}
-
-function findFromVehicles(vehicles, id) {
-    for (var i = 0; i < vehicles.length; ++i) {
-        if (vehicles[i].id === id) {
-            return vehicles[i];
-        }
-    }
-
-    return null;
-}
-
 function addVehicle(map, vehicle) {
-    var marker = addVehicleMarker(map, vehicle);
-    state.vehicles[vehicle.id] = {
-        marker: marker,
-        data: vehicle
-    };
-}
-
-function updateVehicle(map, vehicle) {
-    var marker = state.vehicles[vehicle.id].marker;
-    var newPos = new google.maps.LatLng(vehicle.latitude, vehicle.longitude);
-
-    marker.setPosition(newPos);
     var radius = config.busIconDiameter / 2;
     var image = {
         url: iconUrl(vehicle),
         anchor: new google.maps.Point(radius, radius)
     };
-    marker.setIcon(image);
+
+    map.addMarker(vehicle.id, {
+        position: {
+            lat: vehicle.latitude,
+            lng: vehicle.longitude
+        },
+        title: vehicle.line,
+        icon: image,
+        onClick: function() {
+            console.log('click', vehicle.line);
+        }
+    });
 }
 
-function deleteMarker(marker) {
-    marker.setMap(null);
-    google.maps.event.clearListeners(map, 'click');
+function updateVehicle(map, vehicle) {
+    var newPos = new google.maps.LatLng(vehicle.latitude, vehicle.longitude);
+    map.moveMarker(vehicle.id, newPos);
+
+    var radius = config.busIconDiameter / 2;
+    var image = {
+        url: iconUrl(vehicle),
+        anchor: new google.maps.Point(radius, radius)
+    };
+    map.updateMarkerIcon(vehicle.id, image);
+}
+
+// Remove all vehicles in map which are not defined in current vehicles
+function removeLeftovers(map, vehicles) {
+    _.each(map.markers, function(marker, id) {
+        var vehicleFound = _.find(vehicles, function(vehicle) {
+            return vehicle.id === id;
+        });
+
+        if (!vehicleFound) {
+            map.removeMarker(id);
+        }
+    });
 }
 
 function iconUrl(vehicle) {
@@ -101,7 +113,7 @@ function iconUrl(vehicle) {
         ? '#72A5BF'
         : '#97B2BF';
 
-    var svg = Mustache.render(busIconTemplate, {
+    var svg = Mustache.render(BUS_TEMPLATE, {
         rotation: vehicle.bearing,
         line: vehicle.line,
         diameter: config.busIconDiameter,
@@ -110,51 +122,8 @@ function iconUrl(vehicle) {
         color: color
     });
 
-    console.log(svg)
     var blob = new Blob([svg], {type: 'image/svg+xml'});
     var url = URL.createObjectURL(blob);
 
     return url;
 }
-
-function addVehicleMarker(map, vehicle) {
-    var radius = config.busIconDiameter / 2;
-    var image = {
-        url: iconUrl(vehicle),
-        anchor: new google.maps.Point(radius, radius)
-    };
-
-    var marker = new google.maps.Marker({
-        position: {
-            lat: vehicle.latitude,
-            lng: vehicle.longitude
-        },
-        map: map,
-        title: vehicle.line,
-        icon: image
-    });
-    console.log('add', vehicle.line)
-
-    google.maps.event.addDomListener(marker, 'click', function() {
-        // hilight route
-    });
-
-    return marker;
-}
-
-function get(url, cb) {
-    var req = new XMLHttpRequest();
-
-    req.onreadystatechange = function() {
-        if (req.readyState !== XMLHttpRequest.DONE) {
-            return;
-        }
-
-        cb(req);
-    }
-
-    req.open("GET", url, true);
-    req.send();
-}
-
-google.maps.event.addDomListener(window, 'load', initMap);
