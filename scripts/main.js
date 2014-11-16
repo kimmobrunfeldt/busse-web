@@ -96,12 +96,20 @@ function deleteMarker(marker) {
 }
 
 function iconUrl(vehicle) {
+    var isMoving = vehicle.bearing !== 0;
+    var color = isMoving
+        ? '#72A5BF'
+        : '#97B2BF';
+
     var svg = Mustache.render(busIconTemplate, {
         rotation: vehicle.bearing,
         line: vehicle.line,
         diameter: config.busIconDiameter,
-        fontSize: vehicle.line.length > 2 ? 30 : 34
+        fontSize: vehicle.line.length > 2 ? 30 : 34,
+        isMoving: isMoving,
+        color: color
     });
+
     console.log(svg)
     var blob = new Blob([svg], {type: 'image/svg+xml'});
     var url = URL.createObjectURL(blob);
