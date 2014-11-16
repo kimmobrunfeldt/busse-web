@@ -8,7 +8,6 @@ function get(url, cb) {
 
         request.onload = function() {
             if (request.status >= 200 && request.status < 400) {
-                console.log(request.responseText, request);
                 resolve(request);
             } else {
                 // We reached our target server, but it returned an error
