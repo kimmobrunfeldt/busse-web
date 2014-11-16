@@ -1,3 +1,6 @@
+L.mapbox.accessToken = 'pk.eyJ1Ijoia2ltbW9icnVuZmVsZHQiLCJhIjoicG9KM2dzWSJ9.iozawY0MdGqn-xi3vEO_OA';
+
+
 var Map = function(selector) {
     var mapOptions = {
         center: { lat: 61.487881, lng: 23.7810259},
@@ -6,7 +9,13 @@ var Map = function(selector) {
         scaleControl: false,
         streetViewControl: false
     };
-    this._map = new google.maps.Map(document.querySelector(selector), mapOptions);
+
+    var map = L.mapbox.map('map', 'examples.map-i86nkdio', {
+        attributionControl: false,
+        infoControl: false
+    })
+    .setView([0, 0], 1);
+
 
     this.markers = {};
 };
