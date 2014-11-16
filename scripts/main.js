@@ -3,7 +3,7 @@ var API_URL = 'http://lissu-api.herokuapp.com';
 var config = {
     animate: false,
     updateInterval: 2 * 1000,
-    busIconDiameter: 26  // px
+    busIconDiameter: 34  // px
 };
 
 var state = {
@@ -99,7 +99,8 @@ function iconUrl(vehicle) {
     var svg = Mustache.render(busIconTemplate, {
         rotation: vehicle.bearing,
         line: vehicle.line,
-        diameter: config.busIconDiameter
+        diameter: config.busIconDiameter,
+        fontSize: vehicle.line.length > 2 ? 30 : 34
     });
     console.log(svg)
     var blob = new Blob([svg], {type: 'image/svg+xml'});

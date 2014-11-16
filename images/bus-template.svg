@@ -1,11 +1,11 @@
 <?xml version="1.0"?>
 <svg width="{{ diameter }}px" height="{{ diameter }}px" viewBox="0 0 100 100" version="1.1" xmlns="http://www.w3.org/2000/svg">
   <g transform="rotate({{ rotation }} 50 50)">
-      <circle style="fill: rgba(114, 165, 191, 0.9)" cx="50" cy="50" r="40"/>
-      <circle style="fill: rgba(114, 165, 191, 0.9)" cx="50" cy="10" r="10"/>
+      <circle stroke="#222" fill="rgba(114, 165, 191, 1)" cx="50" cy="50" r="35"/>
+      <polyline fill="rgba(114, 165, 191, 1)" stroke="#000" points="30,21 50,2 70,21"/>
   </g>
 
-  <text fill="white" font-size="40"
+  <text fill="white" font-size="{{ fontSize }}"
         x="50" y="50" style="font-family: Helvetica, sans-serif; text-anchor: middle; dominant-baseline: central;">
     {{ line }}
   </text>
