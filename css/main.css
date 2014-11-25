@@ -1,9 +1,38 @@
+/* General */
+
+.icon-button {
+  padding: 4px 3px;
+}
+
+/* UI */
+
 body, html {
-    width: 100%;
-    height: 100%;
+  width: 100%;
+  height: 100%;
+}
+
+.lower-bar {
+  height: 50px;
+  position: relative;
+  background: #f7f7f7;
+  border-top: 0.5px solid #aaa;
 }
 
 .map {
   width: 100%;
-  height: 100%;
+  height: calc(100% - 50px);
+}
+
+.filter, .my-location {
+  position: absolute;
+}
+
+.filter {
+  left: 15px;
+  top: 5px;
+}
+
+.my-location {
+  right: 15px;
+  top: 8px;
 }

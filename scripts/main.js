@@ -23,8 +23,8 @@ var BUS_TEMPLATE = [
     '</svg>'
 ].join('\n');
 
+
 var config = {
-    animate: false,
     updateInterval: 2 * 1000,
     busIconDiameter: 34  // px
 };
@@ -108,13 +108,13 @@ function removeLeftovers(map, vehicles) {
 }
 
 function iconUrl(vehicle) {
-    var isMoving = vehicle.bearing !== 0;
+    var isMoving = vehicle.rotation !== 0;
     var color = isMoving
         ? '#72A5BF'
         : '#97B2BF';
 
     var svg = Mustache.render(BUS_TEMPLATE, {
-        rotation: vehicle.bearing,
+        rotation: vehicle.rotation,
         line: vehicle.line,
         diameter: config.busIconDiameter,
         fontSize: vehicle.line.length > 2 ? 30 : 34,

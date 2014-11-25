@@ -6,8 +6,15 @@
 
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+
+    <!-- Apple web app -->
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+
+    <!-- Android web app -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <link rel="icon" sizes="120x120" href="images/apple-touch-icon.png">
 
     <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" href="css/main.css">
@@ -18,5 +25,20 @@
   <body>
 
     <div class="map" id="map"></div>
-  </body>
+    <div class="lower-bar">
+        <a class="icon-button filter" id="filter" name="filter">
+            <!-- Icon by Ricardo Augusto Cherem -->
+            <!-- http://thenounproject.com/term/filter/78231/ -->
+            <img width="32" height="32" src="images/filter.svg" alt="Filter" />
+        </a>
+
+        <a class="icon-button my-location" id="my-location" name="my-location">
+            <!-- Icon by useiconic.com -->
+            <!-- http://thenounproject.com/term/location/45580/ -->
+            <img width="28" height="28" src="images/location.svg" alt="Location" />
+        </a>
+    </div>
+
+
+ </body>
 </html>

@@ -14,7 +14,10 @@
     "watchify": "^2.1.1"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "./node_modules/http-server/bin/http-server -c 0",
+    "watch": "watchify scripts/main.js -o scripts/bundle.js",
+    "build": "browserify scripts/main.js -o scripts/bundle.js"
   },
   "repository": {
     "type": "git",
