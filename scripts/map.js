@@ -8,7 +8,8 @@ var Map = function(selector) {
         mapTypeControl: false,
         scaleControl: false,
         streetViewControl: false,
-        zoomControl: false
+        zoomControl: false,
+        panControl: false
     };
     this._map = new google.maps.Map(document.querySelector(selector), mapOptions);
 

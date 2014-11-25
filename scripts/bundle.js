@@ -1,4 +1,4 @@
-(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({"/Users/kbru/code/personal/lissu-web/node_modules/bluebird/js/main/any.js":[function(require,module,exports){
+(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 /**
  * The MIT License (MIT)
  * 
@@ -48,7 +48,7 @@ Promise.prototype.any = function Promise$any() {
 
 };
 
-},{}],"/Users/kbru/code/personal/lissu-web/node_modules/bluebird/js/main/async.js":[function(require,module,exports){
+},{}],2:[function(require,module,exports){
 (function (process){
 /**
  * The MIT License (MIT)
@@ -165,7 +165,7 @@ Async.prototype._reset = function Async$_reset() {
 module.exports = new Async();
 
 }).call(this,require('_process'))
-},{"./queue.js":"/Users/kbru/code/personal/lissu-web/node_modules/bluebird/js/main/queue.js","./schedule.js":"/Users/kbru/code/personal/lissu-web/node_modules/bluebird/js/main/schedule.js","./util.js":"/Users/kbru/code/personal/lissu-web/node_modules/bluebird/js/main/util.js","_process":"/Users/kbru/code/personal/lissu-web/node_modules/browserify/node_modules/process/browser.js"}],"/Users/kbru/code/personal/lissu-web/node_modules/bluebird/js/main/bluebird.js":[function(require,module,exports){
+},{"./queue.js":25,"./schedule.js":28,"./util.js":35,"_process":36}],3:[function(require,module,exports){
 /**
  * The MIT License (MIT)
  * 
@@ -193,7 +193,7 @@ module.exports = new Async();
 "use strict";
 var Promise = require("./promise.js")();
 module.exports = Promise;
-},{"./promise.js":"/Users/kbru/code/personal/lissu-web/node_modules/bluebird/js/main/promise.js"}],"/Users/kbru/code/personal/lissu-web/node_modules/bluebird/js/main/call_get.js":[function(require,module,exports){
+},{"./promise.js":20}],4:[function(require,module,exports){
 /**
  * The MIT License (MIT)
  * 
@@ -316,7 +316,7 @@ Promise.prototype.get = function Promise$get(propertyName) {
 };
 };
 
-},{"./util.js":"/Users/kbru/code/personal/lissu-web/node_modules/bluebird/js/main/util.js"}],"/Users/kbru/code/personal/lissu-web/node_modules/bluebird/js/main/cancel.js":[function(require,module,exports){
+},{"./util.js":35}],5:[function(require,module,exports){
 /**
  * The MIT License (MIT)
  * 
@@ -396,7 +396,7 @@ function Promise$fork(didFulfill, didReject, didProgress) {
 };
 };
 
-},{"./async.js":"/Users/kbru/code/personal/lissu-web/node_modules/bluebird/js/main/async.js","./errors.js":"/Users/kbru/code/personal/lissu-web/node_modules/bluebird/js/main/errors.js"}],"/Users/kbru/code/personal/lissu-web/node_modules/bluebird/js/main/captured_trace.js":[function(require,module,exports){
+},{"./async.js":2,"./errors.js":10}],6:[function(require,module,exports){
 /**
  * The MIT License (MIT)
  * 
@@ -642,7 +642,7 @@ var captureStackTrace = (function stackDetection() {
 return CapturedTrace;
 };
 
-},{"./es5.js":"/Users/kbru/code/personal/lissu-web/node_modules/bluebird/js/main/es5.js","./util.js":"/Users/kbru/code/personal/lissu-web/node_modules/bluebird/js/main/util.js"}],"/Users/kbru/code/personal/lissu-web/node_modules/bluebird/js/main/catch_filter.js":[function(require,module,exports){
+},{"./es5.js":12,"./util.js":35}],7:[function(require,module,exports){
 /**
  * The MIT License (MIT)
  * 
@@ -740,7 +740,7 @@ CatchFilter.prototype.doFilter = function CatchFilter$_doFilter(e) {
 return CatchFilter;
 };
 
-},{"./errors.js":"/Users/kbru/code/personal/lissu-web/node_modules/bluebird/js/main/errors.js","./es5.js":"/Users/kbru/code/personal/lissu-web/node_modules/bluebird/js/main/es5.js","./util.js":"/Users/kbru/code/personal/lissu-web/node_modules/bluebird/js/main/util.js"}],"/Users/kbru/code/personal/lissu-web/node_modules/bluebird/js/main/direct_resolve.js":[function(require,module,exports){
+},{"./errors.js":10,"./es5.js":12,"./util.js":35}],8:[function(require,module,exports){
 /**
  * The MIT License (MIT)
  * 
@@ -822,7 +822,7 @@ function Promise$thenThrow(reason) {
 };
 };
 
-},{"./util.js":"/Users/kbru/code/personal/lissu-web/node_modules/bluebird/js/main/util.js"}],"/Users/kbru/code/personal/lissu-web/node_modules/bluebird/js/main/each.js":[function(require,module,exports){
+},{"./util.js":35}],9:[function(require,module,exports){
 /**
  * The MIT License (MIT)
  * 
@@ -860,7 +860,7 @@ Promise.each = function Promise$Each(promises, fn) {
 };
 };
 
-},{}],"/Users/kbru/code/personal/lissu-web/node_modules/bluebird/js/main/errors.js":[function(require,module,exports){
+},{}],10:[function(require,module,exports){
 /**
  * The MIT License (MIT)
  * 
@@ -1009,7 +1009,7 @@ module.exports = {
     canAttach: canAttach
 };
 
-},{"./es5.js":"/Users/kbru/code/personal/lissu-web/node_modules/bluebird/js/main/es5.js","./util.js":"/Users/kbru/code/personal/lissu-web/node_modules/bluebird/js/main/util.js"}],"/Users/kbru/code/personal/lissu-web/node_modules/bluebird/js/main/errors_api_rejection.js":[function(require,module,exports){
+},{"./es5.js":12,"./util.js":35}],11:[function(require,module,exports){
 /**
  * The MIT License (MIT)
  * 
@@ -1051,7 +1051,7 @@ function apiRejection(msg) {
 return apiRejection;
 };
 
-},{"./errors.js":"/Users/kbru/code/personal/lissu-web/node_modules/bluebird/js/main/errors.js"}],"/Users/kbru/code/personal/lissu-web/node_modules/bluebird/js/main/es5.js":[function(require,module,exports){
+},{"./errors.js":10}],12:[function(require,module,exports){
 /**
  * The MIT License (MIT)
  * 
@@ -1142,7 +1142,7 @@ if (isES5) {
     };
 }
 
-},{}],"/Users/kbru/code/personal/lissu-web/node_modules/bluebird/js/main/filter.js":[function(require,module,exports){
+},{}],13:[function(require,module,exports){
 /**
  * The MIT License (MIT)
  * 
@@ -1180,7 +1180,7 @@ Promise.filter = function Promise$Filter(promises, fn, options) {
 };
 };
 
-},{}],"/Users/kbru/code/personal/lissu-web/node_modules/bluebird/js/main/finally.js":[function(require,module,exports){
+},{}],14:[function(require,module,exports){
 /**
  * The MIT License (MIT)
  * 
@@ -1304,7 +1304,7 @@ Promise.prototype.tap = function Promise$tap(handler) {
 };
 };
 
-},{"./util.js":"/Users/kbru/code/personal/lissu-web/node_modules/bluebird/js/main/util.js"}],"/Users/kbru/code/personal/lissu-web/node_modules/bluebird/js/main/generators.js":[function(require,module,exports){
+},{"./util.js":35}],15:[function(require,module,exports){
 /**
  * The MIT License (MIT)
  * 
@@ -1459,7 +1459,7 @@ Promise.spawn = function Promise$Spawn(generatorFunction) {
 };
 };
 
-},{"./errors.js":"/Users/kbru/code/personal/lissu-web/node_modules/bluebird/js/main/errors.js","./util.js":"/Users/kbru/code/personal/lissu-web/node_modules/bluebird/js/main/util.js"}],"/Users/kbru/code/personal/lissu-web/node_modules/bluebird/js/main/join.js":[function(require,module,exports){
+},{"./errors.js":10,"./util.js":35}],16:[function(require,module,exports){
 /**
  * The MIT License (MIT)
  * 
@@ -1585,7 +1585,7 @@ Promise.join = function Promise$Join() {
 
 };
 
-},{"./util.js":"/Users/kbru/code/personal/lissu-web/node_modules/bluebird/js/main/util.js"}],"/Users/kbru/code/personal/lissu-web/node_modules/bluebird/js/main/map.js":[function(require,module,exports){
+},{"./util.js":35}],17:[function(require,module,exports){
 /**
  * The MIT License (MIT)
  * 
@@ -1738,7 +1738,7 @@ Promise.map = function Promise$Map(promises, fn, options, _filter) {
 
 };
 
-},{"./util.js":"/Users/kbru/code/personal/lissu-web/node_modules/bluebird/js/main/util.js"}],"/Users/kbru/code/personal/lissu-web/node_modules/bluebird/js/main/nodeify.js":[function(require,module,exports){
+},{"./util.js":35}],18:[function(require,module,exports){
 /**
  * The MIT License (MIT)
  * 
@@ -1818,7 +1818,7 @@ Promise.prototype.nodeify = function Promise$nodeify(nodeback, options) {
 };
 };
 
-},{"./async.js":"/Users/kbru/code/personal/lissu-web/node_modules/bluebird/js/main/async.js","./util.js":"/Users/kbru/code/personal/lissu-web/node_modules/bluebird/js/main/util.js"}],"/Users/kbru/code/personal/lissu-web/node_modules/bluebird/js/main/progress.js":[function(require,module,exports){
+},{"./async.js":2,"./util.js":35}],19:[function(require,module,exports){
 /**
  * The MIT License (MIT)
  * 
@@ -1934,7 +1934,7 @@ function Promise$_progressUnchecked(progressValue) {
 };
 };
 
-},{"./async.js":"/Users/kbru/code/personal/lissu-web/node_modules/bluebird/js/main/async.js","./errors.js":"/Users/kbru/code/personal/lissu-web/node_modules/bluebird/js/main/errors.js","./util.js":"/Users/kbru/code/personal/lissu-web/node_modules/bluebird/js/main/util.js"}],"/Users/kbru/code/personal/lissu-web/node_modules/bluebird/js/main/promise.js":[function(require,module,exports){
+},{"./async.js":2,"./errors.js":10,"./util.js":35}],20:[function(require,module,exports){
 (function (process){
 /**
  * The MIT License (MIT)
@@ -3034,7 +3034,7 @@ return Promise;
 };
 
 }).call(this,require('_process'))
-},{"./any.js":"/Users/kbru/code/personal/lissu-web/node_modules/bluebird/js/main/any.js","./async.js":"/Users/kbru/code/personal/lissu-web/node_modules/bluebird/js/main/async.js","./call_get.js":"/Users/kbru/code/personal/lissu-web/node_modules/bluebird/js/main/call_get.js","./cancel.js":"/Users/kbru/code/personal/lissu-web/node_modules/bluebird/js/main/cancel.js","./captured_trace.js":"/Users/kbru/code/personal/lissu-web/node_modules/bluebird/js/main/captured_trace.js","./catch_filter.js":"/Users/kbru/code/personal/lissu-web/node_modules/bluebird/js/main/catch_filter.js","./direct_resolve.js":"/Users/kbru/code/personal/lissu-web/node_modules/bluebird/js/main/direct_resolve.js","./each.js":"/Users/kbru/code/personal/lissu-web/node_modules/bluebird/js/main/each.js","./errors.js":"/Users/kbru/code/personal/lissu-web/node_modules/bluebird/js/main/errors.js","./errors_api_rejection":"/Users/kbru/code/personal/lissu-web/node_modules/bluebird/js/main/errors_api_rejection.js","./filter.js":"/Users/kbru/code/personal/lissu-web/node_modules/bluebird/js/main/filter.js","./finally.js":"/Users/kbru/code/personal/lissu-web/node_modules/bluebird/js/main/finally.js","./generators.js":"/Users/kbru/code/personal/lissu-web/node_modules/bluebird/js/main/generators.js","./join.js":"/Users/kbru/code/personal/lissu-web/node_modules/bluebird/js/main/join.js","./map.js":"/Users/kbru/code/personal/lissu-web/node_modules/bluebird/js/main/map.js","./nodeify.js":"/Users/kbru/code/personal/lissu-web/node_modules/bluebird/js/main/nodeify.js","./progress.js":"/Users/kbru/code/personal/lissu-web/node_modules/bluebird/js/main/progress.js","./promise_array.js":"/Users/kbru/code/personal/lissu-web/node_modules/bluebird/js/main/promise_array.js","./promise_resolver.js":"/Users/kbru/code/personal/lissu-web/node_modules/bluebird/js/main/promise_resolver.js","./promisify.js":"/Users/kbru/code/personal/lissu-web/node_modules/bluebird/js/main/promisify.js","./props.js":"/Users/kbru/code/personal/lissu-web/node_modules/bluebird/js/main/props.js","./race.js":"/Users/kbru/code/personal/lissu-web/node_modules/bluebird/js/main/race.js","./reduce.js":"/Users/kbru/code/personal/lissu-web/node_modules/bluebird/js/main/reduce.js","./settle.js":"/Users/kbru/code/personal/lissu-web/node_modules/bluebird/js/main/settle.js","./some.js":"/Users/kbru/code/personal/lissu-web/node_modules/bluebird/js/main/some.js","./synchronous_inspection.js":"/Users/kbru/code/personal/lissu-web/node_modules/bluebird/js/main/synchronous_inspection.js","./thenables.js":"/Users/kbru/code/personal/lissu-web/node_modules/bluebird/js/main/thenables.js","./timers.js":"/Users/kbru/code/personal/lissu-web/node_modules/bluebird/js/main/timers.js","./using.js":"/Users/kbru/code/personal/lissu-web/node_modules/bluebird/js/main/using.js","./util.js":"/Users/kbru/code/personal/lissu-web/node_modules/bluebird/js/main/util.js","_process":"/Users/kbru/code/personal/lissu-web/node_modules/browserify/node_modules/process/browser.js"}],"/Users/kbru/code/personal/lissu-web/node_modules/bluebird/js/main/promise_array.js":[function(require,module,exports){
+},{"./any.js":1,"./async.js":2,"./call_get.js":4,"./cancel.js":5,"./captured_trace.js":6,"./catch_filter.js":7,"./direct_resolve.js":8,"./each.js":9,"./errors.js":10,"./errors_api_rejection":11,"./filter.js":13,"./finally.js":14,"./generators.js":15,"./join.js":16,"./map.js":17,"./nodeify.js":18,"./progress.js":19,"./promise_array.js":21,"./promise_resolver.js":22,"./promisify.js":23,"./props.js":24,"./race.js":26,"./reduce.js":27,"./settle.js":29,"./some.js":30,"./synchronous_inspection.js":31,"./thenables.js":32,"./timers.js":33,"./using.js":34,"./util.js":35,"_process":36}],21:[function(require,module,exports){
 /**
  * The MIT License (MIT)
  * 
@@ -3240,7 +3240,7 @@ function PromiseArray$getActualLength(len) {
 return PromiseArray;
 };
 
-},{"./errors.js":"/Users/kbru/code/personal/lissu-web/node_modules/bluebird/js/main/errors.js","./util.js":"/Users/kbru/code/personal/lissu-web/node_modules/bluebird/js/main/util.js"}],"/Users/kbru/code/personal/lissu-web/node_modules/bluebird/js/main/promise_resolver.js":[function(require,module,exports){
+},{"./errors.js":10,"./util.js":35}],22:[function(require,module,exports){
 /**
  * The MIT License (MIT)
  * 
@@ -3402,7 +3402,7 @@ function PromiseResolver$_setCarriedStackTrace(trace) {
 
 module.exports = PromiseResolver;
 
-},{"./async.js":"/Users/kbru/code/personal/lissu-web/node_modules/bluebird/js/main/async.js","./errors.js":"/Users/kbru/code/personal/lissu-web/node_modules/bluebird/js/main/errors.js","./es5.js":"/Users/kbru/code/personal/lissu-web/node_modules/bluebird/js/main/es5.js","./util.js":"/Users/kbru/code/personal/lissu-web/node_modules/bluebird/js/main/util.js"}],"/Users/kbru/code/personal/lissu-web/node_modules/bluebird/js/main/promisify.js":[function(require,module,exports){
+},{"./async.js":2,"./errors.js":10,"./es5.js":12,"./util.js":35}],23:[function(require,module,exports){
 /**
  * The MIT License (MIT)
  * 
@@ -3732,7 +3732,7 @@ Promise.promisifyAll = function Promise$PromisifyAll(target, options) {
 };
 
 
-},{"./errors":"/Users/kbru/code/personal/lissu-web/node_modules/bluebird/js/main/errors.js","./promise_resolver.js":"/Users/kbru/code/personal/lissu-web/node_modules/bluebird/js/main/promise_resolver.js","./util.js":"/Users/kbru/code/personal/lissu-web/node_modules/bluebird/js/main/util.js"}],"/Users/kbru/code/personal/lissu-web/node_modules/bluebird/js/main/props.js":[function(require,module,exports){
+},{"./errors":10,"./promise_resolver.js":22,"./util.js":35}],24:[function(require,module,exports){
 /**
  * The MIT License (MIT)
  * 
@@ -3844,7 +3844,7 @@ Promise.props = function Promise$Props(promises) {
 };
 };
 
-},{"./errors_api_rejection":"/Users/kbru/code/personal/lissu-web/node_modules/bluebird/js/main/errors_api_rejection.js","./es5.js":"/Users/kbru/code/personal/lissu-web/node_modules/bluebird/js/main/es5.js","./util.js":"/Users/kbru/code/personal/lissu-web/node_modules/bluebird/js/main/util.js"}],"/Users/kbru/code/personal/lissu-web/node_modules/bluebird/js/main/queue.js":[function(require,module,exports){
+},{"./errors_api_rejection":11,"./es5.js":12,"./util.js":35}],25:[function(require,module,exports){
 /**
  * The MIT License (MIT)
  * 
@@ -3963,7 +3963,7 @@ Queue.prototype._resizeTo = function Queue$_resizeTo(capacity) {
 
 module.exports = Queue;
 
-},{}],"/Users/kbru/code/personal/lissu-web/node_modules/bluebird/js/main/race.js":[function(require,module,exports){
+},{}],26:[function(require,module,exports){
 /**
  * The MIT License (MIT)
  * 
@@ -4039,7 +4039,7 @@ Promise.prototype.race = function Promise$race() {
 
 };
 
-},{"./errors_api_rejection.js":"/Users/kbru/code/personal/lissu-web/node_modules/bluebird/js/main/errors_api_rejection.js","./util.js":"/Users/kbru/code/personal/lissu-web/node_modules/bluebird/js/main/util.js"}],"/Users/kbru/code/personal/lissu-web/node_modules/bluebird/js/main/reduce.js":[function(require,module,exports){
+},{"./errors_api_rejection.js":11,"./util.js":35}],27:[function(require,module,exports){
 /**
  * The MIT License (MIT)
  * 
@@ -4224,7 +4224,7 @@ Promise.reduce = function Promise$Reduce(promises, fn, initialValue, _each) {
 };
 };
 
-},{"./util.js":"/Users/kbru/code/personal/lissu-web/node_modules/bluebird/js/main/util.js"}],"/Users/kbru/code/personal/lissu-web/node_modules/bluebird/js/main/schedule.js":[function(require,module,exports){
+},{"./util.js":35}],28:[function(require,module,exports){
 (function (process){
 /**
  * The MIT License (MIT)
@@ -4291,7 +4291,7 @@ else throw new Error("no async scheduler available");
 module.exports = schedule;
 
 }).call(this,require('_process'))
-},{"_process":"/Users/kbru/code/personal/lissu-web/node_modules/browserify/node_modules/process/browser.js"}],"/Users/kbru/code/personal/lissu-web/node_modules/bluebird/js/main/settle.js":[function(require,module,exports){
+},{"_process":36}],29:[function(require,module,exports){
 /**
  * The MIT License (MIT)
  * 
@@ -4362,7 +4362,7 @@ Promise.prototype.settle = function Promise$settle() {
 };
 };
 
-},{"./util.js":"/Users/kbru/code/personal/lissu-web/node_modules/bluebird/js/main/util.js"}],"/Users/kbru/code/personal/lissu-web/node_modules/bluebird/js/main/some.js":[function(require,module,exports){
+},{"./util.js":35}],30:[function(require,module,exports){
 /**
  * The MIT License (MIT)
  * 
@@ -4527,7 +4527,7 @@ Promise.prototype.some = function Promise$some(howMany) {
 Promise._SomePromiseArray = SomePromiseArray;
 };
 
-},{"./errors.js":"/Users/kbru/code/personal/lissu-web/node_modules/bluebird/js/main/errors.js","./util.js":"/Users/kbru/code/personal/lissu-web/node_modules/bluebird/js/main/util.js"}],"/Users/kbru/code/personal/lissu-web/node_modules/bluebird/js/main/synchronous_inspection.js":[function(require,module,exports){
+},{"./errors.js":10,"./util.js":35}],31:[function(require,module,exports){
 /**
  * The MIT License (MIT)
  * 
@@ -4607,7 +4607,7 @@ Promise.prototype.isResolved = function Promise$isResolved() {
 Promise.PromiseInspection = PromiseInspection;
 };
 
-},{}],"/Users/kbru/code/personal/lissu-web/node_modules/bluebird/js/main/thenables.js":[function(require,module,exports){
+},{}],32:[function(require,module,exports){
 /**
  * The MIT License (MIT)
  * 
@@ -4744,7 +4744,7 @@ function Promise$_doThenable(x, then, originalPromise) {
 return Promise$_Cast;
 };
 
-},{"./errors.js":"/Users/kbru/code/personal/lissu-web/node_modules/bluebird/js/main/errors.js","./util.js":"/Users/kbru/code/personal/lissu-web/node_modules/bluebird/js/main/util.js"}],"/Users/kbru/code/personal/lissu-web/node_modules/bluebird/js/main/timers.js":[function(require,module,exports){
+},{"./errors.js":10,"./util.js":35}],33:[function(require,module,exports){
 /**
  * The MIT License (MIT)
  * 
@@ -4854,7 +4854,7 @@ Promise.prototype.timeout = function Promise$timeout(ms, message) {
 
 };
 
-},{"./errors.js":"/Users/kbru/code/personal/lissu-web/node_modules/bluebird/js/main/errors.js","./errors_api_rejection":"/Users/kbru/code/personal/lissu-web/node_modules/bluebird/js/main/errors_api_rejection.js","./util.js":"/Users/kbru/code/personal/lissu-web/node_modules/bluebird/js/main/util.js"}],"/Users/kbru/code/personal/lissu-web/node_modules/bluebird/js/main/using.js":[function(require,module,exports){
+},{"./errors.js":10,"./errors_api_rejection":11,"./util.js":35}],34:[function(require,module,exports){
 /**
  * The MIT License (MIT)
  * 
@@ -5048,7 +5048,7 @@ module.exports = function (Promise, apiRejection, cast) {
 
 };
 
-},{"./errors.js":"/Users/kbru/code/personal/lissu-web/node_modules/bluebird/js/main/errors.js","./util.js":"/Users/kbru/code/personal/lissu-web/node_modules/bluebird/js/main/util.js"}],"/Users/kbru/code/personal/lissu-web/node_modules/bluebird/js/main/util.js":[function(require,module,exports){
+},{"./errors.js":10,"./util.js":35}],35:[function(require,module,exports){
 /**
  * The MIT License (MIT)
  * 
@@ -5320,7 +5320,7 @@ var ret = {
 
 module.exports = ret;
 
-},{"./es5.js":"/Users/kbru/code/personal/lissu-web/node_modules/bluebird/js/main/es5.js"}],"/Users/kbru/code/personal/lissu-web/node_modules/browserify/node_modules/process/browser.js":[function(require,module,exports){
+},{"./es5.js":12}],36:[function(require,module,exports){
 // shim for using process in browser
 
 var process = module.exports = {};
@@ -5408,7 +5408,7 @@ process.chdir = function (dir) {
     throw new Error('process.chdir is not supported');
 };
 
-},{}],"/Users/kbru/code/personal/lissu-web/node_modules/lodash/dist/lodash.js":[function(require,module,exports){
+},{}],37:[function(require,module,exports){
 (function (global){
 /**
  * @license
@@ -12197,7 +12197,7 @@ process.chdir = function (dir) {
 }.call(this));
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],"/Users/kbru/code/personal/lissu-web/node_modules/mustache/mustache.js":[function(require,module,exports){
+},{}],38:[function(require,module,exports){
 /*!
  * mustache.js - Logic-less {{mustache}} templates with JavaScript
  * http://github.com/janl/mustache.js
@@ -12769,7 +12769,7 @@ process.chdir = function (dir) {
 
 }));
 
-},{}],"/Users/kbru/code/personal/lissu-web/scripts/main.js":[function(require,module,exports){
+},{}],39:[function(require,module,exports){
 var _ = require('lodash');
 var Mustache = require('mustache');
 
@@ -12900,7 +12900,7 @@ function iconUrl(vehicle) {
     return url;
 }
 
-},{"./map":"/Users/kbru/code/personal/lissu-web/scripts/map.js","./timer":"/Users/kbru/code/personal/lissu-web/scripts/timer.js","./utils":"/Users/kbru/code/personal/lissu-web/scripts/utils.js","lodash":"/Users/kbru/code/personal/lissu-web/node_modules/lodash/dist/lodash.js","mustache":"/Users/kbru/code/personal/lissu-web/node_modules/mustache/mustache.js"}],"/Users/kbru/code/personal/lissu-web/scripts/map.js":[function(require,module,exports){
+},{"./map":40,"./timer":41,"./utils":42,"lodash":37,"mustache":38}],40:[function(require,module,exports){
 var Promise = require('bluebird');
 
 
@@ -12911,7 +12911,8 @@ var Map = function(selector) {
         mapTypeControl: false,
         scaleControl: false,
         streetViewControl: false,
-        zoomControl: false
+        zoomControl: false,
+        panControl: false
     };
     this._map = new google.maps.Map(document.querySelector(selector), mapOptions);
 
@@ -12990,7 +12991,7 @@ Map.prototype._getUserLocation = function _getUserLocation() {
 
 module.exports = Map;
 
-},{"bluebird":"/Users/kbru/code/personal/lissu-web/node_modules/bluebird/js/main/bluebird.js"}],"/Users/kbru/code/personal/lissu-web/scripts/timer.js":[function(require,module,exports){
+},{"bluebird":3}],41:[function(require,module,exports){
 var Timer = function Timer(callback, opts) {
     this._callback = callback;
     this._opts = opts;
@@ -13016,7 +13017,7 @@ Timer.prototype._scheduleCall = function _scheduleCall() {
 
 module.exports = Timer;
 
-},{}],"/Users/kbru/code/personal/lissu-web/scripts/utils.js":[function(require,module,exports){
+},{}],42:[function(require,module,exports){
 var Promise = require('bluebird');
 
 
@@ -13046,4 +13047,4 @@ module.exports = {
     get: get
 };
 
-},{"bluebird":"/Users/kbru/code/personal/lissu-web/node_modules/bluebird/js/main/bluebird.js"}]},{},["/Users/kbru/code/personal/lissu-web/scripts/main.js"]);
+},{"bluebird":3}]},{},[39]);
