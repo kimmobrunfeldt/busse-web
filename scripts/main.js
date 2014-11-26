@@ -5,7 +5,6 @@ var utils = require('./utils');
 var Timer = require('./timer');
 var Map = require('./map');
 
-var API_URL = 'http://lissu-api.herokuapp.com';
 var BUS_TEMPLATE = [
     '<?xml version="1.0"?>',
     '<svg width="{{ diameter }}px" height="{{ diameter }}px" viewBox="0 0 100 100" version="1.1" xmlns="http://www.w3.org/2000/svg">',
@@ -26,7 +25,8 @@ var BUS_TEMPLATE = [
 
 var config = {
     updateInterval: 2 * 1000,
-    busIconDiameter: 34  // px
+    busIconDiameter: 34,  // px
+    apiUrl: 'http://lissu-api.herokuapp.com'
 };
 
 
@@ -39,6 +39,11 @@ function initMap() {
         interval: config.updateInterval
     });
     timer.start();
+
+    var myLocationButton = document.querySelector('#my-location');
+    myLocationButton.onclick = function onMyLocationClick() {
+        map.centerToUserLocation();
+    };
 }
 
 google.maps.event.addDomListener(window, 'load', initMap);
@@ -46,7 +51,7 @@ google.maps.event.addDomListener(window, 'load', initMap);
 function updateVehicles(map) {
     console.log('Update vehicles');
 
-    return utils.get(API_URL)
+    return utils.get(config.apiUrl)
     .then(function(req) {
         var vehicles = JSON.parse(req.responseText).vehicles;
 

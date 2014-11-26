@@ -47,7 +47,7 @@ Map.prototype.updateMarkerIcon = function updateMarkerIcon(id, icon) {
     marker.setIcon(icon);
 };
 
-Map.prototype._centerToUserLocation = function _centerToUserLocation() {
+Map.prototype.centerToUserLocation = function centerToUserLocation() {
     var self = this;
 
     this._getUserLocation()
@@ -58,7 +58,7 @@ Map.prototype._centerToUserLocation = function _centerToUserLocation() {
         var coords = {
             lat: pos.coords.latitude,
             lng: pos.coords.longitude
-        }
+        };
 
         self._map.setCenter(coords);
     })

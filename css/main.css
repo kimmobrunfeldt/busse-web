@@ -1,7 +1,16 @@
 /* General */
 
+.icon-button:hover {
+  cursor: pointer;
+}
+
 .icon-button {
   padding: 4px 3px;
+}
+
+.hidden {
+  visibility: hidden;
+  display: none;
 }
 
 /* UI */
@@ -30,6 +39,13 @@ body, html {
 .filter {
   left: 15px;
   top: 5px;
+}
+
+.loader {
+  position: absolute;
+  top: 12px;
+  left: 50%;
+  margin-left: -14px;
 }
 
 .my-location {
