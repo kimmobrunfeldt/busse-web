@@ -12777,6 +12777,7 @@ var utils = require('./utils');
 var Timer = require('./timer');
 var Map = require('./map');
 
+
 var BUS_TEMPLATE = [
     '<?xml version="1.0"?>',
     '<svg width="{{ diameter }}px" height="{{ diameter }}px" viewBox="0 0 100 100" version="1.1" xmlns="http://www.w3.org/2000/svg">',
@@ -12804,6 +12805,7 @@ var config = {
 
 function initMap() {
     var map = new Map('#map');
+    window.map = map;
 
     var timer = new Timer(function() {
         return updateVehicles(map);
@@ -12814,7 +12816,9 @@ function initMap() {
 
     var myLocationButton = document.querySelector('#my-location');
     myLocationButton.onclick = function onMyLocationClick() {
-        map.centerToUserLocation();
+        showLoader();
+        map.centerToUserLocation()
+        .finally(hideLoader);
     };
 }
 
@@ -12905,9 +12909,20 @@ function iconUrl(vehicle) {
     return url;
 }
 
+function showLoader() {
+    console.log('Show loader');
+    var loader = document.querySelector('#loader');
+    utils.removeClass(loader, 'hidden')
+}
+
+function hideLoader() {
+    console.log('Hide loader')
+    var loader = document.querySelector('#loader');
+    utils.addClass(loader, 'hidden')
+}
+
 },{"./map":"/Users/kbru/code/personal/lissu-web/scripts/map.js","./timer":"/Users/kbru/code/personal/lissu-web/scripts/timer.js","./utils":"/Users/kbru/code/personal/lissu-web/scripts/utils.js","lodash":"/Users/kbru/code/personal/lissu-web/node_modules/lodash/dist/lodash.js","mustache":"/Users/kbru/code/personal/lissu-web/node_modules/mustache/mustache.js"}],"/Users/kbru/code/personal/lissu-web/scripts/map.js":[function(require,module,exports){
 var Promise = require('bluebird');
-
 
 var Map = function(selector) {
     var mapOptions = {
@@ -12922,6 +12937,7 @@ var Map = function(selector) {
     this._map = new google.maps.Map(document.querySelector(selector), mapOptions);
 
     this.markers = {};
+    this.shapes = [];
 };
 
 Map.prototype.addMarker = function addMarker(id, opts) {
@@ -12955,10 +12971,32 @@ Map.prototype.updateMarkerIcon = function updateMarkerIcon(id, icon) {
     marker.setIcon(icon);
 };
 
+Map.prototype.drawShape = function drawShape(points) {
+    var path = new google.maps.Polyline({
+        path: points,
+        geodesic: true,
+        strokeColor: '#0000FF',
+        strokeOpacity: 1.0,
+        strokeWeight: 2
+    });
+
+    path.setMap(this._map);
+    this.shapes.push(path);
+};
+
+Map.prototype.clearShapes = function clearShapes() {
+    for (var i = 0; i < this.shapes.length; ++i) {
+        this.shapes[i].setMap(null);
+    }
+
+    this.shapes = [];
+};
+
+
 Map.prototype.centerToUserLocation = function centerToUserLocation() {
     var self = this;
 
-    this._getUserLocation()
+    return this._getUserLocation()
     .then(function(pos) {
         console.log('Got user location');
         console.log('Accuracy:', pos.accuracy, 'meters');
@@ -13048,8 +13086,29 @@ function get(url, cb) {
     });
 }
 
+function removeClass(element, className) {
+    var classes = element.className.split(" ");
+
+    var newClasses = [];
+    for (var i = 0; i < classes.length; ++i) {
+        if (classes[i] !== className) {
+            newClasses.push(classes[i]);
+        }
+    }
+
+    element.className = newClasses.join(' ');
+}
+
+function addClass(element, className) {
+    if (element.className.indexOf(className) === -1) {
+        element.className += ' ' + className;
+    }
+}
+
 module.exports = {
-    get: get
+    get: get,
+    removeClass: removeClass,
+    addClass: addClass
 };
 
 },{"bluebird":"/Users/kbru/code/personal/lissu-web/node_modules/bluebird/js/main/bluebird.js"}]},{},["/Users/kbru/code/personal/lissu-web/scripts/main.js"]);

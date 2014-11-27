@@ -23,6 +23,27 @@ function get(url, cb) {
     });
 }
 
+function removeClass(element, className) {
+    var classes = element.className.split(" ");
+
+    var newClasses = [];
+    for (var i = 0; i < classes.length; ++i) {
+        if (classes[i] !== className) {
+            newClasses.push(classes[i]);
+        }
+    }
+
+    element.className = newClasses.join(' ');
+}
+
+function addClass(element, className) {
+    if (element.className.indexOf(className) === -1) {
+        element.className += ' ' + className;
+    }
+}
+
 module.exports = {
-    get: get
+    get: get,
+    removeClass: removeClass,
+    addClass: addClass
 };

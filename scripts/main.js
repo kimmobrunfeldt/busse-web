@@ -5,6 +5,7 @@ var utils = require('./utils');
 var Timer = require('./timer');
 var Map = require('./map');
 
+
 var BUS_TEMPLATE = [
     '<?xml version="1.0"?>',
     '<svg width="{{ diameter }}px" height="{{ diameter }}px" viewBox="0 0 100 100" version="1.1" xmlns="http://www.w3.org/2000/svg">',
@@ -32,6 +33,7 @@ var config = {
 
 function initMap() {
     var map = new Map('#map');
+    window.map = map;
 
     var timer = new Timer(function() {
         return updateVehicles(map);
@@ -42,7 +44,9 @@ function initMap() {
 
     var myLocationButton = document.querySelector('#my-location');
     myLocationButton.onclick = function onMyLocationClick() {
-        map.centerToUserLocation();
+        showLoader();
+        map.centerToUserLocation()
+        .finally(hideLoader);
     };
 }
 
@@ -131,4 +135,16 @@ function iconUrl(vehicle) {
     var url = URL.createObjectURL(blob);
 
     return url;
+}
+
+function showLoader() {
+    console.log('Show loader');
+    var loader = document.querySelector('#loader');
+    utils.removeClass(loader, 'hidden')
+}
+
+function hideLoader() {
+    console.log('Hide loader')
+    var loader = document.querySelector('#loader');
+    utils.addClass(loader, 'hidden')
 }

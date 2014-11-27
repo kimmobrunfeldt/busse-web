@@ -1,6 +1,5 @@
 var Promise = require('bluebird');
 
-
 var Map = function(selector) {
     var mapOptions = {
         center: { lat: 61.487881, lng: 23.7810259},
@@ -14,6 +13,7 @@ var Map = function(selector) {
     this._map = new google.maps.Map(document.querySelector(selector), mapOptions);
 
     this.markers = {};
+    this.shapes = [];
 };
 
 Map.prototype.addMarker = function addMarker(id, opts) {
@@ -47,10 +47,32 @@ Map.prototype.updateMarkerIcon = function updateMarkerIcon(id, icon) {
     marker.setIcon(icon);
 };
 
+Map.prototype.drawShape = function drawShape(points) {
+    var path = new google.maps.Polyline({
+        path: points,
+        geodesic: true,
+        strokeColor: '#0000FF',
+        strokeOpacity: 1.0,
+        strokeWeight: 2
+    });
+
+    path.setMap(this._map);
+    this.shapes.push(path);
+};
+
+Map.prototype.clearShapes = function clearShapes() {
+    for (var i = 0; i < this.shapes.length; ++i) {
+        this.shapes[i].setMap(null);
+    }
+
+    this.shapes = [];
+};
+
+
 Map.prototype.centerToUserLocation = function centerToUserLocation() {
     var self = this;
 
-    this._getUserLocation()
+    return this._getUserLocation()
     .then(function(pos) {
         console.log('Got user location');
         console.log('Accuracy:', pos.accuracy, 'meters');
