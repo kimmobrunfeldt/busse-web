@@ -12802,6 +12802,19 @@ var config = {
     apiUrl: 'http://lissu-api.herokuapp.com'
 };
 
+var routes = null;
+var general = null;
+
+utils.get('data/routes.json')
+.then(function(req) {
+    routes = JSON.parse(req.responseText);
+});
+
+utils.get('data/general.json')
+.then(function(req) {
+    general = JSON.parse(req.responseText);
+});
+
 
 function initMap() {
     var map = new Map('#map');
@@ -12859,6 +12872,8 @@ function addVehicle(map, vehicle) {
         icon: image,
         onClick: function() {
             console.log('click', vehicle.line);
+            map.clearShapes();
+            map.addShape(routes[vehicle.line].coordinates);
         }
     });
 }
@@ -12971,7 +12986,7 @@ Map.prototype.updateMarkerIcon = function updateMarkerIcon(id, icon) {
     marker.setIcon(icon);
 };
 
-Map.prototype.drawShape = function drawShape(points) {
+Map.prototype.addShape = function addShape(points) {
     var path = new google.maps.Polyline({
         path: points,
         geodesic: true,

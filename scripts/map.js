@@ -47,7 +47,7 @@ Map.prototype.updateMarkerIcon = function updateMarkerIcon(id, icon) {
     marker.setIcon(icon);
 };
 
-Map.prototype.drawShape = function drawShape(points) {
+Map.prototype.addShape = function addShape(points) {
     var path = new google.maps.Polyline({
         path: points,
         geodesic: true,
