@@ -38,37 +38,59 @@ var shapesText = fs.readFileSync(path.join(gtfsPath, 'shapes.txt'));
 var tripsText = fs.readFileSync(path.join(gtfsPath, 'trips.txt'));
 
 
-function groupTripsToShapes(trips, shapes) {
-    // Get unique trips based on route id
-    var uniqTrips = _.uniq(trips, function(trip) { return trip[0]; });
+function shapeToCoords(shape) {
+    return _.map(shape, function(item) {
+        return {
+            // Return as strings
+            lat: item[1],
+            lng: item[2]
+        }
+    });
+}
 
-    // Group shapes based on their id
+function coordinateToNumber(coord) {
+    return {
+        lat: +coord.lat,
+        lng: +coord.lng
+    };
+}
+
+function groupTripsToShapes(trips, shapes) {
+    // Group trips based on route id
+    var groupedTrips = _.groupBy(trips, function(trip) {
+        return trip[0];
+    });
+
     var groupedShapes = _.groupBy(shapes, function(shape) {
         return shape[0];
     });
 
-    var routes = {};
-    _.each(uniqTrips, function(trip) {
-        var tripId = trip[0];
-        routes[tripId] = {
-            coordinates: []
-        };
+    var uniqTrips = _.uniq(trips, function(trip) {
+        return trip[0];
     });
 
-    _.each(uniqTrips, function(trip) {
-        var tripId = trip[0];
-        var shapeId = trip[5];
-        var shape = groupedShapes[shapeId];
+    var routeIds = _.map(uniqTrips, function(trip) {
+        return trip[0];
+    });
 
-        _.each(shape, function(item) {
-            var latitude = +item[1];
-            var longitude = +item[2];
-
-            routes[tripId].coordinates.push({
-                lat: latitude,
-                lng: longitude
-            })
+    var routes = {};
+    _.each(routeIds, function(routeId) {
+        var shapeIds = _.map(groupedTrips[routeId], function(trip) {
+            return trip[5];
         });
+
+        var shapes = _.map(shapeIds, function(shapeId) {
+            return groupedShapes[shapeId];
+        });
+
+        var coordinates = _.flatten(_.map(shapes, shapeToCoords));
+        var uniqCoordinates = _.uniq(coordinates, function(coord) {
+            return coord.lat + coord.lng;
+        });
+
+        var numberCoordinates = _.map(uniqCoordinates, coordinateToNumber);
+        routes[routeId] = {};
+        routes[routeId].coordinates = numberCoordinates;
     });
 
     return routes;
