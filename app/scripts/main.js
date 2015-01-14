@@ -36,6 +36,7 @@ var general = null;
 utils.get('data/routes.json')
 .then(function(req) {
     routes = JSON.parse(req.responseText);
+    window.routes = routes;
 });
 
 utils.get('data/general.json')
@@ -61,6 +62,8 @@ function initMap() {
         map.centerToUserLocation()
         .finally(hideLoader);
     };
+
+    return map;
 }
 
 google.maps.event.addDomListener(window, 'load', initMap);
@@ -101,7 +104,20 @@ function addVehicle(map, vehicle) {
         onClick: function() {
             console.log('click', vehicle.line);
             map.clearShapes();
-            map.addShape(routes[vehicle.line].coordinates);
+
+            // If line is in format: Y4, switch it to 4Y so parseInt works
+            var line = vehicle.line.split('').sort().join('');
+            var route = routes[line];
+            if (!route) {
+                // Remove letters from the number, 9K -> 9
+                route = routes[parseInt(line, 10)]
+            }
+
+            if (!route) {
+                return;
+            }
+
+            map.addShape(route.coordinates);
         }
     });
 }

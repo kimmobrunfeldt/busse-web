@@ -13,13 +13,18 @@
     "browserify": "^6.3.2",
     "csv": "^0.4.1",
     "lodash": "^2.4.1",
-    "watchify": "^2.1.1"
+    "watchify": "^2.1.1",
+    "node-static": "^0.7.6"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "./node_modules/http-server/bin/http-server -c 0",
-    "watch": "watchify scripts/main.js -o scripts/bundle.js",
-    "build": "browserify scripts/main.js -o scripts/bundle.js"
+    "start": "npm run serve & npm run watch",
+    "serve": "./node_modules/node-static/bin/cli.js -c 0 app",
+    "build": "npm run build-js & npm run build-less",
+    "build-js": "browserify scripts/main.js -o app/bundle.js",
+    "build-less": "lessc app/styles/main.less app/bundle.css",
+    "watch": "npm run watch-js & npm run watch-less",
+    "watch-js": "watchify app/scripts/main.js -o app/scripts/bundle.js",
+    "watch-less": "watch \"npm run build-less\" app/styles"
   },
   "repository": {
     "type": "git",

@@ -1,3 +1,5 @@
+@import 'libs/reset.css';
+
 /* General */
 
 .icon-button:hover {
@@ -22,14 +24,16 @@ body, html {
 
 .lower-bar {
   height: 50px;
-  position: relative;
-  background: #f7f7f7;
+  position: absolute;
   border-top: 0.5px solid #aaa;
+  bottom: 0;
+  left: 0;
+  right: 0;
 }
 
 .map {
   width: 100%;
-  height: calc(100% - 50px);
+  height: 100%;
 }
 
 .filter, .my-location {
