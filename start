@@ -1,0 +1,56 @@
+#!/bin/bash
+
+# Start tmux or attach running session
+# See tmux commands https://gist.github.com/MohamedAlaa/2961058
+
+# Test if bash supports arrays
+whotest[0]='test' || (echo 'Failure: arrays not supported in this version of
+bash.' && exit 2)
+
+
+# Change to your needs, each project should have unique name
+PROJECT="lissu-web"
+COMMAND[0]="npm run serve"
+COMMAND[1]="npm run watch-less"
+COMMAND[2]="npm run watch-js"
+
+# Don't modify this
+_INDEX=0
+
+function run-command {
+    tmux send-keys -t "$PROJECT:0.$_INDEX" '' C-m
+    tmux send-keys -t "$PROJECT:0.$_INDEX" "$1" C-m
+
+    # Increase the pane counter(or whatever it is??)
+    _INDEX=$(($_INDEX + 1))
+
+    # Run splitw for each time but last
+    if [ "${#COMMAND[@]}" -ne "$_INDEX" ]; then
+        tmux splitw -t $PROJECT:0
+    fi
+
+    tmux select-layout -t $PROJECT:0 even-horizontal
+}
+
+# Check if tmux session already exists
+tmux start-server\; has-session -t $PROJECT 2>/dev/null
+
+if [ "$?" -eq 1 ]; then
+    # Session didn't exist so create the session
+    TMUX= tmux new-session -d -s $PROJECT -n main
+
+    for cmd in "${COMMAND[@]}"
+    do
+        echo $cmd
+        run-command "$cmd"
+    done
+
+    tmux select-pane -t $PROJECT:0.0
+    tmux select-window -t 0
+fi
+
+if [ -z "$TMUX" ]; then
+    tmux -u attach-session -t $PROJECT
+else
+    tmux -u switch-client -t $PROJECT
+fi
