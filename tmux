@@ -1,12 +1,11 @@
 #!/bin/bash
 
 # Start tmux or attach running session
-# See tmux commands https://gist.github.com/MohamedAlaa/2961058
+# If you want to end session so that commands do not run in the background,
+# you have to press Modifier-C before closing terminal, or individually
+# quit each process. Modifier-C usually means Alt-C
 
-# Test if bash supports arrays
-whotest[0]='test' || (echo 'Failure: arrays not supported in this version of
-bash.' && exit 2)
-
+# See tmux cheatsheet https://gist.github.com/MohamedAlaa/2961058
 
 # Change to your needs, each project should have unique name
 PROJECT="lissu-web"
@@ -47,10 +46,20 @@ if [ "$?" -eq 1 ]; then
 
     tmux select-pane -t $PROJECT:0.0
     tmux select-window -t 0
+
+    # Add possible configuration here
+    tmux set-option -t $PROJECT mouse-select-pane on
+    tmux bind-key -n M-c kill-session
 fi
+
+# Kill tmux session on exit
+_trap_exit() { tmux kill-session -t $PROJECT; }
+trap _trap_exit EXIT
+
 
 if [ -z "$TMUX" ]; then
     tmux -u attach-session -t $PROJECT
 else
     tmux -u switch-client -t $PROJECT
 fi
+
