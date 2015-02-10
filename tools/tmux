@@ -8,7 +8,7 @@
 # See tmux cheatsheet https://gist.github.com/MohamedAlaa/2961058
 
 # Change to your needs, each project should have unique name
-PROJECT="lissu-web"
+PROJECT="frontend-starter"
 COMMAND[0]="npm run serve"
 COMMAND[1]="npm run watch-less"
 COMMAND[2]="npm run watch-js"
@@ -48,8 +48,12 @@ if [ "$?" -eq 1 ]; then
     tmux select-window -t 0
 
     # Add possible configuration here
-    tmux set-option -t $PROJECT mouse-select-pane on
+    # tmux set-option -t $PROJECT mouse-select-pane on
     tmux bind-key -n M-c kill-session
+    tmux bind-key -n M-Up    select-pane -U
+    tmux bind-key -n M-Down  select-pane -D
+    tmux bind-key -n M-Left  select-pane -L
+    tmux bind-key -n M-Right select-pane -R
 fi
 
 # Kill tmux session on exit

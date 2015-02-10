@@ -10,21 +10,24 @@
     "mustache": "^0.8.2"
   },
   "devDependencies": {
+    "autoprefixer": "^5.1.0",
     "browserify": "^6.3.2",
+    "concurrently": "0.0.5",
     "csv": "^0.4.1",
     "lodash": "^2.4.1",
-    "watchify": "^2.1.1",
-    "node-static": "^0.7.6"
+    "node-static": "^0.7.6",
+    "watchify": "^2.1.1"
   },
   "scripts": {
-    "start": "npm run serve & npm run watch",
-    "serve": "./node_modules/node-static/bin/cli.js -c 0 app",
+    "start": "./tools/tmux",
+    "serve": "static -a 0.0.0.0 -c 0 app",
     "build": "npm run build-js & npm run build-less",
     "build-js": "browserify scripts/main.js -o app/bundle.js",
-    "build-less": "lessc app/styles/main.less app/bundle.css",
+    "build-less": "lessc app/styles/main.less app/bundle.css && npm run autoprefixer",
     "watch": "npm run watch-js & npm run watch-less",
-    "watch-js": "watchify app/scripts/main.js -o app/scripts/bundle.js",
-    "watch-less": "watch \"npm run build-less\" app/styles"
+    "watch-js": "watchify app/scripts/main.js -d -o app/bundle.js -v",
+    "watch-less": "watch \"npm run build-less\" app/styles",
+    "autoprefixer": "autoprefixer app/bundle.css"
   },
   "repository": {
     "type": "git",

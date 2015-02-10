@@ -17,33 +17,37 @@
     <link rel="icon" sizes="120x120" href="images/apple-touch-icon.png">
 
     <link rel="stylesheet" href="bundle.css">
-
   </head>
+
   <body>
+    <section class="map" id="map"></section>
 
-    <div class="map" id="map"></div>
-
-    <div class="lower-bar">
+    <footer class="lower-bar">
         <a class="icon-button filter" id="filter" name="filter">
             <!-- Icon by Ricardo Augusto Cherem -->
             <!-- http://thenounproject.com/term/filter/78231/ -->
-            <img width="32" height="32" src="images/filter.svg" alt="Filter" />
+            <img src="images/filter.svg" alt="Filter" />
         </a>
-
-        <img class="loader hidden" id="loader" src="images/loader.gif" alt="Loading.." />
 
         <a class="icon-button my-location" id="my-location" name="my-location">
             <!-- Icon by useiconic.com -->
             <!-- http://thenounproject.com/term/location/45580/ -->
-            <img width="28" height="28" src="images/locate-me.svg" alt="Location" />
+            <img src="images/locate-me.svg" alt="Location" />
         </a>
+    </footer>
+
+    <div class="top-right">
+        <img class="loader hidden rotating" id="loader" src="images/loader.svg" alt="Loading.." />
     </div>
 
     <div class="modal bus">
 
     </div>
 
+    <!-- Google Maps-->
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDLnY_rDnVbpQPcG__ASvsU_gsUVZ1fO1g"></script>
+    <script src="scripts/libs/markerwithlabel.js"></script>
+
     <script src="bundle.js"></script>
  </body>
 </html>

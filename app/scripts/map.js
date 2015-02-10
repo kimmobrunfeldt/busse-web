@@ -1,15 +1,19 @@
 var Promise = require('bluebird');
+var _ = require('lodash');
+var mapStyles = require('./map-styles');
 
 var Map = function(selector) {
-    var mapOptions = {
+    var mapOptions ={
         center: { lat: 61.487881, lng: 23.7810259},
         zoom: 13,
         mapTypeControl: false,
         scaleControl: false,
         streetViewControl: false,
         zoomControl: false,
-        panControl: false
+        panControl: false,
+        styles: mapStyles
     };
+
     this._map = new google.maps.Map(document.querySelector(selector), mapOptions);
 
     this.markers = {};

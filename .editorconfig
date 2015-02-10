@@ -10,7 +10,7 @@ insert_final_newline = true
 indent_size = 4
 indent_style = space
 
-[{*.json,.travis.yml,Gruntfile.js,*.css,*scss}]
+[{*.json,.travis.yml,Gruntfile.js,*.css,*scss,*.less}]
 indent_style = space
 indent_size = 2
 

@@ -150,8 +150,8 @@ function removeLeftovers(map, vehicles) {
 function iconUrl(vehicle) {
     var isMoving = vehicle.rotation !== 0;
     var color = isMoving
-        ? '#72A5BF'
-        : '#97B2BF';
+        ? '#76B9C1'
+        : '#87C6BD';
 
     var svg = Mustache.render(BUS_TEMPLATE, {
         rotation: vehicle.rotation,

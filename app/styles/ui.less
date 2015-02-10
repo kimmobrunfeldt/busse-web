@@ -1,0 +1,48 @@
+/* The main UI stuff */
+
+.icon-button {
+  position: relative;
+  height: 44px;
+  width: 44px;
+  border-radius: 50%;
+  background: @blue-dark;
+  transition: all 0.1s ease-in-out;
+
+  // Center children
+  & > * {
+    .center();
+    height: 55%;
+  }
+
+  &:hover {
+    cursor: pointer;
+    transform: scale(1.1);
+  }
+}
+
+.map {
+  width: 100%;
+  height: 100%;
+}
+
+.filter, .my-location {
+  position: absolute;
+}
+
+
+@button-side-margin: 8px;
+@button-bottom-margin: 14px;
+
+.filter {
+  right: @button-side-margin;
+  bottom: @button-bottom-margin + 50px;
+}
+
+.my-location {
+  right: @button-side-margin;
+  bottom: @button-bottom-margin;
+}
+
+.loader {
+  padding: 10px;
+}
