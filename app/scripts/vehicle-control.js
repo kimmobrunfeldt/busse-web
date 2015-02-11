@@ -15,8 +15,6 @@ function start(map) {
 
 
 function updateVehicles(map) {
-    console.log('Update vehicles');
-
     return utils.get(config.apiUrl)
     .then(function(req) {
         var vehicles = JSON.parse(req.responseText).vehicles;
@@ -47,7 +45,6 @@ function addVehicle(map, vehicle) {
         fontSize: fontSize,
         iconSrc: iconSrc,
         onClick: function() {
-            console.log('click', vehicle.line);
             map.clearShapes();
 
             // If line is in format: Y4, switch it to 4Y so parseInt works
