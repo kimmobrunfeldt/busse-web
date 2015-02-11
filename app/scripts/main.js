@@ -1,3 +1,4 @@
+var _ = require('lodash');
 var utils = require('./utils');
 var Map = require('./map');
 var vehicleControl = require('./vehicle-control');
@@ -13,6 +14,7 @@ utils.get('data/routes.json')
 
 var fetchGeneral = utils.get('data/general.json').then(function(req) {
     general = JSON.parse(req.responseText);
+    return general;
 }).then(initBusMenu);
 
 
