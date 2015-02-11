@@ -26,6 +26,7 @@ function Map(containerId) {
 
     this.markers = {};
     this.shapes = [];
+    this._myLocationMarker = null;
 }
 
 Map.prototype.addMarker = function addMarker(id, opts) {
@@ -109,14 +110,32 @@ Map.prototype.centerToUserLocation = function centerToUserLocation() {
         console.log('Accuracy:', gps.accuracy, 'meters');
 
         var pos = new L.LatLng(gps.coords.latitude, gps.coords.longitude);
-        self._map.setView(pos);
-        self._map.setZoom(config.zoomOnLocated);
+        self._setOrUpdateUserLocation(pos);
     })
     .catch(function(err) {
         console.log('Unable to get user location:');
         console.log(err.message);
         console.log(err);
     });
+};
+
+Map.prototype._setOrUpdateUserLocation = function _setOrUpdateUserLocation(pos) {
+    this._map.setView(pos);
+    this._map.setZoom(config.zoomOnLocated);
+
+
+    if (this._myLocationMarker === null) {
+        this._myLocationMarker = L.marker(pos, {
+            icon: L.icon({
+                iconUrl: 'images/location.svg',
+                iconSize: [16, 16],
+                iconAnchor: [8, 8]
+            })
+        });
+        this._myLocationMarker.addTo(this._map);
+    } else {
+        this._myLocationMarker.setLatLng(pos);
+    }
 };
 
 Map.prototype._getUserLocation = function _getUserLocation() {

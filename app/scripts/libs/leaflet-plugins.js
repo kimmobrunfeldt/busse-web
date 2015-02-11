@@ -21,9 +21,11 @@
             // Compensate text rotation back
             // This is quite a hack but it doing it otherwise had a side effect
             // that zooming reset the rotation temporarily
-            var p = i.children[1];
-            var pTransform = ' rotate(' + -this.options.iconAngle + 'deg)';
-            p.style[L.DomUtil.TRANSFORM] += pTransform;
+            if (i.children.length > 1) {
+                var p = i.children[1];
+                var pTransform = ' rotate(' + -this.options.iconAngle + 'deg)';
+                p.style[L.DomUtil.TRANSFORM] += pTransform;
+            }
         },
 
         getImageElement: function getImageElement() {
@@ -44,7 +46,10 @@
         _setPos: function (pos) {
             if (this._icon) {
                 this._icon.style[L.DomUtil.TRANSFORM] = '';
-                this._icon.children[1].style[L.DomUtil.TRANSFORM] = '';
+
+                if (this._icon.children.length > 1) {
+                    this._icon.children[1].style[L.DomUtil.TRANSFORM] = '';
+                }
             }
 
             _old__setPos.apply(this,[pos]);

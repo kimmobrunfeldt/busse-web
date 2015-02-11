@@ -104,6 +104,7 @@ html {
 /* The main UI stuff */
 .icon-button {
   position: relative;
+  z-index: 1000;
   height: 44px;
   width: 44px;
   border-radius: 50%;
