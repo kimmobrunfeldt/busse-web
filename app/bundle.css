@@ -143,8 +143,8 @@ html {
 }
 .loader {
   position: absolute;
-  left: 80px;
-  bottom: 19px;
+  left: 74px;
+  bottom: 20px;
 }
 /* Map marker */
 .map-marker-icon {
