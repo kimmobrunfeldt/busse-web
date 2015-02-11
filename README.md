@@ -1,8 +1,6 @@
 # Lissu
 
-Web version of Lissu using Google Maps. 
-
-[Link to service](http://kimmobrunfeldt.github.io/lissu-web)
+Web version of Lissu using Google Maps. Th app is located here: http://kimmobrunfeldt.github.io/lissu-web/app
 
 # Developer documentation
 
