@@ -4,31 +4,7 @@ var Mustache = require('mustache');
 var utils = require('./utils');
 var Timer = require('./timer');
 var Map = require('./map');
-
-
-var BUS_TEMPLATE = [
-    '<?xml version="1.0"?>',
-    '<svg width="{{ diameter }}px" height="{{ diameter }}px" viewBox="0 0 100 100" version="1.1" xmlns="http://www.w3.org/2000/svg">',
-        '<g transform="rotate({{ rotation }} 50 50)">',
-            '<circle stroke="#222" fill="{{ color }}" cx="50" cy="50" r="35"/>',
-            '{{#isMoving}}',
-            '<polyline fill="{{ color }}" stroke="#222" points="30,21.3 50,2 70,21.3"/>',
-            '{{/isMoving}}',
-        '</g>',
-
-        '<text fill="white" font-size="{{ fontSize }}"',
-            'x="50" y="50" style="font-family: Helvetica, sans-serif; text-anchor: middle; dominant-baseline: central;">',
-        '{{ line }}',
-        '</text>',
-    '</svg>'
-].join('\n');
-
-
-var config = {
-    updateInterval: 2 * 1000,
-    busIconDiameter: 34,  // px
-    apiUrl: 'http://lissu-api.herokuapp.com'
-};
+var config = require('./config');
 
 var routes = null;
 var general = null;
@@ -88,11 +64,8 @@ function updateVehicles(map) {
 }
 
 function addVehicle(map, vehicle) {
-    var radius = config.busIconDiameter / 2;
-    var image = {
-        url: iconUrl(vehicle),
-        anchor: new google.maps.Point(radius, radius)
-    };
+    var isMoving = vehicle.rotation !== 0;
+    var iconSrc = isMoving ? 'images/bus-moving.svg' : 'images/bus.svg';
 
     map.addMarker(vehicle.id, {
         position: {
@@ -100,7 +73,7 @@ function addVehicle(map, vehicle) {
             lng: vehicle.longitude
         },
         title: vehicle.line,
-        icon: image,
+        iconSrc: iconSrc,
         onClick: function() {
             console.log('click', vehicle.line);
             map.clearShapes();
@@ -110,7 +83,7 @@ function addVehicle(map, vehicle) {
             var route = routes[line];
             if (!route) {
                 // Remove letters from the number, 9K -> 9
-                route = routes[parseInt(line, 10)]
+                route = routes[parseInt(line, 10)];
             }
 
             if (!route) {
@@ -120,18 +93,18 @@ function addVehicle(map, vehicle) {
             map.addShape(route.coordinates);
         }
     });
+    map.rotateMarker(vehicle.id, vehicle.rotation);
 }
 
 function updateVehicle(map, vehicle) {
     var newPos = new google.maps.LatLng(vehicle.latitude, vehicle.longitude);
     map.moveMarker(vehicle.id, newPos);
 
-    var radius = config.busIconDiameter / 2;
-    var image = {
-        url: iconUrl(vehicle),
-        anchor: new google.maps.Point(radius, radius)
-    };
-    map.updateMarkerIcon(vehicle.id, image);
+    var isMoving = vehicle.rotation !== 0;
+    var iconSrc = isMoving ? 'images/bus-moving.svg' : 'images/bus.svg';
+    map.setMarkerIcon(vehicle.id, iconSrc);
+
+    map.rotateMarker(vehicle.id, vehicle.rotation);
 }
 
 // Remove all vehicles in map which are not defined in current vehicles
@@ -147,35 +120,14 @@ function removeLeftovers(map, vehicles) {
     });
 }
 
-function iconUrl(vehicle) {
-    var isMoving = vehicle.rotation !== 0;
-    var color = isMoving
-        ? '#76B9C1'
-        : '#87C6BD';
-
-    var svg = Mustache.render(BUS_TEMPLATE, {
-        rotation: vehicle.rotation,
-        line: vehicle.line,
-        diameter: config.busIconDiameter,
-        fontSize: vehicle.line.length > 2 ? 30 : 34,
-        isMoving: isMoving,
-        color: color
-    });
-
-    var blob = new Blob([svg], {type: 'image/svg+xml'});
-    var url = URL.createObjectURL(blob);
-
-    return url;
-}
-
 function showLoader() {
     console.log('Show loader');
     var loader = document.querySelector('#loader');
-    utils.removeClass(loader, 'hidden')
+    utils.removeClass(loader, 'hidden');
 }
 
 function hideLoader() {
     console.log('Hide loader')
     var loader = document.querySelector('#loader');
-    utils.addClass(loader, 'hidden')
+    utils.addClass(loader, 'hidden');
 }
