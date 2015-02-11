@@ -1,7 +1,7 @@
 {
   "node": true,
   "browser": true,
-  "predef": [ "Promise", "google", "MarkerWithLabel" ],
+  "predef": [ "Promise", "L" ],
   "bitwise": true,
   "camelcase": true,
   "curly": true,
