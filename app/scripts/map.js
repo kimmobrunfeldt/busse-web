@@ -1,9 +1,6 @@
 var Promise = require('bluebird');
-var _ = require('lodash');
-var mapStyles = require('./map-styles');
-
 var config = require('./config');
-var utils = require('./utils');
+
 
 function Map(selector) {
     L.mapbox.accessToken = config.mapBoxKey;
@@ -42,6 +39,7 @@ Map.prototype.removeMarker = function removeMarker(id) {
 
     // Remove marker
     this._map.removeLayer(marker);
+    delete this.markers[id];
 };
 
 Map.prototype.moveMarker = function moveMarker(id, position) {
@@ -86,16 +84,13 @@ Map.prototype.centerToUserLocation = function centerToUserLocation() {
     var self = this;
 
     return this._getUserLocation()
-    .then(function(pos) {
+    .then(function(gps) {
         console.log('Got user location');
-        console.log('Accuracy:', pos.accuracy, 'meters');
+        console.log('Accuracy:', gps.accuracy, 'meters');
 
-        var coords = {
-            lat: pos.coords.latitude,
-            lng: pos.coords.longitude
-        };
-
-        // self._map.setCenter(coords);
+        var pos = new L.LatLng(gps.coords.latitude, gps.coords.longitude);
+        self._map.setView(pos);
+        self._map.setZoom(config.zoomOnLocated);
     })
     .catch(function(err) {
         console.log('Unable to get user location:');

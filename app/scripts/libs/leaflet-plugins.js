@@ -27,6 +27,11 @@
         },
 
         getImageElement: function getImageElement() {
+            if (this._icon === null) {
+                console.log('NULL')
+                console.log(this.options.text)
+            }
+
             return this._icon.children[0];
         },
 
@@ -37,9 +42,10 @@
         },
 
         _setPos: function (pos) {
-            if (this._icon)
+            if (this._icon) {
                 this._icon.style[L.DomUtil.TRANSFORM] = '';
                 this._icon.children[1].style[L.DomUtil.TRANSFORM] = '';
+            }
 
             _old__setPos.apply(this,[pos]);
 
