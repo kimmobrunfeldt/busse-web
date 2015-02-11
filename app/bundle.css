@@ -110,9 +110,10 @@ html {
   height: 44px;
   width: 44px;
   border-radius: 50%;
-  background: #4bb5c1;
+  background: #1C4347;
   -webkit-transition: all 0.1s ease-in-out;
           transition: all 0.1s ease-in-out;
+  box-shadow: 2px 2px 5px 1px rgba(0, 0, 0, 0.3);
 }
 .icon-button > * {
   position: absolute;
@@ -138,33 +139,28 @@ html {
   position: absolute;
 }
 .filter {
-  right: 8px;
-  bottom: 64px;
+  left: 20px;
+  bottom: 76px;
 }
 .my-location {
-  right: 8px;
-  bottom: 14px;
+  left: 20px;
+  bottom: 22px;
 }
 .loader {
   padding: 10px;
 }
 /* Map marker */
-.map-marker {
-  width: 24px;
-  height: 24px;
+.map-marker-icon {
+  position: absolute;
 }
-.map-marker > label {
-  display: block;
+.map-marker-text {
   position: relative;
   width: 100%;
   height: 100%;
 }
-.map-marker > label > img {
-  width: 100%;
-  height: 100%;
-  -webkit-transform-origin: 50% 50%;
-      -ms-transform-origin: 50% 50%;
-          transform-origin: 50% 50%;
+.map-marker-text > p {
+  color: white;
+  margin: 0 !important;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -172,12 +168,11 @@ html {
       -ms-transform: translate(-50%, -50%);
           transform: translate(-50%, -50%);
 }
-.map-marker > label > p {
-  color: white;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  -webkit-transform: translate(-50%, -50%);
-      -ms-transform: translate(-50%, -50%);
-          transform: translate(-50%, -50%);
+/*
+Hide map box logo, we still attribute mapbox and open street maps in the right
+bottom corner
+*/
+.mapbox-logo {
+  visibility: hidden;
+  display: none;
 }

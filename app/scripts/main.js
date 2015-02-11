@@ -21,7 +21,7 @@ utils.get('data/general.json')
 });
 
 
-function initMap() {
+function main() {
     var map = new Map('#map');
     window.map = map;
 
@@ -41,8 +41,6 @@ function initMap() {
 
     return map;
 }
-
-google.maps.event.addDomListener(window, 'load', initMap);
 
 function updateVehicles(map) {
     console.log('Update vehicles');
@@ -66,13 +64,15 @@ function updateVehicles(map) {
 function addVehicle(map, vehicle) {
     var isMoving = vehicle.rotation !== 0;
     var iconSrc = isMoving ? 'images/bus-moving.svg' : 'images/bus.svg';
+    var fontSize = vehicle.line.length > 2 ? 12 : 14;
 
     map.addMarker(vehicle.id, {
         position: {
-            lat: vehicle.latitude,
-            lng: vehicle.longitude
+            latitude: vehicle.latitude,
+            longitude: vehicle.longitude
         },
-        title: vehicle.line,
+        text: vehicle.line,
+        fontSize: fontSize,
         iconSrc: iconSrc,
         onClick: function() {
             console.log('click', vehicle.line);
@@ -97,7 +97,10 @@ function addVehicle(map, vehicle) {
 }
 
 function updateVehicle(map, vehicle) {
-    var newPos = new google.maps.LatLng(vehicle.latitude, vehicle.longitude);
+    var newPos = {
+        latitude: vehicle.latitude,
+        longitude: vehicle.longitude
+    };
     map.moveMarker(vehicle.id, newPos);
 
     var isMoving = vehicle.rotation !== 0;
@@ -131,3 +134,6 @@ function hideLoader() {
     var loader = document.querySelector('#loader');
     utils.addClass(loader, 'hidden');
 }
+
+
+main();

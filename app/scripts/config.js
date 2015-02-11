@@ -11,15 +11,20 @@ var BUS_TEMPLATE = [
 ].join('\n');
 
 var config = {
-    updateInterval: 4 * 1000,
+    updateInterval: 2 * 1000,
     apiUrl: 'http://lissu-api.herokuapp.com',
     busTemplate: BUS_TEMPLATE,
     mapBoxKey: 'pk.eyJ1Ijoia2ltbW9icnVuZmVsZHQiLCJhIjoiX21FOWpGbyJ9.PeLVL2Rm1OZHJPYBM0lymA',
     mapBoxMapId: 'kimmobrunfeldt.l6efcofl',
+    initialPosition: {latitude: 61.487881, longitude: 23.7810259},
+    initialZoom: 13,
 
+    busIconSize: 32,
+
+    // Compensate the angle because the icon is rotated in the image
+    addRotation: -45,
 
     defaultUserOptions: {
-        buttonSide: 'left'
     }
 };
 

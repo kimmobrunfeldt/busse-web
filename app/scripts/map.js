@@ -6,45 +6,32 @@ var config = require('./config');
 var utils = require('./utils');
 
 function Map(selector) {
-    var mapOptions ={
-        center: {lat: 61.487881, lng: 23.7810259},
-        zoom: 13,
-        mapTypeControl: false,
-        scaleControl: false,
-        streetViewControl: false,
-        zoomControl: false,
-        panControl: false,
-        styles: mapStyles
-    };
-
-    /*
     L.mapbox.accessToken = config.mapBoxKey;
-    L.mapbox.map('map', config.mapBoxMapId).setView([40.783, -73.966], 13);
-    */
+    this._map = L.mapbox.map('map', config.mapBoxMapId, {
+        zoomControl: false
+    });
 
-    this._map = new google.maps.Map(document.querySelector(selector), mapOptions);
+    this._map.setView([
+        config.initialPosition.latitude,
+        config.initialPosition.longitude],
+        config.initialZoom
+    );
+
+    new L.Control.Zoom({ position: 'bottomright' }).addTo(this._map);
 
     this.markers = {};
     this.shapes = [];
 }
 
 Map.prototype.addMarker = function addMarker(id, opts) {
-    var label = this._createLabel(opts.title, opts.iconSrc);
-    var markerObject = new MarkerWithLabel({
-        position: opts.position,
-        map: this._map,
-        icon: {path: ''},
-        labelClass: 'map-marker',
-        labelContent: label.container,
-        labelAnchor: new google.maps.Point(0, 0)
+    // Init marker
+    var pos = new L.LatLng(opts.position.latitude, opts.position.longitude);
+    opts.pos = pos;
+    var marker = L.marker(pos, {
+        icon: this._createMarkerIcon(opts)
     });
 
-    google.maps.event.addDomListener(markerObject, 'click', opts.onClick);
-
-    var marker = {
-        object: markerObject,
-        label: label
-    };
+    marker.addTo(this._map);
 
     this.markers[id] = marker;
     return marker;
@@ -53,41 +40,42 @@ Map.prototype.addMarker = function addMarker(id, opts) {
 Map.prototype.removeMarker = function removeMarker(id) {
     var marker = this.markers[id];
 
-    marker.object.setMap(null);
-    google.maps.event.clearListeners(marker.object, 'click');
+    // Remove marker
+    this._map.removeLayer(marker);
 };
 
 Map.prototype.moveMarker = function moveMarker(id, position) {
     var marker = this.markers[id];
-    marker.object.setPosition(position);
+    // Move marker
+    var pos = new L.LatLng(position.latitude, position.longitude);
+    marker.setLatLng(pos);
 };
 
 Map.prototype.rotateMarker = function rotateMarker(id, rotation) {
     var marker = this.markers[id];
-    utils.setStyle(marker.label.image, 'transform', 'rotate(' + rotation + 'deg)');
+
+    // Rotate marker
+    marker.setIconAngle(rotation + config.addRotation);
 };
 
-Map.prototype.setMarkerIcon = function setMarkerIcon(id, imageSrc) {
+Map.prototype.setMarkerIcon = function setMarkerIcon(id, iconSrc) {
     var marker = this.markers[id];
-    marker.label.image.setAttribute('src', imageSrc);
+    marker.getImageElement().setAttribute('src', iconSrc);
 };
 
 Map.prototype.addShape = function addShape(points) {
-    var path = new google.maps.Polyline({
-        path: points,
-        geodesic: true,
-        strokeColor: '#0000FF',
-        strokeOpacity: 1.0,
-        strokeWeight: 2
-    });
+    // Add shape
 
-    path.setMap(this._map);
-    this.shapes.push(path);
+    // Save shape
+    //this.shapes.push(path);
 };
 
 Map.prototype.clearShapes = function clearShapes() {
+
+    // Clear shapes
     for (var i = 0; i < this.shapes.length; ++i) {
-        this.shapes[i].setMap(null);
+
+        // Clear shape
     }
 
     this.shapes = [];
@@ -107,7 +95,7 @@ Map.prototype.centerToUserLocation = function centerToUserLocation() {
             lng: pos.coords.longitude
         };
 
-        self._map.setCenter(coords);
+        // self._map.setCenter(coords);
     })
     .catch(function(err) {
         console.log('Unable to get user location:');
@@ -133,25 +121,14 @@ Map.prototype._getUserLocation = function _getUserLocation() {
     });
 };
 
-Map.prototype._createLabel = function _createLabel(title, imageSrc) {
-    var container = document.createElement('label');
-
-    var img = document.createElement('img');
-    img.setAttribute('src', imageSrc);
-    img.className = 'map-marker-icon';
-
-    var p = document.createElement('p');
-    p.appendChild(document.createTextNode(title));
-    p.className = 'map-marker-title';
-
-    container.appendChild(img);
-    container.appendChild(p);
-
-    return {
-        container: container,
-        p: p,
-        image: img
-    };
+Map.prototype._createMarkerIcon = function _createMarkerIcon(opts) {
+    return L.labeledIcon({
+        iconUrl: opts.iconSrc,
+        iconSize: [config.busIconSize, config.busIconSize],
+        iconAnchor: [config.busIconSize / 2, config.busIconSize / 2],
+        text: opts.text,
+        fontSize: opts.fontSize
+    });
 };
 
 
