@@ -90,8 +90,8 @@ table {
   }
 }
 .rotating {
-  -webkit-animation: rotating 2s linear infinite;
-  animation: rotating 2s linear infinite;
+  -webkit-animation: rotating 0.9s linear infinite;
+  animation: rotating 0.9s linear infinite;
 }
 /* All styles related to layout of the app */
 body,
@@ -99,18 +99,13 @@ html {
   width: 100%;
   height: 100%;
 }
-.top-right {
-  position: absolute;
-  top: 0;
-  right: 0;
-}
 /* The main UI stuff */
 .icon-button {
   position: relative;
   height: 44px;
   width: 44px;
   border-radius: 50%;
-  background: #1C4347;
+  background: #1c4347;
   -webkit-transition: all 0.1s ease-in-out;
           transition: all 0.1s ease-in-out;
   box-shadow: 2px 2px 5px 1px rgba(0, 0, 0, 0.3);
@@ -147,7 +142,9 @@ html {
   bottom: 16px;
 }
 .loader {
-  padding: 20px;
+  position: absolute;
+  left: 80px;
+  bottom: 19px;
 }
 /* Map marker */
 .map-marker-icon {

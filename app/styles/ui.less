@@ -5,7 +5,7 @@
   height: 44px;
   width: 44px;
   border-radius: 50%;
-  background: #1C4347;
+  background: @blue-x-dark;
   transition: all 0.1s ease-in-out;
   box-shadow: 2px 2px 5px 1px rgba(0,0,0,0.3);
 
@@ -45,7 +45,9 @@
 }
 
 .loader {
-  padding: 20px;
+  position: absolute;
+  left: @button-side-margin + 66px;
+  bottom: @button-bottom-margin + 3px;
 }
 
 @icon-size: 24px;
