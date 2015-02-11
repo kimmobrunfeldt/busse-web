@@ -16,6 +16,14 @@ function Map(selector) {
 
     new L.Control.Zoom({ position: 'bottomright' }).addTo(this._map);
 
+    this._dragging = false;
+    this._zooming = false;
+    var self = this;
+    this._map.on('zoomstart', function() { self._zooming = true; });
+    this._map.on('zoomend', function() { self._zooming = false; });
+    this._map.on('dragstart', function() { self._dragging = true; });
+    this._map.on('dragend', function() { self._dragging = false; });
+
     this.markers = {};
     this.shapes = [];
 }
@@ -43,6 +51,10 @@ Map.prototype.removeMarker = function removeMarker(id) {
 };
 
 Map.prototype.moveMarker = function moveMarker(id, position) {
+    if (this._isUserInteracting()) {
+        return;
+    }
+
     var marker = this.markers[id];
     // Move marker
     var pos = new L.LatLng(position.latitude, position.longitude);
@@ -50,6 +62,10 @@ Map.prototype.moveMarker = function moveMarker(id, position) {
 };
 
 Map.prototype.rotateMarker = function rotateMarker(id, rotation) {
+    if (this._isUserInteracting()) {
+        return;
+    }
+
     var marker = this.markers[id];
 
     // Rotate marker
@@ -57,6 +73,10 @@ Map.prototype.rotateMarker = function rotateMarker(id, rotation) {
 };
 
 Map.prototype.setMarkerIcon = function setMarkerIcon(id, iconSrc) {
+    if (this._isUserInteracting()) {
+        return;
+    }
+
     var marker = this.markers[id];
     marker.getImageElement().setAttribute('src', iconSrc);
 };
@@ -124,6 +144,10 @@ Map.prototype._createMarkerIcon = function _createMarkerIcon(opts) {
         text: opts.text,
         fontSize: opts.fontSize
     });
+};
+
+Map.prototype._isUserInteracting = function _isUserInteracting() {
+    return this._zooming || this._dragging;
 };
 
 

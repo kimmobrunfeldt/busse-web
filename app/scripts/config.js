@@ -18,7 +18,7 @@ var config = {
     mapBoxMapId: 'kimmobrunfeldt.l6efcofl',
     initialPosition: {latitude: 61.487881, longitude: 23.7810259},
     initialZoom: 13,
-    zoomOnLocated: 17,
+    zoomOnLocated: 16,
 
     busIconSize: 32,
 
