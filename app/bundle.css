@@ -178,8 +178,8 @@ bottom corner
 /* Overriding leaflet map CSS */
 /* Make zooming much faster on mobile */
 .touch .leaflet-zoom-anim .leaflet-zoom-animated {
-  -webkit-transition: -webkit-transform 0.05s cubic-bezier(0, 0, 0.25, 1);
-  transition: transform 0.05s cubic-bezier(0, 0, 0.25, 1);
+  -webkit-transition: -webkit-transform 0.1s cubic-bezier(0, 0, 0.25, 1);
+  transition: transform 0.1s cubic-bezier(0, 0, 0.25, 1);
 }
 .no-touch .leaflet-zoom-anim .leaflet-zoom-animated {
   -webkit-transition: -webkit-transform 0.15s cubic-bezier(0, 0, 0.25, 1);
