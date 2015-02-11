@@ -2,9 +2,9 @@ var Promise = require('bluebird');
 var config = require('./config');
 
 
-function Map(selector) {
+function Map(containerId) {
     L.mapbox.accessToken = config.mapBoxKey;
-    this._map = L.mapbox.map('map', config.mapBoxMapId, {
+    this._map = L.mapbox.map(containerId, config.mapBoxMapId, {
         zoomControl: false
     });
 

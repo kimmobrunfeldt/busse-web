@@ -16,8 +16,9 @@
     <meta name="mobile-web-app-capable" content="yes">
     <link rel="icon" sizes="120x120" href="images/apple-touch-icon.png">
 
-    <link href='https://api.tiles.mapbox.com/mapbox.js/v2.1.5/mapbox.css' rel='stylesheet' />
     <link rel="stylesheet" href="bundle.css">
+
+    <script src="scripts/libs/Modernizr.js"></script>
   </head>
 
   <body>
@@ -39,13 +40,12 @@
 
     <img class="loader hidden rotating" id="loader" src="images/loader.svg" alt="Loading.." />
 
-
-    <div class="modal bus">
-
-    </div>
+    <menu class="modal bus-menu hidden">
+        <!-- Dynamically added -->
+    </menu>
 
     <!-- Mapbox -->
-    <script src='https://api.tiles.mapbox.com/mapbox.js/v2.1.5/mapbox.js'></script>
+    <script src="scripts/libs/mapbox.js"></script>
     <script src="scripts/libs/leaflet-plugins.js"></script>
 
     <script src="bundle.js"></script>

@@ -116,7 +116,12 @@ Promise.join(
         var outputPath = path.resolve(__dirname, OUTPUT_DIR, 'routes.json');
         fs.writeFileSync(outputPath, JSON.stringify(routes));
 
+        /*
+        Dont write this since we have manually grouped routeIds to their
+        travel agencies
+
         var outputPath = path.resolve(__dirname, OUTPUT_DIR, 'general.json');
         fs.writeFileSync(outputPath, JSON.stringify({routes: routeIds}));
+        */
     }
 );

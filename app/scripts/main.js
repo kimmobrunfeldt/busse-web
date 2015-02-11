@@ -11,14 +11,13 @@ utils.get('data/routes.json')
     window.routes = routes;
 });
 
-utils.get('data/general.json')
-.then(function(req) {
+var fetchGeneral = utils.get('data/general.json').then(function(req) {
     general = JSON.parse(req.responseText);
-});
+}).then(initBusMenu);
 
 
 function main() {
-    var map = new Map('#map');
+    var map = new Map('map');
     window.map = map;
 
     var myLocationButton = document.querySelector('#my-location');
@@ -40,6 +39,13 @@ function main() {
     vehicleControl.start(map);
 
     return map;
+}
+
+function initBusMenu(general) {
+    var elements = _.map(general.routes, function(route) {
+        var a = document.createElement(a);
+        return a;
+    });
 }
 
 function showLoader() {
