@@ -42,6 +42,10 @@ body, html {
   background: @blue-light;
   text-align: right;
 
+  @media (min-width: @breakpoint-medium) {
+    text-align: left;
+  }
+
   .close {
     position: fixed;
     left: @button-side-margin;
@@ -55,10 +59,18 @@ body, html {
   .bus-button-container {
     padding: 10px 10px 0 70px;
 
+    @media (min-width: @breakpoint-medium) {
+      padding: 10px 10px 70px 10px;
+    }
+
     .bus-button-group {
       margin: 0;
       padding: 0;
       line-height: 0px;
+    }
+
+    .starred {
+      background: @blue-x-dark;
     }
 
     a {
@@ -80,6 +92,16 @@ body, html {
         cursor: pointer;
         background: @blue-x-dark;
       }
+
+      @media (min-width: @breakpoint-medium) {
+        width: 46px;
+        height: 46px;
+      }
+
+      @media (min-width: @breakpoint-desktop) {
+        width: 56px;
+        height: 56px;
+      }
     }
   }
 }
@@ -93,14 +115,14 @@ body, html {
   position: absolute;
 }
 
-.filter {
-  left: @button-side-margin;
-  bottom: @button-bottom-margin;
-}
-
 .my-location {
   left: @button-side-margin;
   bottom: @button-bottom-margin + 54px;
+}
+
+.filter {
+  left: @button-side-margin;
+  bottom: @button-bottom-margin;
 }
 
 .loader {

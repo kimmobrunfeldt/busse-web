@@ -34,7 +34,8 @@ Map.prototype.addMarker = function addMarker(id, opts) {
     var pos = new L.LatLng(opts.position.latitude, opts.position.longitude);
     opts.pos = pos;
     var marker = L.marker(pos, {
-        icon: this._createMarkerIcon(opts)
+        icon: this._createMarkerIcon(opts),
+        keyboard: false
     });
 
     marker.addTo(this._map);
@@ -131,7 +132,8 @@ Map.prototype._setOrUpdateUserLocation = function _setOrUpdateUserLocation(pos) 
                 iconSize: [16, 16],
                 iconAnchor: [8, 8]
             }),
-            zIndexOffset: 1000
+            zIndexOffset: 1000,
+            keyboard: false
         });
         this._myLocationMarker.addTo(this._map);
     } else {
@@ -147,6 +149,7 @@ Map.prototype._getUserLocation = function _getUserLocation() {
     };
 
     if (!navigator.geolocation) {
+        alert('Geolocation is not supported by your browser');
         var err = new Error('Geolocation is not supported');
         return Promise.reject(err);
     }

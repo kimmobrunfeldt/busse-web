@@ -3,10 +3,16 @@ var utils = require('./utils');
 var Timer = require('./timer');
 var config = require('./config');
 
+// State inside vehicle control module
+var filterFunc = function() {
+    return true;
+};
+var lastVehicles = [];
+
 
 function start(map) {
     var timer = new Timer(function() {
-        return updateVehicles(map);
+        return getAndUpdateVehicles(map);
     }, {
         interval: config.updateInterval
     });
@@ -14,21 +20,26 @@ function start(map) {
 }
 
 
-function updateVehicles(map) {
-    return utils.get(config.apiUrl)
-    .then(function(req) {
+function getAndUpdateVehicles(map) {
+    return utils.get(config.apiUrl).then(function(req) {
         var vehicles = JSON.parse(req.responseText).vehicles;
-
-        _.each(vehicles, function(vehicle) {
-            if (_.has(map.markers, vehicle.id)) {
-                updateVehicle(map, vehicle);
-            } else {
-                addVehicle(map, vehicle);
-            }
-        });
-
-        removeLeftovers(map, vehicles);
+        lastVehicles = vehicles;
+        updateVehicles(map, vehicles);
     });
+}
+
+function updateVehicles(map, vehicles) {
+    var filteredVehicles = _.filter(vehicles, filterFunc);
+
+    _.each(filteredVehicles, function(vehicle) {
+        if (_.has(map.markers, vehicle.id)) {
+            updateVehicle(map, vehicle);
+        } else {
+            addVehicle(map, vehicle);
+        }
+    });
+
+    removeLeftovers(map, filteredVehicles);
 }
 
 function addVehicle(map, vehicle) {
@@ -81,6 +92,11 @@ function updateVehicle(map, vehicle) {
     map.rotateMarker(vehicle.id, vehicle.rotation);
 }
 
+function setFilter(map, func) {
+    filterFunc = func;
+    updateVehicles(map, lastVehicles);
+}
+
 // Remove all vehicles in map which are not defined in current vehicles
 function removeLeftovers(map, vehicles) {
     _.each(map.markers, function(marker, id) {
@@ -95,5 +111,6 @@ function removeLeftovers(map, vehicles) {
 }
 
 module.exports = {
-    start: start
+    start: start,
+    setFilter: setFilter
 };
