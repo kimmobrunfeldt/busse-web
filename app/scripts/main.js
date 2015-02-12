@@ -101,7 +101,7 @@ function initBusMenu(map, vehicleControl, general) {
                         return r.id !== route.id;
                     });
                 }
-                console.log(starred);
+
                 if (_.isEmpty(starred)) {
                     vehicleControl.setFilter(map, function() {
                         return true;
