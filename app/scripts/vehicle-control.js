@@ -34,7 +34,9 @@ function updateVehicles(map) {
 function addVehicle(map, vehicle) {
     var isMoving = vehicle.rotation !== 0;
     var iconSrc = isMoving ? 'images/bus-moving.svg' : 'images/bus.svg';
-    var fontSize = vehicle.line.length > 2 ? 12 : 14;
+    var fontSize = vehicle.line.length > 2
+        ? config.smallBusFontSize
+        : config.normalBusFontSize;
 
     map.addMarker(vehicle.id, {
         position: {

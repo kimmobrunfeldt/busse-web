@@ -16,6 +16,7 @@
     <meta name="mobile-web-app-capable" content="yes">
     <link rel="icon" sizes="120x120" href="images/apple-touch-icon.png">
 
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="bundle.css">
 
     <script src="scripts/libs/Modernizr.js"></script>
@@ -25,7 +26,7 @@
     <section class="map" id="map"></section>
 
     <footer class="lower-bar">
-        <a class="icon-button filter" id="filter" name="filter">
+        <a class="icon-button filter" id="starred" name="starred">
             <!-- Icon by Ricardo Augusto Cherem -->
             <!-- http://thenounproject.com/term/filter/78231/ -->
             <img src="images/filter.svg" alt="Filter" />
@@ -41,7 +42,12 @@
     <img class="loader hidden rotating" id="loader" src="images/loader.svg" alt="Loading.." />
 
     <menu class="modal bus-menu hidden">
-        <!-- Dynamically added -->
+        <a class="icon-button no-shadow close" id="close">
+            <!-- Icon by Jardson Almeida -->
+            <!-- http://thenounproject.com/term/close/8560/ -->
+            <img src="images/close.svg" alt="Close" />
+        </a>
+        <div class="bus-button-container"></div>
     </menu>
 
     <!-- Mapbox -->

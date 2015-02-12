@@ -41,7 +41,7 @@ function removeClass(element, className) {
 }
 
 function addClass(element, className) {
-    if (element.className.indexOf(className) === -1) {
+    if (!hasClass(element, className)) {
         element.className += ' ' + className;
     }
 }
@@ -55,6 +55,17 @@ function setStyle(element, style, value) {
     element.style[style] = value;
 }
 
+function hasClass(element, className) {
+    var classes = element.className.split(' ');
+    for (var i = 0; i < classes.length; ++i) {
+        if (classes[i].trim() === className) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
 function capitalize(text) {
     return text.charAt(0).toUpperCase() + text.slice(1);
 }
@@ -64,5 +75,6 @@ module.exports = {
     removeClass: removeClass,
     addClass: addClass,
     setStyle: setStyle,
+    hasClass: hasClass,
     capitalize: capitalize
 };

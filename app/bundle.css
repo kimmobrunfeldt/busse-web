@@ -102,6 +102,10 @@ html {
   height: 100%;
 }
 /* The main UI stuff */
+body,
+html {
+  font-family: 'Open Sans', sans-serif;
+}
 .icon-button {
   position: relative;
   z-index: 1000;
@@ -111,7 +115,7 @@ html {
   background: #1c4347;
   -webkit-transition: all 0.1s ease-in-out;
           transition: all 0.1s ease-in-out;
-  box-shadow: 2px 2px 5px 1px rgba(0, 0, 0, 0.3);
+  box-shadow: 2px 2px 5px 1px rgba(0, 0, 0, 0.7);
 }
 .icon-button > * {
   position: absolute;
@@ -128,6 +132,57 @@ html {
       -ms-transform: scale(1.1);
           transform: scale(1.1);
 }
+.no-shadow {
+  box-shadow: none;
+}
+.bus-menu {
+  position: absolute;
+  z-index: 2000;
+  min-height: 100%;
+  width: 100%;
+  top: 0;
+  background: #edf7f2;
+  text-align: right;
+}
+.bus-menu .close {
+  position: fixed;
+  left: 14px;
+  bottom: 16px;
+}
+.bus-menu .close img {
+  height: 35%;
+}
+.bus-menu .bus-button-container {
+  padding: 10px 10px 0 70px;
+}
+.bus-menu .bus-button-container .bus-button-group {
+  margin: 0;
+  padding: 0;
+  line-height: 0px;
+}
+.bus-menu .bus-button-container a {
+  margin: 0;
+  padding: 0;
+  position: relative;
+  display: inline-block;
+  margin: 0 2px 2px 0;
+  width: 34px;
+  height: 34px;
+  background: #4bb5c1;
+}
+.bus-menu .bus-button-container a > p {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+      -ms-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  color: white;
+}
+.bus-menu .bus-button-container a:hover {
+  cursor: pointer;
+  background: #1c4347;
+}
 .map {
   width: 100%;
   height: 100%;
@@ -138,11 +193,11 @@ html {
 }
 .filter {
   left: 14px;
-  bottom: 70px;
+  bottom: 16px;
 }
 .my-location {
   left: 14px;
-  bottom: 16px;
+  bottom: 70px;
 }
 .loader {
   position: absolute;
@@ -183,6 +238,6 @@ bottom corner
   transition: transform 0.03s cubic-bezier(0, 0, 0.25, 1);
 }
 .no-touch .leaflet-zoom-anim .leaflet-zoom-animated {
-  -webkit-transition: -webkit-transform 0.15s cubic-bezier(0, 0, 0.25, 1);
-  transition: transform 0.15s cubic-bezier(0, 0, 0.25, 1);
+  -webkit-transition: -webkit-transform 0.2s cubic-bezier(0, 0, 0.25, 1);
+  transition: transform 0.2s cubic-bezier(0, 0, 0.25, 1);
 }

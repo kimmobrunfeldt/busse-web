@@ -19,6 +19,8 @@ var config = {
     initialPosition: {latitude: 61.487881, longitude: 23.7810259},
     initialZoom: 13,
     zoomOnLocated: 16,
+    normalBusFontSize: 14,
+    smallBusFontSize: 12,
 
     busIconSize: 32,
 

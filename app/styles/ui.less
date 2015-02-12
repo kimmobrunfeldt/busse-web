@@ -1,5 +1,12 @@
 /* The main UI stuff */
 
+@button-side-margin: 14px;
+@button-bottom-margin: 16px;
+
+body, html {
+  font-family: 'Open Sans', sans-serif;
+}
+
 .icon-button {
   position: relative;
   z-index: 1000;
@@ -8,7 +15,7 @@
   border-radius: 50%;
   background: @blue-x-dark;
   transition: all 0.1s ease-in-out;
-  box-shadow: 2px 2px 5px 1px rgba(0,0,0,0.3);
+  box-shadow: 2px 2px 5px 1px rgba(0, 0, 0, 0.7);
 
   // Center children
   & > * {
@@ -22,6 +29,61 @@
   }
 }
 
+.no-shadow {
+  box-shadow: none;
+}
+
+.bus-menu {
+  position: absolute;
+  z-index: 2000;
+  min-height: 100%;
+  width: 100%;
+  top: 0;
+  background: @blue-light;
+  text-align: right;
+
+  .close {
+    position: fixed;
+    left: @button-side-margin;
+    bottom: @button-bottom-margin;
+
+    img {
+      height: 35%;
+    }
+  }
+
+  .bus-button-container {
+    padding: 10px 10px 0 70px;
+
+    .bus-button-group {
+      margin: 0;
+      padding: 0;
+      line-height: 0px;
+    }
+
+    a {
+      margin: 0;
+      padding: 0;
+      position: relative;
+      display: inline-block;
+      margin: 0 2px 2px 0;
+      width: 34px;
+      height: 34px;
+      background: @blue-dark;
+
+      > p {
+        .center();
+        color: white;
+      }
+
+      &:hover {
+        cursor: pointer;
+        background: @blue-x-dark;
+      }
+    }
+  }
+}
+
 .map {
   width: 100%;
   height: 100%;
@@ -31,18 +93,14 @@
   position: absolute;
 }
 
-
-@button-side-margin: 14px;
-@button-bottom-margin: 16px;
-
 .filter {
   left: @button-side-margin;
-  bottom: @button-bottom-margin + 54px;
+  bottom: @button-bottom-margin;
 }
 
 .my-location {
   left: @button-side-margin;
-  bottom: @button-bottom-margin;
+  bottom: @button-bottom-margin + 54px;
 }
 
 .loader {
@@ -50,8 +108,6 @@
   left: @button-side-margin + 60px;
   bottom: @button-bottom-margin + 4px;
 }
-
-@icon-size: 24px;
 
 /* Map marker */
 

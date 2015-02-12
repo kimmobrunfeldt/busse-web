@@ -21,7 +21,7 @@
             // Compensate text rotation back
             // This is quite a hack but it doing it otherwise had a side effect
             // that zooming reset the rotation temporarily
-            if (i.children.length > 1) {
+            if (this.options.icon.options.text) {
                 var p = i.children[1];
                 var pTransform = ' rotate(' + -this.options.iconAngle + 'deg)';
                 p.style[L.DomUtil.TRANSFORM] += pTransform;
@@ -47,7 +47,7 @@
             if (this._icon) {
                 this._icon.style[L.DomUtil.TRANSFORM] = '';
 
-                if (this._icon.children.length > 1) {
+                if (this.options.icon.options.text) {
                     this._icon.children[1].style[L.DomUtil.TRANSFORM] = '';
                 }
             }
@@ -75,7 +75,6 @@ L.LabeledIcon = L.Icon.extend({
         var img = document.createElement('img');
         img.setAttribute('src', this.options.iconUrl);
         img.className = 'map-marker-icon';
-
 
         var textContainer = document.createElement('div');
         textContainer.className = 'map-marker-text';

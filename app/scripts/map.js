@@ -130,7 +130,8 @@ Map.prototype._setOrUpdateUserLocation = function _setOrUpdateUserLocation(pos) 
                 iconUrl: 'images/location.svg',
                 iconSize: [16, 16],
                 iconAnchor: [8, 8]
-            })
+            }),
+            zIndexOffset: 1000
         });
         this._myLocationMarker.addTo(this._map);
     } else {
