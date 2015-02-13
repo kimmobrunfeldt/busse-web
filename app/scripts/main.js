@@ -148,7 +148,7 @@ function setVehicleFilter(map, filters) {
 }
 
 function setFilteredClasses(busButtonElements, filters) {
-    _.each(busButtonElements, function(a) {
+    _.forOwn(busButtonElements, function(a) {
         utils.removeClass(a, 'filtered-route');
     });
 
