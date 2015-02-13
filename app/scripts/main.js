@@ -3,6 +3,8 @@ var attachFastClick = require('fastclick');
 
 var config = require('./config');
 var utils = require('./utils');
+window.utils = utils;
+var storage = require('./storage');
 var Map = require('./map');
 var vehicleControl = require('./vehicle-control');
 
@@ -46,8 +48,8 @@ function main() {
         });
     });
 
-    var starredButton = document.querySelector('#starred');
-    starredButton.addEventListener('click', toggleBusMenu);
+    var filterMenuButton = document.querySelector('#filter');
+    filterMenuButton.addEventListener('click', toggleBusMenu);
 
     var closeButton = document.querySelector('#close');
     closeButton.addEventListener('click', toggleBusMenu);
@@ -68,7 +70,13 @@ function main() {
 }
 
 function initBusMenu(map, vehicleControl, general) {
-    var starred = [];
+    var busButtonElements = {};
+    var filters = storage.get('filters');
+    if (filters === null) {
+        var newFilters = {numbers: []};
+        storage.save('filters', newFilters);
+        filters = newFilters;
+    }
 
     // Drop all letters from line ids
     var uniqueRoutes = _.unique(general.routes, function(route) {
@@ -95,36 +103,27 @@ function initBusMenu(map, vehicleControl, general) {
             a.appendChild(p);
 
             a.addEventListener('click', function() {
-                var found = _.findWhere(starred, {id: route.id});
-                if (_.isUndefined(found)) {
-                    utils.addClass(a, 'starred');
-                    starred.push(route);
-                } else {
-                    utils.removeClass(a, 'starred');
-                    starred = _.filter(starred, function(r) {
-                        return r.id !== route.id;
-                    });
-                }
-
-                if (_.isEmpty(starred)) {
-                    vehicleControl.setFilter(map, function() {
-                        return true;
+                var contains = _.contains(filters.numbers, route.number);
+                if (contains) {
+                    filters.numbers = _.filter(filters.numbers, function(number) {
+                        return number !== route.number;
                     });
                 } else {
-                    vehicleControl.setFilter(map, function(vehicle) {
-                        var line = vehicle.line.split('').sort().join('');
-                        var lineNumber = parseInt(line, 10);
-                        var item = _.findWhere(starred, {number: lineNumber});
-
-                        var found = !_.isUndefined(item);
-                        return found;
-                    });
+                    filters.numbers.push(route.number);
                 }
+
+                storage.save('filters', filters);
+                setVehicleFilter(map, filters);
+                setFilteredClasses(busButtonElements, filters);
             });
 
+            busButtonElements[route.number] = a;
             return a;
         });
     });
+
+    setVehicleFilter(map, filters);
+    setFilteredClasses(busButtonElements, filters);
 
     var busContainer = document.querySelector('.bus-button-container');
 
@@ -137,6 +136,31 @@ function initBusMenu(map, vehicleControl, general) {
         });
 
         busContainer.appendChild(busGroup);
+    });
+}
+
+function setVehicleFilter(map, filters) {
+    if (_.isEmpty(filters.numbers)) {
+        vehicleControl.setFilter(map, function() {
+            return true;
+        });
+    } else {
+        vehicleControl.setFilter(map, function(vehicle) {
+            var line = utils.numeralsFirst(vehicle.line);
+            var lineNumber = parseInt(line, 10);
+
+            return _.contains(filters.numbers, lineNumber);
+        });
+    }
+}
+
+function setFilteredClasses(busButtonElements, filters) {
+    _.each(busButtonElements, function(a) {
+        utils.removeClass(a, 'filtered-route');
+    });
+
+    _.each(filters.numbers, function(number) {
+        utils.addClass(busButtonElements[number], 'filtered-route');
     });
 }
 

@@ -1,5 +1,6 @@
 // Utility functions
 
+var _ = require('lodash');
 var Promise = require('bluebird');
 
 var PREFIXES = 'webkit moz o ms'.split(' ');
@@ -70,11 +71,20 @@ function capitalize(text) {
     return text.charAt(0).toUpperCase() + text.slice(1);
 }
 
+// a2kk4ll1 -> 241akkll
+function numeralsFirst(text) {
+    var chars = text.split('');
+    return _.sortBy(chars, function(char) {
+        return /^[0-9]$/.test(char) ? 0 : 1;
+    }).join('');
+}
+
 module.exports = {
     get: get,
     removeClass: removeClass,
     addClass: addClass,
     setStyle: setStyle,
     hasClass: hasClass,
-    capitalize: capitalize
+    capitalize: capitalize,
+    numeralsFirst: numeralsFirst
 };

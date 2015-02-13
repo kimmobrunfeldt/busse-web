@@ -170,7 +170,7 @@ html {
   padding: 0;
   line-height: 0px;
 }
-.bus-menu .bus-button-container .starred {
+.bus-menu .bus-button-container .filtered-route {
   background: #1c4347;
 }
 .bus-menu .bus-button-container a {

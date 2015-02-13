@@ -61,7 +61,7 @@ function addVehicle(map, vehicle) {
             map.clearShapes();
 
             // If line is in format: Y4, switch it to 4Y so parseInt works
-            var line = vehicle.line.split('').sort().join('');
+            var line = utils.numeralsFirst(vehicle.line);
             var route = routes[line];
             if (!route) {
                 // Remove letters from the number, 9K -> 9
