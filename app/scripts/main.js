@@ -44,8 +44,8 @@ function main() {
     var filterMenuButton = document.querySelector('#filter');
     filterMenuButton.addEventListener('click', toggleBusMenu);
 
-    var closeButton = document.querySelector('#close');
-    closeButton.addEventListener('click', toggleBusMenu);
+    var applyButton = document.querySelector('#apply');
+    applyButton.addEventListener('click', toggleBusMenu);
 
     window.addEventListener('keydown', function(e){
         if (e.keyCode === KEY_CODE.ESC) {

@@ -41,9 +41,9 @@ function Map(containerId) {
     this._interactionStart = _.bind(this._interactionStart, this);
     this._interactionEnd = _.bind(this._interactionEnd, this);
     this._map.on('zoomstart', this._interactionStart);
-    this._map.on('dragstart', this._interactionStart);
+    //this._map.on('dragstart', this._interactionStart);
     this._map.on('zoomend', this._interactionEnd);
-    this._map.on('dragend', this._interactionEnd);
+    //this._map.on('dragend', this._interactionEnd);
 
     this.markers = {};
     this.shapes = [];
