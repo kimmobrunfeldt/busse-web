@@ -12,14 +12,7 @@ var KEY_CODE = {
     ESC: 27
 };
 
-var routes = null;
 var general = null;
-
-utils.get('data/routes.json')
-.then(function(req) {
-    routes = JSON.parse(req.responseText);
-    window.routes = routes;
-});
 
 var fetchGeneral = utils.get('data/general.json').then(function(req) {
     general = JSON.parse(req.responseText);

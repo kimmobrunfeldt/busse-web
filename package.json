@@ -14,7 +14,6 @@
     "browserify": "^6.3.2",
     "concurrently": "0.0.5",
     "csv": "^0.4.1",
-    "lodash": "^2.4.1",
     "mustache": "^1.0.0",
     "node-static": "^0.7.6",
     "watchify": "^2.1.1"
