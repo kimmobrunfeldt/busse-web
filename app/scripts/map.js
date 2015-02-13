@@ -1,11 +1,15 @@
 var Promise = require('bluebird');
+var _ = require('lodash');
+
 var config = require('./config');
+var utils = require('./utils');
 
 
 function Map(containerId) {
     L.mapbox.accessToken = config.mapBoxKey;
     this._map = L.mapbox.map(containerId, config.mapBoxMapId, {
-        zoomControl: false
+        zoomControl: false,
+        attributionControl: false
     });
 
     this._map.setView([
@@ -14,15 +18,32 @@ function Map(containerId) {
         config.initialZoom
     );
 
-    new L.Control.Zoom({ position: 'bottomright' }).addTo(this._map);
-
-    this._dragging = false;
-    this._zooming = false;
     var self = this;
-    this._map.on('zoomstart', function() { self._zooming = true; });
-    this._map.on('zoomend', function() { self._zooming = false; });
-    this._map.on('dragstart', function() { self._dragging = true; });
-    this._map.on('dragend', function() { self._dragging = false; });
+    var zoomInButton = document.querySelector('#zoom-in');
+    zoomInButton.addEventListener('click', function zoomInClicked() {
+        // We don't want to pass any params to zoomIn
+        self._map.zoomIn();
+    });
+    var zoomOutButton = document.querySelector('#zoom-out');
+    zoomOutButton.addEventListener('click', function zoomOutClicked() {
+        self._map.zoomOut();
+    });
+
+    var credits = L.control.attribution({position: 'topright'}).addTo(this._map);
+    var attribution = '<a href="https://www.mapbox.com/about/maps/"';
+    attribution += 'target="_blank">&copy; Mapbox &copy; OpenStreetMap</a>';
+    credits.addAttribution(attribution);
+
+    // Because map with hundreds of markers is slow, we temporarily hide
+    // all the markers when user interacts with the map to increase performance
+    this._container = document.querySelector('#' + containerId);
+    this._interactions = 0;
+    this._interactionStart = _.bind(this._interactionStart, this);
+    this._interactionEnd = _.bind(this._interactionEnd, this);
+    this._map.on('zoomstart', this._interactionStart);
+    this._map.on('dragstart', this._interactionStart);
+    this._map.on('zoomend', this._interactionEnd);
+    this._map.on('dragend', this._interactionEnd);
 
     this.markers = {};
     this.shapes = [];
@@ -170,8 +191,33 @@ Map.prototype._createMarkerIcon = function _createMarkerIcon(opts) {
 };
 
 Map.prototype._isUserInteracting = function _isUserInteracting() {
-    return this._zooming || this._dragging;
+    return this._interactions > 0;
 };
+
+Map.prototype._interactionStart = function _interactionStart() {
+    this._interactions += 1;
+    this._debouncedShowMarkers.cancel();
+
+    if (this._interactions === 1) {
+        var markerCount = _.keys(this.markers).length;
+        if (markerCount > config.hideMarkersAfterAmount) {
+            utils.addClass(this._container, 'hide-markers');
+        }
+    }
+};
+
+Map.prototype._interactionEnd = function _interactionEnd() {
+    this._interactions -= 1;
+
+    if (this._interactions === 0) {
+        this._debouncedShowMarkers(this._container);
+    }
+};
+
+Map.prototype._debouncedShowMarkers = _.debounce(function _debouncedShowMarkers(container) {
+    utils.removeClass(container, 'hide-markers');
+}, config.markerHideDebounce);
+
 
 
 module.exports = Map;

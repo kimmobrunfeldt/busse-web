@@ -22,6 +22,9 @@ var config = {
     normalBusFontSize: 14,
     smallBusFontSize: 12,
 
+    hideMarkersAfterAmount: 20,
+    markerHideDebounce: 600,
+
     busIconSize: 32,
 
     // Compensate the angle because the icon is rotated in the image
