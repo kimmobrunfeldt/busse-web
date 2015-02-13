@@ -1,4 +1,6 @@
 var _ = require('lodash');
+var attachFastClick = require('fastclick');
+
 var config = require('./config');
 var utils = require('./utils');
 var Map = require('./map');
@@ -24,6 +26,8 @@ var fetchGeneral = utils.get('data/general.json').then(function(req) {
 
 
 function main() {
+    attachFastClick(document.body);
+
     var map = new Map('map');
     window.map = map;
 
