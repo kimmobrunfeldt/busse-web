@@ -22,10 +22,14 @@ body, html {
     .center();
     height: 55%;
   }
+}
 
-  &:hover {
-    cursor: pointer;
-    transform: scale(1.1);
+.no-touch {
+  .icon-button {
+    &:hover {
+      cursor: pointer;
+      transform: scale(1.1);
+    }
   }
 }
 
@@ -88,11 +92,6 @@ body, html {
         color: white;
       }
 
-      &:hover {
-        cursor: pointer;
-        background: @blue-x-dark;
-      }
-
       @media (min-width: @breakpoint-medium) {
         width: 54px;
         height: 54px;
@@ -102,6 +101,15 @@ body, html {
         width: 66px;
         height: 66px;
       }
+    }
+  }
+}
+
+.no-touch {
+  .bus-button-container {
+    a:hover {
+      cursor: pointer;
+      background: @blue-x-dark;
     }
   }
 }

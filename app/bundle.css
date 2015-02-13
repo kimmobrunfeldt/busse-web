@@ -126,7 +126,7 @@ html {
           transform: translate(-50%, -50%);
   height: 55%;
 }
-.icon-button:hover {
+.no-touch .icon-button:hover {
   cursor: pointer;
   -webkit-transform: scale(1.1);
       -ms-transform: scale(1.1);
@@ -192,10 +192,6 @@ html {
           transform: translate(-50%, -50%);
   color: white;
 }
-.bus-menu .bus-button-container a:hover {
-  cursor: pointer;
-  background: #1c4347;
-}
 @media (min-width: 550px) {
   .bus-menu .bus-button-container a {
     width: 54px;
@@ -207,6 +203,10 @@ html {
     width: 66px;
     height: 66px;
   }
+}
+.no-touch .bus-button-container a:hover {
+  cursor: pointer;
+  background: #1c4347;
 }
 .map {
   width: 100%;
