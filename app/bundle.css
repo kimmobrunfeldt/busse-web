@@ -167,11 +167,11 @@ html {
   height: 45%;
 }
 .bus-menu .bus-button-container {
-  padding: 10px 14px 100px 70px;
+  padding: 10px 14px 100px 10px;
 }
 @media (min-width: 550px) {
   .bus-menu .bus-button-container {
-    padding: 10px 10px 70px 14px;
+    padding: 10px 10px 100px 14px;
   }
 }
 .bus-menu .bus-button-container .bus-button-group {
