@@ -67,6 +67,14 @@ table {
   visibility: hidden;
   display: none;
 }
+.no-select {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
 @-webkit-keyframes rotating {
   /* Safari and Chrome */
   from {
@@ -105,7 +113,7 @@ html {
 /* The main UI stuff */
 body,
 html {
-  font-family: 'Open Sans', sans-serif;
+  font-family: 'Monserrat', sans-serif;
 }
 .icon-button {
   position: absolute;
@@ -116,7 +124,7 @@ html {
   background: #444444;
   -webkit-transition: all 0.1s ease-in-out;
           transition: all 0.1s ease-in-out;
-  border: 2px solid #eee;
+  border: 1px solid #eee;
 }
 .icon-button > * {
   position: absolute;
@@ -139,47 +147,47 @@ html {
   min-height: 100%;
   width: 100%;
   top: 0;
-  background: #fff9f5;
-  text-align: right;
-}
-@media (min-width: 550px) {
-  .bus-menu {
-    text-align: left;
-  }
+  background: white;
 }
 .bus-menu h1 {
+  color: #ffa131;
   margin: 10px 0;
+  font-weight: bold;
+  font-size: 30px;
+}
+.bus-menu .right {
+  float: right;
 }
 .bus-menu .bus-menu-footer {
-  background: #fafafa;
+  background: #f9f9f9;
   position: fixed;
   z-index: 3000;
-  height: 80px;
+  height: 78px;
+  border-top: 1px solid #eee;
   left: 0;
   right: 0;
   bottom: 0;
 }
-.bus-menu .bus-menu-footer .apply {
+.bus-menu .bus-menu-footer .save {
+  border: 1px solid white;
   left: 14px;
   bottom: 16px;
 }
-.bus-menu .bus-menu-footer .apply img {
+.bus-menu .bus-menu-footer .save img {
   height: 45%;
 }
-.bus-menu .bus-button-container {
-  padding: 10px 14px 100px 10px;
+.bus-menu .bus-menu-footer .settings-container {
+  float: right;
 }
-@media (min-width: 550px) {
-  .bus-menu .bus-button-container {
-    padding: 10px 10px 100px 14px;
-  }
+.bus-menu .bus-button-container {
+  padding: 10px 10px 100px 14px;
 }
 .bus-menu .bus-button-container .bus-button-group {
   margin: 0;
   padding: 0;
   line-height: 0px;
 }
-.bus-menu .bus-button-container .filtered-route {
+.bus-menu .bus-button-container .favorited-route {
   background: #ffa131;
 }
 .bus-menu .bus-button-container a {
@@ -191,6 +199,13 @@ html {
   width: 40px;
   height: 40px;
   background: #777777;
+  -webkit-transition: -webkit-transform 0.1s ease-in-out;
+          transition: transform 0.1s ease-in-out;
+}
+.bus-menu .bus-button-container a:active {
+  -webkit-transform: scale(1.05);
+      -ms-transform: scale(1.05);
+          transform: scale(1.05);
 }
 .bus-menu .bus-button-container a > p {
   position: absolute;
@@ -215,7 +230,7 @@ html {
 }
 .no-touch .bus-button-container a:hover {
   cursor: pointer;
-  background: #ffa131;
+  opacity: 0.9;
 }
 .map {
   width: 100%;

@@ -18,14 +18,13 @@
     <!-- Android web app -->
     <meta name="mobile-web-app-capable" content="yes">
     <link rel="icon" sizes="120x120" href="images/apple-touch-icon.png">
-
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="bundle.css">
 
     <script src="scripts/libs/Modernizr.js"></script>
   </head>
 
-  <body>
+  <body class="no-select">
     <section class="map" id="map"></section>
 
     <footer class="lower-bar">
@@ -53,15 +52,20 @@
 
     <menu class="modal bus-menu hidden">
         <div class="bus-menu-footer">
-            <a class="icon-button apply" id="apply" title="Apply">
+            <a class="icon-button save" id="save" title="Save">
                 <!-- Icon by Jardson Almeida -->
                 <!-- http://thenounproject.com/term/close/8560/ -->
-                <img src="images/check-mark.svg" alt="Apply" />
+                <img src="images/check-mark.svg" alt="Save" />
             </a>
+
+            <div class="settings-container">
+                <label for="show-only-favorites">Show only favorites</label>
+                <input id="show-only-favorites" type="checkbox">
+            </div>
         </div>
 
         <div class="bus-button-container">
-            <h1>Select favorite lines</h1>
+            <h1>Favorite lines</h1>
         </div>
     </menu>
 

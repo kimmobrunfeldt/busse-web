@@ -1,7 +1,7 @@
 /* The main UI stuff */
 
 body, html {
-  font-family: 'Open Sans', sans-serif;
+  font-family: 'Monserrat', sans-serif;
 }
 
 .icon-button {
@@ -12,7 +12,7 @@ body, html {
   border-radius: 50%;
   background: @grey-dark;
   transition: all 0.1s ease-in-out;
-  border: 2px solid #eee;
+  border: 1px solid #eee;
 
   // Center children
   & > * {
@@ -36,28 +36,33 @@ body, html {
   min-height: 100%;
   width: 100%;
   top: 0;
-  background: @blue-x-light;
-  text-align: right;
 
-  @media (min-width: @breakpoint-medium) {
-    text-align: left;
-  }
+  background: white;
 
   h1 {
+    color: @orange-dark;
     margin: 10px 0;
+    font-weight: bold;
+    font-size: 30px;
+  }
+
+  .right {
+    float: right;
   }
 
   .bus-menu-footer {
-    background: #fafafa;
+    background: #f9f9f9;
 
     position: fixed;
     z-index: 3000;
-    height: @button-size + (@button-bottom-margin * 2) + 4px;
+    height: @button-size + (@button-bottom-margin * 2) + 2px;
+    border-top: 1px solid #eee;
     left: 0;
     right: 0;
     bottom: 0;
 
-    .apply {
+    .save {
+      border: 1px solid white;
       left: @button-side-margin;
       bottom: @button-bottom-margin;
 
@@ -65,14 +70,14 @@ body, html {
         height: 45%;
       }
     }
+
+    .settings-container {
+      float: right;
+    }
   }
 
   .bus-button-container {
-    padding: 10px @button-side-margin 100px 10px;
-
-    @media (min-width: @breakpoint-medium) {
-      padding: 10px 10px 100px @button-side-margin;
-    }
+    padding: 10px 10px 100px @button-side-margin;
 
     .bus-button-group {
       margin: 0;
@@ -80,7 +85,7 @@ body, html {
       line-height: 0px;
     }
 
-    .filtered-route {
+    .favorited-route {
       background: @orange-dark;
     }
 
@@ -93,6 +98,11 @@ body, html {
       width: 40px;
       height: 40px;
       background: @grey-light;
+      transition: transform 0.1s ease-in-out;
+
+      &:active {
+        transform: scale(1.05);
+      }
 
       > p {
         .center();
@@ -116,7 +126,7 @@ body, html {
   .bus-button-container {
     a:hover {
       cursor: pointer;
-      background: @orange-dark;
+      opacity: 0.9;
     }
   }
 }

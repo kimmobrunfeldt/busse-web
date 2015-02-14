@@ -12,10 +12,24 @@ var KEY_CODE = {
     ESC: 27
 };
 
-var general = null;
+// Instead of semver, incrementing version from 0 - n is used
+var dataVersion = require('../../package.json')['data-version'];
+
+// Clear old data if new format applies
+var appData = storage.get('appData');
+var isNewDataVersion = appData && appData.version !== dataVersion;
+if (!appData || isNewDataVersion) {
+    if (isNewDataVersion) {
+        alert('Update will be installed. Settings will reset to defaults.');
+    }
+
+    appData = {version: dataVersion};
+    appData.filters = {favorites: [], onlyFavorites: true};
+    storage.save('appData', appData);
+}
 
 var fetchGeneral = utils.get('data/general.json').then(function(req) {
-    general = JSON.parse(req.responseText);
+    var general = JSON.parse(req.responseText);
     return general;
 });
 
@@ -44,8 +58,8 @@ function main() {
     var filterMenuButton = document.querySelector('#filter');
     filterMenuButton.addEventListener('click', toggleBusMenu);
 
-    var applyButton = document.querySelector('#apply');
-    applyButton.addEventListener('click', toggleBusMenu);
+    var saveButton = document.querySelector('#save');
+    saveButton.addEventListener('click', toggleBusMenu);
 
     window.addEventListener('keydown', function(e){
         if (e.keyCode === KEY_CODE.ESC) {
@@ -64,12 +78,6 @@ function main() {
 
 function initBusMenu(map, vehicleControl, general) {
     var busButtonElements = {};
-    var filters = storage.get('filters');
-    if (filters === null) {
-        var newFilters = {numbers: []};
-        storage.save('filters', newFilters);
-        filters = newFilters;
-    }
 
     // Drop all letters from line ids
     var uniqueRoutes = _.unique(general.routes, function(route) {
@@ -96,16 +104,18 @@ function initBusMenu(map, vehicleControl, general) {
             a.appendChild(p);
 
             a.addEventListener('click', function() {
-                var contains = _.contains(filters.numbers, route.number);
+                var filters = appData.filters;
+
+                var contains = _.contains(filters.favorites, route.number);
                 if (contains) {
-                    filters.numbers = _.filter(filters.numbers, function(number) {
+                    filters.favorites = _.filter(filters.favorites, function(number) {
                         return number !== route.number;
                     });
                 } else {
-                    filters.numbers.push(route.number);
+                    filters.favorites.push(route.number);
                 }
 
-                storage.save('filters', filters);
+                storage.save('appData', appData);
                 setVehicleFilter(map, filters);
                 setFilteredClasses(busButtonElements, filters);
             });
@@ -115,6 +125,7 @@ function initBusMenu(map, vehicleControl, general) {
         });
     });
 
+    var filters = appData.filters;
     setVehicleFilter(map, filters);
     setFilteredClasses(busButtonElements, filters);
 
@@ -133,7 +144,7 @@ function initBusMenu(map, vehicleControl, general) {
 }
 
 function setVehicleFilter(map, filters) {
-    if (_.isEmpty(filters.numbers)) {
+    if (_.isEmpty(filters.favorites) || !filters.onlyFavorites) {
         vehicleControl.setFilter(map, function() {
             return true;
         });
@@ -142,18 +153,18 @@ function setVehicleFilter(map, filters) {
             var line = utils.numeralsFirst(vehicle.line);
             var lineNumber = parseInt(line, 10);
 
-            return _.contains(filters.numbers, lineNumber);
+            return _.contains(filters.favorites, lineNumber);
         });
     }
 }
 
 function setFilteredClasses(busButtonElements, filters) {
     _.forOwn(busButtonElements, function(a) {
-        utils.removeClass(a, 'filtered-route');
+        utils.removeClass(a, 'favorited-route');
     });
 
-    _.each(filters.numbers, function(number) {
-        utils.addClass(busButtonElements[number], 'filtered-route');
+    _.each(filters.favorites, function(number) {
+        utils.addClass(busButtonElements[number], 'favorited-route');
     });
 }
 
