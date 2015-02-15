@@ -11,6 +11,10 @@ function Map(containerId) {
         zoomControl: false,
         attributionControl: false
     });
+    this._markerCluster = new L.MarkerClusterGroup({
+        disableClusteringAtZoom: 1
+    });
+    this._map.addLayer(this._markerCluster);
 
     this._map.setView([
         config.initialPosition.latitude,
@@ -57,7 +61,7 @@ Map.prototype.addMarker = function addMarker(id, opts) {
         keyboard: false
     });
 
-    marker.addTo(this._map);
+    this._markerCluster.addLayer(marker);
 
     this.markers[id] = marker;
     return marker;
@@ -67,7 +71,7 @@ Map.prototype.removeMarker = function removeMarker(id) {
     var marker = this.markers[id];
 
     // Remove marker
-    this._map.removeLayer(marker);
+    this._markerCluster.removeLayer(marker);
     delete this.markers[id];
 };
 
@@ -142,7 +146,6 @@ Map.prototype.centerToUserLocation = function centerToUserLocation() {
 Map.prototype._setOrUpdateUserLocation = function _setOrUpdateUserLocation(pos) {
     this._map.setView(pos);
     this._map.setZoom(config.zoomOnLocated);
-
 
     if (this._myLocationMarker === null) {
         this._myLocationMarker = L.marker(pos, {
