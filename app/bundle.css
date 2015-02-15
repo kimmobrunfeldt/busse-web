@@ -155,14 +155,12 @@ html {
   font-weight: bold;
   font-size: 30px;
 }
-.bus-menu .right {
-  float: right;
-}
 .bus-menu .bus-menu-footer {
+  color: #777777;
   background: #f9f9f9;
   position: fixed;
   z-index: 3000;
-  height: 78px;
+  height: 92px;
   border-top: 1px solid #eee;
   left: 0;
   right: 0;
@@ -176,8 +174,28 @@ html {
 .bus-menu .bus-menu-footer .save img {
   height: 45%;
 }
+.bus-menu .bus-menu-footer label {
+  cursor: pointer;
+  font-size: 13px;
+}
 .bus-menu .bus-menu-footer .settings-container {
-  float: right;
+  position: absolute;
+  right: 14px;
+  text-align: right;
+  bottom: 15px;
+  padding-left: 70px;
+}
+.bus-menu .bus-menu-footer .settings-container label:first-child {
+  display: block;
+  margin-bottom: 7px;
+}
+.bus-menu .bus-menu-footer .settings-container label:not(first-child) {
+  display: inline-block;
+  -webkit-transition: opacity 0.2s;
+          transition: opacity 0.2s;
+}
+.bus-menu .bus-menu-footer .settings-container label:not(first-child):hover {
+  opacity: 0.8;
 }
 .bus-menu .bus-button-container {
   padding: 10px 10px 100px 14px;
@@ -355,4 +373,58 @@ bottom corner
 .leaflet-bar-custom .leaflet-disabled {
   cursor: default;
   opacity: 0.75;
+}
+input.toggle {
+  position: absolute;
+  margin-left: -9999px;
+  visibility: hidden;
+}
+input.toggle + label {
+  display: block;
+  position: relative;
+  cursor: pointer;
+  outline: none;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  width: 88px;
+  height: 44px;
+  background-color: #aaaaaa;
+  border-radius: 44px;
+  -webkit-transition: background 0.2s;
+          transition: background 0.2s;
+}
+input.toggle + label:before,
+input.toggle + label:after {
+  display: block;
+  position: absolute;
+  content: "";
+}
+input.toggle + label:before {
+  top: 2px;
+  left: 2px;
+  bottom: 2px;
+  right: 2px;
+  background-color: #fff;
+  border-radius: 44px;
+  -webkit-transition: background 0.2s;
+          transition: background 0.2s;
+}
+input.toggle + label:after {
+  top: 4px;
+  left: 4px;
+  bottom: 4px;
+  width: 36px;
+  background-color: #aaaaaa;
+  border-radius: 36px;
+  -webkit-transition: margin 0.2s, background 0.2s;
+          transition: margin 0.2s, background 0.2s;
+}
+input.toggle:checked + label {
+  background-color: #ffa131;
+}
+input.toggle:checked + label:after {
+  margin-left: 44px;
+  background-color: #ffa131;
 }

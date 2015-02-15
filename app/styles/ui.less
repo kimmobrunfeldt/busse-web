@@ -46,16 +46,13 @@ body, html {
     font-size: 30px;
   }
 
-  .right {
-    float: right;
-  }
-
   .bus-menu-footer {
+    color: @grey-light;
     background: #f9f9f9;
 
     position: fixed;
     z-index: 3000;
-    height: @button-size + (@button-bottom-margin * 2) + 2px;
+    height: @button-size + (@button-bottom-margin * 2) + 2px + 14px;
     border-top: 1px solid #eee;
     left: 0;
     right: 0;
@@ -71,8 +68,31 @@ body, html {
       }
     }
 
+    label {
+      cursor: pointer;
+      font-size: 13px;
+    }
+
     .settings-container {
-      float: right;
+      position: absolute;
+      right: @button-side-margin;
+      text-align: right;
+      bottom: @button-bottom-margin - 1px;
+      padding-left: 70px;
+
+      label:first-child {
+        display: block;
+        margin-bottom: 7px;
+      }
+
+      label:not(first-child) {
+        display: inline-block;
+        transition: opacity 0.2s;
+
+        &:hover {
+          opacity: 0.8;
+        }
+      }
     }
   }
 

@@ -1,7 +1,7 @@
 {
   "name": "lissu-web",
   "version": "0.0.0",
-  "data-version": "0",
+  "dataVersion": "0",
   "private": true,
   "description": "",
   "main": "",

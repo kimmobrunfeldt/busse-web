@@ -1,0 +1,59 @@
+@on-color: @orange-dark;
+@off-color: #aaa;
+@height: @button-size;
+@transition-duration: 0.2s;
+
+input.toggle {
+  position: absolute;
+  margin-left: -9999px;
+  visibility: hidden;
+}
+
+input.toggle + label {
+  display: block;
+  position: relative;
+  cursor: pointer;
+  outline: none;
+  user-select: none;
+  width: @height * 2;
+  height: @height;
+  background-color: @off-color;
+  border-radius: @height;
+  transition: background @transition-duration;
+}
+
+input.toggle + label:before, input.toggle + label:after {
+  display: block;
+  position: absolute;
+  content: "";
+}
+
+input.toggle + label:before {
+  top: 2px;
+  left: 2px;
+  bottom: 2px;
+  right: 2px;
+  background-color: #fff;
+  border-radius: @height;
+  transition: background @transition-duration;
+}
+
+input.toggle + label:after {
+  top: 4px;
+  left: 4px;
+  bottom: 4px;
+  width: @height - 8px;
+  background-color: @off-color;
+  border-radius: @height - 8px;
+  transition: margin @transition-duration, background @transition-duration;
+}
+
+input.toggle:checked + label {
+  background-color: @on-color;
+}
+
+input.toggle:checked + label:after {
+  margin-left: @height;
+  background-color: @on-color;
+}
+

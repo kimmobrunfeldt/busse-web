@@ -13,7 +13,7 @@ var KEY_CODE = {
 };
 
 // Instead of semver, incrementing version from 0 - n is used
-var dataVersion = require('../../package.json')['data-version'];
+var dataVersion = require('../../package.json').dataVersion;
 
 // Clear old data if new format applies
 var appData = storage.get('appData');
@@ -23,8 +23,11 @@ if (!appData || isNewDataVersion) {
         alert('Update will be installed. Settings will reset to defaults.');
     }
 
+    // IMPORTANT: Whenever data format changes in localstorage, dataVersion
+    // should be increased! This will clear old data
+    // TODO: migrations between data versions?
     appData = {version: dataVersion};
-    appData.filters = {favorites: [], onlyFavorites: true};
+    appData.filters = {favorites: [], onlyFavorites: false};
     storage.save('appData', appData);
 }
 
@@ -141,19 +144,28 @@ function initBusMenu(map, vehicleControl, general) {
 
         busContainer.appendChild(busGroup);
     });
+
+    var onlyFavoritesInput = document.querySelector('#show-only-favorites');
+    onlyFavoritesInput.checked = appData.filters.onlyFavorites;
+
+    onlyFavoritesInput.addEventListener('change', function() {
+        appData.filters.onlyFavorites = onlyFavoritesInput.checked;
+        storage.save('appData', appData);
+        setVehicleFilter(map, appData.filters);
+    });
 }
 
 function setVehicleFilter(map, filters) {
-    if (_.isEmpty(filters.favorites) || !filters.onlyFavorites) {
-        vehicleControl.setFilter(map, function() {
-            return true;
-        });
-    } else {
+    if (filters.onlyFavorites) {
         vehicleControl.setFilter(map, function(vehicle) {
             var line = utils.numeralsFirst(vehicle.line);
             var lineNumber = parseInt(line, 10);
 
             return _.contains(filters.favorites, lineNumber);
+        });
+    } else {
+        vehicleControl.setFilter(map, function() {
+            return true;
         });
     }
 }
