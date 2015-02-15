@@ -29,17 +29,21 @@ function getAndUpdateVehicles(map) {
 }
 
 function updateVehicles(map, vehicles) {
-    var filteredVehicles = _.filter(vehicles, filterFunc);
-
-    _.each(filteredVehicles, function(vehicle) {
+    _.each(vehicles, function(vehicle) {
         if (_.has(map.markers, vehicle.id)) {
             updateVehicle(map, vehicle);
         } else {
             addVehicle(map, vehicle);
         }
+
+        if (!filterFunc(vehicle)) {
+            map.hideMarker(vehicle.id);
+        } else {
+            map.showMarker(vehicle.id);
+        }
     });
 
-    removeLeftovers(map, filteredVehicles);
+    removeLeftovers(map, vehicles);
 }
 
 function addVehicle(map, vehicle) {

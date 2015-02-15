@@ -9,7 +9,7 @@ var config = {
     normalBusFontSize: 14,
     smallBusFontSize: 12,
 
-    hideMarkersAfterAmount: 50,
+    hideMarkersAfterAmount: 20,
     markerHideDebounce: 500,
 
     busIconSize: 32,

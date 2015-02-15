@@ -276,8 +276,31 @@ html {
   bottom: 20px;
 }
 /* Map marker */
-.map-marker-icon {
+.map-marker {
+  /* Comment out to enable transitions in bus movements */
+  /* transition: transform 0.2s ease; */
+}
+.map-marker img {
   position: absolute;
+  height: 100%;
+  width: 100%;
+  -webkit-transform-origin: 50% 50%;
+      -ms-transform-origin: 50% 50%;
+          transform-origin: 50% 50%;
+}
+.map-marker .text-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+.map-marker .text-container p {
+  color: white;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+      -ms-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
 }
 .map-marker-text {
   position: relative;
@@ -315,64 +338,6 @@ bottom corner
 .hide-markers .leaflet-marker-pane {
   visibility: hidden;
   display: none;
-}
-.leaflet-control-zoom {
-  position: absolute;
-  z-index: 1000;
-  bottom: 16px;
-  right: 14px;
-}
-.leaflet-control-zoom-in-custom,
-.leaflet-control-zoom-out-custom {
-  display: block;
-  position: relative;
-  width: 40px;
-  height: 40px;
-}
-.leaflet-control-zoom-in-custom img,
-.leaflet-control-zoom-out-custom img {
-  width: 50%;
-  height: 50%;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  -webkit-transform: translate(-50%, -50%);
-      -ms-transform: translate(-50%, -50%);
-          transform: translate(-50%, -50%);
-}
-/* Copy of leaflet-bar so that > a does not have fixed px height */
-.leaflet-bar-custom {
-  background-color: #fff;
-  border: 1px solid #999;
-  border-color: rgba(0, 0, 0, 0.4);
-  border-radius: 3px;
-  box-shadow: none;
-}
-.leaflet-bar-custom a,
-.leaflet-bar-custom a:hover {
-  color: #404040;
-  color: rgba(0, 0, 0, 0.75);
-  border-bottom: 1px solid #ddd;
-  border-bottom-color: rgba(0, 0, 0, 0.1);
-}
-.leaflet-bar-custom a:active,
-.leaflet-bar-custom a:hover {
-  background-color: #f8f8f8;
-  cursor: pointer;
-}
-.leaflet-bar-custom a:hover:first-child {
-  border-radius: 3px 3px 0 0;
-}
-.leaflet-bar-custom a:hover:last-child {
-  border-bottom: 1px solid rgba(0, 0, 0, 0);
-  border-radius: 0 0 3px 3px;
-}
-.leaflet-bar-custom a:hover:only-of-type {
-  border-radius: 3px;
-}
-.leaflet-bar-custom .leaflet-disabled {
-  cursor: default;
-  opacity: 0.75;
 }
 input.toggle {
   position: absolute;

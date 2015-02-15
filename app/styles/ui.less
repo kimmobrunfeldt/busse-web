@@ -188,12 +188,30 @@ body, html {
 
 /* Map marker */
 
-.leaflet-marker-icon {
-  //transition: all 0.3s ease;
-}
 
-.map-marker-icon {
-  position: absolute;
+.map-marker {
+
+  /* Comment out to enable transitions in bus movements */
+  /* transition: transform 0.2s ease; */
+
+  img {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    transform-origin: 50% 50%;
+  }
+
+  .text-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+
+    p {
+      color: white;
+      .center();
+    }
+  }
+
 }
 
 .map-marker-text {

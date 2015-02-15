@@ -1,104 +1,53 @@
-/*
- * Based on comments by @runanet and @coomsie
- * https://github.com/CloudMade/Leaflet/issues/386
- *
- * Wrapping function is needed to preserve L.Marker.update function
- */
+// Expose icon element with getter
+L.Marker.include({
+    getIcon: function() {
+        return this._icon;
+    }
+});
 
-// WARNING!!!
-// This is a customly modified version, NOT a general plugin.
-// This relies on a certain DOM structure for the icon. See the LabeledIcon
-// below
-(function () {
-    var _old__setPos = L.Marker.prototype._setPos;
-    L.Marker.include({
-        _updateImg: function(i, a, s) {
-            a = L.point(s).divideBy(2)._subtract(L.point(a));
-
-            var iTransform = ' rotate(' + this.options.iconAngle + 'deg)';
-            i.style[L.DomUtil.TRANSFORM] += iTransform;
-
-            // Compensate text rotation back
-            // This is quite a hack but it doing it otherwise had a side effect
-            // that zooming reset the rotation temporarily
-            if (this.options.icon.options.text) {
-                var p = i.children[1];
-                var pTransform = ' rotate(' + -this.options.iconAngle + 'deg)';
-                p.style[L.DomUtil.TRANSFORM] += pTransform;
-            }
-        },
-
-        getImageElement: function getImageElement() {
-            if (this._icon === null) {
-                console.log('NULL')
-                console.log(this.options.text)
-            }
-
-            return this._icon.children[0];
-        },
-
-        setIconAngle: function (iconAngle) {
-            this.options.iconAngle = iconAngle;
-            if (this._map)
-                this.update();
-        },
-
-        _setPos: function (pos) {
-            if (this._icon) {
-                this._icon.style[L.DomUtil.TRANSFORM] = '';
-
-                if (this.options.icon.options.text) {
-                    this._icon.children[1].style[L.DomUtil.TRANSFORM] = '';
-                }
-            }
-
-            _old__setPos.apply(this,[pos]);
-
-            if (this.options.iconAngle) {
-                var a = this.options.icon.options.iconAnchor;
-                var s = this.options.icon.options.iconSize;
-                var i;
-                if (this._icon) {
-                    i = this._icon;
-                    this._updateImg(i, a, s);
-                }
-            }
-        }
-    });
-}());
-
-L.LabeledIcon = L.Icon.extend({
-    createIcon: function createIcon() {
-        var container = document.createElement('label');
-        container.className = 'map-marker';
-
-        var img = document.createElement('img');
-        img.setAttribute('src', this.options.iconUrl);
-        img.className = 'map-marker-icon';
-
-        var textContainer = document.createElement('div');
-        textContainer.className = 'map-marker-text';
-        var p = document.createElement('p');
-        p.appendChild(document.createTextNode(this.options.text));
-        p.style.fontSize = this.options.fontSize + 'px';
-        textContainer.appendChild(p);
-
-        container.appendChild(img);
-        container.appendChild(textContainer);
-
-        // Leaflet internal styling
-        this._setIconStyles(container, 'icon');
-
-        return container;
+// Icon which takes a dom element instead of html string
+L.ElementIcon = L.Icon.extend({
+    options: {
+        iconSize: [12, 12], // also can be set through CSS
+        /*
+        iconAnchor: (Point)
+        popupAnchor: (Point)
+        html: (String)
+        bgPos: (Point)
+        */
+        className: 'leaflet-element-icon',
+        element: false
     },
 
-    // No shadow
+    createIcon: function (oldIcon) {
+        var div = (oldIcon && oldIcon.tagName === 'DIV') ? oldIcon : document.createElement('div'),
+            options = this.options;
+
+        var element = options.element;
+        if (element) {
+            var isArray = Object.prototype.toString.call(element) === '[object Array]';
+            if (isArray) {
+                for (var i = 0; i < element; ++i) {
+                    div.appendChild(element[i]);
+                }
+            } else {
+                div.appendChild(element);
+            }
+        }
+
+        if (options.bgPos) {
+            div.style.backgroundPosition = (-options.bgPos.x) + 'px ' + (-options.bgPos.y) + 'px';
+        }
+        this._setIconStyles(div, 'icon');
+
+        return div;
+    },
+
     createShadow: function () {
         return null;
     }
 });
 
-
-L.labeledIcon = function labeledIcon(opts) {
-    return new L.LabeledIcon(opts);
+L.elementIcon = function (options) {
+    return new L.ElementIcon(options);
 };

@@ -71,6 +71,20 @@ Map.prototype.removeMarker = function removeMarker(id) {
     delete this.markers[id];
 };
 
+Map.prototype.hideMarker = function hideMarker(id) {
+    var marker = this.markers[id];
+
+    marker.getIcon().style.visibility = 'hidden';
+    marker.getIcon().style.display = 'none';
+};
+
+Map.prototype.showMarker = function showMarker(id) {
+    var marker = this.markers[id];
+
+    marker.getIcon().style.visibility = 'visible';
+    marker.getIcon().style.display = 'block';
+};
+
 Map.prototype.moveMarker = function moveMarker(id, position) {
     if (this._isUserInteracting()) {
         return;
@@ -90,7 +104,10 @@ Map.prototype.rotateMarker = function rotateMarker(id, rotation) {
     var marker = this.markers[id];
 
     // Rotate marker
-    marker.setIconAngle(rotation + config.addRotation);
+    var totalRotation = rotation + config.addRotation;
+    var transform = ' rotate(' + totalRotation + 'deg)';
+    var img = marker.getIcon().children[0];
+    img.style[L.DomUtil.TRANSFORM] = transform;
 };
 
 Map.prototype.setMarkerIcon = function setMarkerIcon(id, iconSrc) {
@@ -99,7 +116,7 @@ Map.prototype.setMarkerIcon = function setMarkerIcon(id, iconSrc) {
     }
 
     var marker = this.markers[id];
-    marker.getImageElement().setAttribute('src', iconSrc);
+    marker.getIcon().children[0].setAttribute('src', iconSrc);
 };
 
 Map.prototype.addShape = function addShape(points) {
@@ -133,6 +150,7 @@ Map.prototype.centerToUserLocation = function centerToUserLocation() {
         self._setOrUpdateUserLocation(pos);
     })
     .catch(function(err) {
+        alert('Unable to find location: \n' + err.message);
         console.log('Unable to get user location:');
         console.log(err.message);
         console.log(err);
@@ -168,7 +186,6 @@ Map.prototype._getUserLocation = function _getUserLocation() {
     };
 
     if (!navigator.geolocation) {
-        alert('Geolocation is not supported by your browser');
         var err = new Error('Geolocation is not supported');
         return Promise.reject(err);
     }
@@ -179,12 +196,17 @@ Map.prototype._getUserLocation = function _getUserLocation() {
 };
 
 Map.prototype._createMarkerIcon = function _createMarkerIcon(opts) {
-    return L.labeledIcon({
-        iconUrl: opts.iconSrc,
+    return L.divIcon({
         iconSize: [config.busIconSize, config.busIconSize],
         iconAnchor: [config.busIconSize / 2, config.busIconSize / 2],
-        text: opts.text,
-        fontSize: opts.fontSize
+        className: 'map-marker',
+        html: [
+            '<img width="' + config.busIconSize + 'px" height="'
+                + config.busIconSize + 'px" src="' + opts.iconSrc + '" />',
+            '<div class="text-container">',
+              '<p style="font-size:' + opts.fontSize + 'px">' + opts.text + '</p>',
+            '</div>'
+        ].join('\n')
     });
 };
 
