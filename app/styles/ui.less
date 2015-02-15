@@ -52,7 +52,7 @@ body, html {
 
     position: fixed;
     z-index: 3000;
-    height: @button-size + (@button-bottom-margin * 2) + 2px + 14px;
+    height: @button-size + (@button-bottom-margin * 2) + 2px + 8px;
     border-top: 1px solid #eee;
     left: 0;
     right: 0;
@@ -88,10 +88,6 @@ body, html {
       label:not(first-child) {
         display: inline-block;
         transition: opacity 0.2s;
-
-        &:hover {
-          opacity: 0.8;
-        }
       }
     }
   }
@@ -147,6 +143,14 @@ body, html {
     a:hover {
       cursor: pointer;
       opacity: 0.9;
+    }
+  }
+
+  .settings-container {
+    label:not(first-child) {
+      &:hover {
+        opacity: 0.8;
+      }
     }
   }
 }

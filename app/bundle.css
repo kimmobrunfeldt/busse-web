@@ -160,7 +160,7 @@ html {
   background: #f9f9f9;
   position: fixed;
   z-index: 3000;
-  height: 92px;
+  height: 86px;
   border-top: 1px solid #eee;
   left: 0;
   right: 0;
@@ -193,9 +193,6 @@ html {
   display: inline-block;
   -webkit-transition: opacity 0.2s;
           transition: opacity 0.2s;
-}
-.bus-menu .bus-menu-footer .settings-container label:not(first-child):hover {
-  opacity: 0.8;
 }
 .bus-menu .bus-button-container {
   padding: 10px 10px 100px 14px;
@@ -249,6 +246,9 @@ html {
 .no-touch .bus-button-container a:hover {
   cursor: pointer;
   opacity: 0.9;
+}
+.no-touch .settings-container label:not(first-child):hover {
+  opacity: 0.8;
 }
 .map {
   width: 100%;
@@ -388,12 +388,10 @@ input.toggle + label {
      -moz-user-select: none;
       -ms-user-select: none;
           user-select: none;
-  width: 88px;
-  height: 44px;
+  width: 68px;
+  height: 34px;
   background-color: #aaaaaa;
-  border-radius: 44px;
-  -webkit-transition: background 0.2s;
-          transition: background 0.2s;
+  border-radius: 34px;
 }
 input.toggle + label:before,
 input.toggle + label:after {
@@ -407,24 +405,20 @@ input.toggle + label:before {
   bottom: 2px;
   right: 2px;
   background-color: #fff;
-  border-radius: 44px;
-  -webkit-transition: background 0.2s;
-          transition: background 0.2s;
+  border-radius: 34px;
 }
 input.toggle + label:after {
   top: 4px;
   left: 4px;
   bottom: 4px;
-  width: 36px;
+  width: 26px;
   background-color: #aaaaaa;
-  border-radius: 36px;
-  -webkit-transition: margin 0.2s, background 0.2s;
-          transition: margin 0.2s, background 0.2s;
+  border-radius: 26px;
 }
 input.toggle:checked + label {
   background-color: #ffa131;
 }
 input.toggle:checked + label:after {
-  margin-left: 44px;
+  margin-left: 34px;
   background-color: #ffa131;
 }
