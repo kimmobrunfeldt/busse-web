@@ -17,7 +17,7 @@ var config = {
     mapBoxKey: 'pk.eyJ1Ijoia2ltbW9icnVuZmVsZHQiLCJhIjoiX21FOWpGbyJ9.PeLVL2Rm1OZHJPYBM0lymA',
     mapBoxMapId: 'kimmobrunfeldt.l6efcofl',
     initialPosition: {latitude: 61.487881, longitude: 23.7810259},
-    initialZoom: 13,
+    initialZoom: 12,
     zoomOnLocated: 16,
     normalBusFontSize: 14,
     smallBusFontSize: 12,
