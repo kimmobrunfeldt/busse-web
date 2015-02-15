@@ -255,8 +255,8 @@ html {
   height: 100%;
 }
 .my-location {
-  left: 14px;
-  bottom: 70px;
+  right: 68px;
+  bottom: 16px;
 }
 .filter {
   left: 14px;
@@ -272,7 +272,7 @@ html {
 }
 .loader {
   position: absolute;
-  left: 74px;
+  right: 128px;
   bottom: 20px;
 }
 /* Map marker */
