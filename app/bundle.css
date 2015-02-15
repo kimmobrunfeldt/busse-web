@@ -239,8 +239,8 @@ html {
 }
 @media (min-width: 1000px) {
   .bus-menu .bus-button-container a {
-    width: 66px;
-    height: 66px;
+    width: 60px;
+    height: 60px;
   }
 }
 .no-touch .bus-button-container a:hover {

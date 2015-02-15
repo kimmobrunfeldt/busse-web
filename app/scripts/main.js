@@ -100,9 +100,6 @@ function initBusMenu(map, vehicleControl, general) {
             var p = document.createElement('p');
             p.appendChild(document.createTextNode(route.number));
             p.style.fontSize = config.normalBusFontSize + 'px';
-            if (route.id.length > 2) {
-                p.style.fontSize = config.smallBusFontSize + 'px';
-            }
 
             a.appendChild(p);
 
