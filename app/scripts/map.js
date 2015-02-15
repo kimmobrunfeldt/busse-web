@@ -116,7 +116,10 @@ Map.prototype.setMarkerIcon = function setMarkerIcon(id, iconSrc) {
     }
 
     var marker = this.markers[id];
-    marker.getIcon().children[0].setAttribute('src', iconSrc);
+    var img = marker.getIcon().children[0];
+    if (img.src !== iconSrc) {
+        img.setAttribute('src', iconSrc);
+    }
 };
 
 Map.prototype.addShape = function addShape(points) {
@@ -160,7 +163,6 @@ Map.prototype.centerToUserLocation = function centerToUserLocation() {
 Map.prototype._setOrUpdateUserLocation = function _setOrUpdateUserLocation(pos) {
     this._map.setView(pos);
     this._map.setZoom(config.zoomOnLocated);
-
 
     if (this._myLocationMarker === null) {
         this._myLocationMarker = L.marker(pos, {
@@ -237,7 +239,6 @@ Map.prototype._interactionEnd = function _interactionEnd() {
 Map.prototype._debouncedShowMarkers = _.debounce(function _debouncedShowMarkers(container) {
     utils.removeClass(container, 'hide-markers');
 }, config.markerHideDebounce);
-
 
 
 module.exports = Map;

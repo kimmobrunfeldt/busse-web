@@ -250,13 +250,14 @@ html {
 .no-touch .settings-container label:not(first-child):hover {
   opacity: 0.8;
 }
+.touch a:active {
+  -webkit-transform: scale(1.05);
+      -ms-transform: scale(1.05);
+          transform: scale(1.05);
+}
 .map {
   width: 100%;
   height: 100%;
-}
-.my-location {
-  right: 68px;
-  bottom: 16px;
 }
 .filter {
   left: 14px;
@@ -264,6 +265,10 @@ html {
 }
 .zoom-out {
   right: 14px;
+  bottom: 16px;
+}
+.my-location {
+  right: 68px;
   bottom: 16px;
 }
 .zoom-in {

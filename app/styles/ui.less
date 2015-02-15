@@ -155,14 +155,15 @@ body, html {
   }
 }
 
+.touch {
+  a:active {
+    transform: scale(1.05);
+  }
+}
+
 .map {
   width: 100%;
   height: 100%;
-}
-
-.my-location {
-  right: @button-side-margin + 54px;
-  bottom: @button-bottom-margin;
 }
 
 .filter {
@@ -172,6 +173,16 @@ body, html {
 
 .zoom-out {
   right: @button-side-margin;
+  bottom: @button-bottom-margin;
+}
+
+.info {
+  left: @button-side-margin + 54px;
+  bottom: @button-bottom-margin;
+}
+
+.my-location {
+  right: @button-side-margin + 54px;
   bottom: @button-bottom-margin;
 }
 
@@ -223,6 +234,27 @@ body, html {
     color: white;
     margin: 0 !important;
     .center();
+  }
+}
+
+.welcome {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 3000;
+  background: rgba(0, 0, 0, 0.2);
+  color: #333;
+
+  .container {
+    .center();
+    width: 400px;
+    height: 600px;
+    border: 4px solid white;
+  }
+
+  h1 {
+
+    font-weight: bold;
   }
 }
 
