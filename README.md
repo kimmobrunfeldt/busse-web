@@ -1,20 +1,18 @@
-# Lissu
+# Busse
 
-Web version of Lissu using Google Maps. Th app is located here: http://kimmobrunfeldt.github.io/lissu-web/app
+Better version of [Lissu](http://lissu.tampere.fi) web service. The service is located here: http://busse.fi
 
 # Developer documentation
+
+Browser support IE9+, the app uses only SVG graphics
+
+Tech stack:
+
+* Mapbox for maps
+* LESS
+* Browserify
+* Backend is a proxy hosted in heroku: http://github.com/kimmobrunfeldt/lissu-proxy
 
 ## Install
 
     npm install
-    npm install -g browserify
-
-## Run local server
-
-In terminal 1 run:
-
-    npm start
-
-In terminal 2 run:
-
-    npm run watch

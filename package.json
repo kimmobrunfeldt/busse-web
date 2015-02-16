@@ -1,5 +1,5 @@
 {
-  "name": "lissu-web",
+  "name": "busse-web",
   "version": "0.0.0",
   "dataVersion": "0",
   "private": true,
@@ -32,12 +32,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/kimmobrunfeldt/lissu-web.git"
+    "url": "git://github.com/kimmobrunfeldt/busse-web.git"
   },
   "author": "Kimmo Brunfeldt <kimmobrunfeldt@gmail.com> (http://kimmobrunfeldt.github.io/)",
   "license": "",
   "bugs": {
-    "url": "https://github.com/kimmobrunfeldt/lissu-web/issues"
+    "url": "https://github.com/kimmobrunfeldt/busse-web/issues"
   },
-  "homepage": "https://github.com/kimmobrunfeldt/lissu-web"
+  "homepage": "https://github.com/kimmobrunfeldt/busse-web"
 }
