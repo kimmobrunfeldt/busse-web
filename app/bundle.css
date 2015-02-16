@@ -283,8 +283,7 @@ html {
 /* Map marker */
 .map-marker {
   /* Comment out to enable transitions in bus movements */
-  -webkit-transition: -webkit-transform 0.2s ease;
-          transition: transform 0.2s ease;
+  /* transition: transform 0.2s ease; */
 }
 .map-marker img {
   position: absolute;
