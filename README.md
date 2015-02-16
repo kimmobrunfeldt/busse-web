@@ -16,3 +16,18 @@ Tech stack:
 ## Install
 
     npm install
+
+## Release
+
+Make sure you have all changes commited! Otherwise they will be included in the build
+too!
+
+Then:
+
+```
+./tools/build.sh
+cd ../busse-release
+git add . -A
+git commit -m "Release 1"
+git push
+```
