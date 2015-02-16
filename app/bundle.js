@@ -17664,7 +17664,7 @@ module.exports={
   "scripts": {
     "start": "./tools/tmux",
     "serve": "static -a 0.0.0.0 -c 0 app",
-    "build": "npm run build-js & npm run build-less",
+    "build": "npm run build-js && npm run build-less",
     "build-js": "browserify app/scripts/main.js -o app/bundle.js",
     "build-less": "lessc app/styles/main.less app/bundle.css && npm run autoprefixer",
     "watch": "npm run watch-js & npm run watch-less",
