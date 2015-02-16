@@ -62,7 +62,10 @@ function main() {
     filterMenuButton.addEventListener('click', toggleBusMenu);
 
     var saveButton = document.querySelector('#save');
-    saveButton.addEventListener('click', toggleBusMenu);
+    saveButton.addEventListener('click', function() {
+        setVehicleFilter(map, appData.filters);
+        toggleBusMenu();
+    });
 
     window.addEventListener('keydown', function(e){
         if (e.keyCode === KEY_CODE.ESC) {
@@ -116,8 +119,7 @@ function initBusMenu(map, vehicleControl, general) {
                 }
 
                 storage.save('appData', appData);
-                setVehicleFilter(map, filters);
-                setFilteredClasses(busButtonElements, filters);
+                setFilteredClasses(busButtonElements, appData.filters);
             });
 
             busButtonElements[route.number] = a;
@@ -148,7 +150,6 @@ function initBusMenu(map, vehicleControl, general) {
     onlyFavoritesInput.addEventListener('change', function() {
         appData.filters.onlyFavorites = onlyFavoritesInput.checked;
         storage.save('appData', appData);
-        setVehicleFilter(map, appData.filters);
     });
 }
 
