@@ -69,6 +69,12 @@ function main() {
 
     window.addEventListener('keydown', function(e){
         if (e.keyCode === KEY_CODE.ESC) {
+            var busMenu = document.querySelector('.bus-menu');
+            var isMenuVisible = !utils.hasClass(busMenu, 'hidden');
+            if (isMenuVisible) {
+                setVehicleFilter(map, appData.filters);
+            }
+
             toggleBusMenu();
         }
     });
