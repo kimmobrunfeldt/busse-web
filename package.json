@@ -31,7 +31,7 @@
     "watch-js": "watchify app/scripts/main.js -d -o app/bundle.js -v",
     "watch-less": "watch \"npm run build-less\" app/styles",
     "autoprefixer": "autoprefixer app/bundle.css",
-    "autoprefixer": "autoprefixer app/info/main.css",
+    "autoprefixer-info": "autoprefixer app/info/main.css",
     "watch-less-info": "watch \"npm run build-less-info\" app/info/styles/"
   },
   "repository": {
