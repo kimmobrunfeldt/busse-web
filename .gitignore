@@ -1,3 +1,7 @@
+bundle.js
+bundle.css
+app/info/main.css
+
 # Logs
 logs
 *.log
