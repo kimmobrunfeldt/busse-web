@@ -19,20 +19,39 @@
     <section class="landing">
         <div class="center-wrapper">
             <header>
-                <img src="../images/busse-logo-slogan.svg" alt="Busse">
+                <a class="image-link" href="/">
+                    <img src="../images/busse-logo-slogan.svg" alt="Busse">
+                </a>
             </header>
 
-
-            <p>Bussella voit seurata Tampereen busseja reaaliajassa kartalla.
-            Bussien sijainnit tulevat TKL:n avoimen datan rajapinnasta.
+            <p>Bussella voit seurata Tampereen busseja kartalla reaaliajassa.
+             kävellä pysäkille täydelliseen aikaan.
+            Ajoneuvojen sijainnit tulevat TKL:n avoimen datan rajapinnasta.
             </p>
 
-            <p>Palvelun on luonut <a href="https://twitter.com/kimmobrunfeldt">@kimmobrunfeldt</a>.</p>
+            <p>Palvelun on tehnyt <a class="link" href="https://twitter.com/kimmobrunfeldt">@kimmobrunfeldt</a>. Palautetta voi antaa Twitterissä tai
+            <a class="link" href="mailto:kimmobrunfeldt+busse@gmail.com?subject=Busse: ">sähköpostitse</a>.
+            </p>
 
-            <a href="http://busse.fi">Siirry palveluun</a>
+
+            <a class="button" data-text="Siirry Busseen" href="/">
+                <span>Siirry Busseen</span>
+            </a>
         </div>
+
+        <footer>
+            <div class="scene-item scene-bg"></div>
+
+            <div class="scene-item bus-container">
+                <img class="scene-item bus" src="images/bus.svg">
+            </div>
+
+            <div class="scene-item street-lights">
+            </div>
+        </footer>
     </section>
 
+    <script src="snabbt.min.js"></script>
     <script src="main.js"></script>
 
     <script>
