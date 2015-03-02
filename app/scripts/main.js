@@ -1,5 +1,8 @@
 var _ = require('lodash');
 var attachFastClick = require('fastclick');
+var humane = require('humane-js');
+humane.clickToClose = true;
+humane.timeout = 0;
 
 var config = require('./config');
 var utils = require('./utils');
@@ -36,6 +39,27 @@ var fetchGeneral = utils.get('data/general.json').then(function(req) {
     return general;
 });
 
+// Display messages to user
+// When adding new message, remember to set expires to far enough and increase
+// id
+utils.get('data/messages.json').then(function(req) {
+    var readMessageIds = appData.readMessageIds || [];
+    var data = JSON.parse(req.responseText);
+
+    var message = _.last(data.messages);
+    var isMessageRead = _.contains(readMessageIds, message.id);
+    var isMessageExpired = message.expires < utils.unixTime();
+
+    if (!isMessageRead && !isMessageExpired) {
+        console.log('Unread message found', message);
+
+        readMessageIds.push(message.id);
+        appData.readMessageIds = readMessageIds;
+        storage.save('appData', appData);
+
+        humane.log(message.html);
+    }
+});
 
 function main() {
     attachFastClick(document.body);

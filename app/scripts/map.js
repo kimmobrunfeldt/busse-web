@@ -6,11 +6,34 @@ var utils = require('./utils');
 
 
 function Map(containerId) {
-    L.mapbox.accessToken = config.mapBoxKey;
-    this._map = L.mapbox.map(containerId, config.mapBoxMapId, {
+    // Options shared across providers
+    var sharedMapOptions = {
         zoomControl: false,
         attributionControl: false
-    });
+    };
+
+    var attribution;
+    if (config.mapProvider === 'mapbox') {
+        L.mapbox.accessToken = config.mapBoxKey;
+
+        this._map = L.mapbox.map(containerId, config.mapBoxMapId, sharedMapOptions);
+
+        attribution = '<a href="https://www.mapbox.com/about/maps/"';
+        attribution += 'target="_blank">&copy; Mapbox &copy; OpenStreetMap</a>';
+    } else if (config.mapProvider === 'here') {
+        var tileLayer = L.tileLayer.provider('HERE.normalDayGrey', {
+            app_id: config.hereMapsAppId,
+            app_code: config.hereMapsAppCode
+        });
+
+        this._map = L.map(containerId, sharedMapOptions);
+        this._map.addLayer(tileLayer);
+    } else {
+        throw new Error('Unknown map provider: ' + config.mapProvider);
+    }
+
+    var credits = L.control.attribution({position: 'topright'}).addTo(this._map);
+    credits.addAttribution(attribution);
 
     this._map.setView([
         config.initialPosition.latitude,
@@ -28,11 +51,6 @@ function Map(containerId) {
     zoomOutButton.addEventListener('click', function zoomOutClicked() {
         self._map.zoomOut();
     });
-
-    var credits = L.control.attribution({position: 'topright'}).addTo(this._map);
-    var attribution = '<a href="https://www.mapbox.com/about/maps/"';
-    attribution += 'target="_blank">&copy; Mapbox &copy; OpenStreetMap</a>';
-    credits.addAttribution(attribution);
 
     // Because map with hundreds of markers is slow, we temporarily hide
     // all the markers when user interacts with the map to increase performance

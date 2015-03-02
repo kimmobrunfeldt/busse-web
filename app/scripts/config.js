@@ -1,8 +1,14 @@
 var config = {
-    updateInterval: 2 * 1000,
+    updateInterval: 3 * 1000,
     apiUrl: 'http://lissu-api.herokuapp.com',
     mapBoxKey: 'pk.eyJ1Ijoia2ltbW9icnVuZmVsZHQiLCJhIjoiX21FOWpGbyJ9.PeLVL2Rm1OZHJPYBM0lymA',
     mapBoxMapId: 'kimmobrunfeldt.l6efcofl',
+    hereMapsAppId: 'lon2CLqSu9qYoH6SnBkQ',
+    hereMapsAppCode: 'sAiLnBBj5Q4S7PLHSrY9vw',
+
+    // Supported values: mapbox, here
+    mapProvider: 'here',
+
     initialPosition: {latitude: 61.487881, longitude: 23.7810259},
     initialZoom: 12,
     zoomOnLocated: 16,

@@ -79,6 +79,10 @@ function numeralsFirst(text) {
     }).join('');
 }
 
+function unixTime() {
+    return Math.round(+new Date() / 1000);
+}
+
 module.exports = {
     get: get,
     removeClass: removeClass,
@@ -86,5 +90,6 @@ module.exports = {
     setStyle: setStyle,
     hasClass: hasClass,
     capitalize: capitalize,
-    numeralsFirst: numeralsFirst
+    numeralsFirst: numeralsFirst,
+    unixTime: unixTime
 };
