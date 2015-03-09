@@ -1,4 +1,6 @@
 var _ = require('lodash');
+var Promise = require('bluebird');
+var humane = require('humane-js');
 var utils = require('./utils');
 var Timer = require('./timer');
 var config = require('./config');
@@ -8,10 +10,15 @@ var filterFunc = function() {
     return true;
 };
 var lastVehicles = [];
+var errorShown = false;
 
 
 function start(map) {
     var timer = new Timer(function() {
+        if (map.isUserInteracting()) {
+            return Promise.resolve(true);
+        }
+
         return getAndUpdateVehicles(map);
     }, {
         interval: config.updateInterval
@@ -19,10 +26,20 @@ function start(map) {
     timer.start();
 }
 
-
 function getAndUpdateVehicles(map) {
     return utils.get(config.apiUrl).then(function(req) {
-        var vehicles = JSON.parse(req.responseText).vehicles;
+        var response = JSON.parse(req.responseText);
+
+        if (response.error) {
+            if (!errorShown) {
+                humane.log('Virhe ladatessa bussien sijainteja.');
+                errorShown = true;
+            }
+
+            return;
+        }
+
+        var vehicles = response.vehicles;
         lastVehicles = vehicles;
         updateVehicles(map, vehicles);
     });
@@ -48,7 +65,7 @@ function updateVehicles(map, vehicles) {
 
 function addVehicle(map, vehicle) {
     var isMoving = vehicle.rotation !== 0;
-    var iconSrc = isMoving ? 'images/bus-moving.svg' : 'images/bus.svg';
+    var iconSrc = isMoving ? 'images/bus-moving.png' : 'images/bus.png';
     var fontSize = vehicle.line.length > 2
         ? config.smallBusFontSize
         : config.normalBusFontSize;
@@ -90,7 +107,7 @@ function updateVehicle(map, vehicle) {
     map.moveMarker(vehicle.id, newPos);
 
     var isMoving = vehicle.rotation !== 0;
-    var iconSrc = isMoving ? 'images/bus-moving.svg' : 'images/bus.svg';
+    var iconSrc = isMoving ? 'images/bus-moving.png' : 'images/bus.png';
     map.setMarkerIcon(vehicle.id, iconSrc);
 
     map.rotateMarker(vehicle.id, vehicle.rotation);

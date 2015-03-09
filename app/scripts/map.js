@@ -104,7 +104,7 @@ Map.prototype.showMarker = function showMarker(id) {
 };
 
 Map.prototype.moveMarker = function moveMarker(id, position) {
-    if (this._isUserInteracting()) {
+    if (this.isUserInteracting()) {
         return;
     }
 
@@ -115,7 +115,7 @@ Map.prototype.moveMarker = function moveMarker(id, position) {
 };
 
 Map.prototype.rotateMarker = function rotateMarker(id, rotation) {
-    if (this._isUserInteracting()) {
+    if (this.isUserInteracting()) {
         return;
     }
 
@@ -129,7 +129,7 @@ Map.prototype.rotateMarker = function rotateMarker(id, rotation) {
 };
 
 Map.prototype.setMarkerIcon = function setMarkerIcon(id, iconSrc) {
-    if (this._isUserInteracting()) {
+    if (this.isUserInteracting()) {
         return;
     }
 
@@ -176,6 +176,10 @@ Map.prototype.centerToUserLocation = function centerToUserLocation() {
         console.log(err.message);
         console.log(err);
     });
+};
+
+Map.prototype.isUserInteracting = function isUserInteracting() {
+    return this._interactions > 0;
 };
 
 Map.prototype._setOrUpdateUserLocation = function _setOrUpdateUserLocation(pos) {
@@ -228,10 +232,6 @@ Map.prototype._createMarkerIcon = function _createMarkerIcon(opts) {
             '</div>'
         ].join('\n')
     });
-};
-
-Map.prototype._isUserInteracting = function _isUserInteracting() {
-    return this._interactions > 0;
 };
 
 Map.prototype._interactionStart = function _interactionStart() {
