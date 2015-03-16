@@ -1,6 +1,6 @@
 var config = {
     updateInterval: 3 * 1000,
-    apiUrl: 'http://lissu-api-backup.herokuapp.com',
+    apiUrl: 'http://lissu-api.herokuapp.com',
     mapBoxKey: 'pk.eyJ1Ijoia2ltbW9icnVuZmVsZHQiLCJhIjoiX21FOWpGbyJ9.PeLVL2Rm1OZHJPYBM0lymA',
     mapBoxMapId: 'kimmobrunfeldt.l6efcofl',
     hereMapsAppId: 'lon2CLqSu9qYoH6SnBkQ',
