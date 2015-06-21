@@ -83,6 +83,11 @@ function unixTime() {
     return Math.round(+new Date() / 1000);
 }
 
+function getQueryParameterByName(name) {
+    var match = RegExp('[?&]' + name + '=([^&]*)').exec(window.location.search);
+    return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+}
+
 module.exports = {
     get: get,
     removeClass: removeClass,
@@ -91,5 +96,6 @@ module.exports = {
     hasClass: hasClass,
     capitalize: capitalize,
     numeralsFirst: numeralsFirst,
-    unixTime: unixTime
+    unixTime: unixTime,
+    getQueryParameterByName: getQueryParameterByName
 };

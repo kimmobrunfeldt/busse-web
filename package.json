@@ -14,6 +14,7 @@
   "devDependencies": {
     "autoprefixer": "^5.1.0",
     "browserify": "^6.3.2",
+    "chokidar-cli": "^0.2.1",
     "concurrently": "0.0.5",
     "csv": "^0.4.1",
     "mustache": "^1.0.0",
@@ -30,10 +31,10 @@
     "watch": "npm run watch-js & npm run watch-less",
     "watch-info": "npm run serve & npm run watch-less-info",
     "watch-js": "watchify app/scripts/main.js -d -o app/bundle.js -v",
-    "watch-less": "watch \"npm run build-less\" app/styles",
+    "watch-less": "chokidar 'app/styles/**/**.less' -c 'npm run build-less'",
     "autoprefixer": "autoprefixer app/bundle.css",
     "autoprefixer-info": "autoprefixer app/info/main.css",
-    "watch-less-info": "watch \"npm run build-less-info\" app/info/styles/"
+    "watch-less-info": "chokidar 'app/info/styles/**/**.less' -c 'npm run build-less-info'"
   },
   "repository": {
     "type": "git",

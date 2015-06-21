@@ -159,6 +159,7 @@ Map.prototype.clearShapes = function clearShapes() {
 };
 
 
+
 Map.prototype.centerToUserLocation = function centerToUserLocation() {
     var self = this;
 

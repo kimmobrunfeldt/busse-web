@@ -1,6 +1,28 @@
-var config = {
+var _ = require('lodash');
+var utils = require('./utils');
+
+// These location specific configurations override the defaults
+var locationConfigs = {
+    helsinki: {
+        apiUrl: 'http://busse-api-helsinki.herokuapp.com',
+        initialPosition: {latitude: 60.200763, longitude: 24.936219},
+        initialZoom: 12
+    },
+
+    // The default, main domain
+    tampere: {
+        apiUrl: 'http://lissu-api-backup.herokuapp.com',
+        initialPosition: {latitude: 61.487881, longitude: 23.7810259},
+        initialZoom: 12
+    }
+};
+
+//var subDomain = window.location.host.split('.')[0];
+var location = utils.getQueryParameterByName('location') || 'tampere';
+var locationConfig = locationConfigs[location];
+
+var config = _.merge({
     updateInterval: 3 * 1000,
-    apiUrl: 'http://lissu-api-backup.herokuapp.com',
     mapBoxKey: 'pk.eyJ1Ijoia2ltbW9icnVuZmVsZHQiLCJhIjoiX21FOWpGbyJ9.PeLVL2Rm1OZHJPYBM0lymA',
     mapBoxMapId: 'kimmobrunfeldt.l6efcofl',
     hereMapsAppId: 'lon2CLqSu9qYoH6SnBkQ',
@@ -9,7 +31,6 @@ var config = {
     // Supported values: mapbox, here
     mapProvider: 'mapbox',
 
-    initialPosition: {latitude: 61.487881, longitude: 23.7810259},
     initialZoom: 12,
     zoomOnLocated: 16,
     normalBusFontSize: 14,
@@ -21,11 +42,7 @@ var config = {
     busIconSize: 32,
 
     // Compensate the angle because the icon is rotated in the image
-    addRotation: -45,
-
-    defaultUserOptions: {
-    }
-};
+    addRotation: -45
+}, locationConfig);
 
 module.exports = config;
-

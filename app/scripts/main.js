@@ -112,6 +112,7 @@ function main() {
     return map;
 }
 
+// TODO: location based favorites
 function initBusMenu(map, vehicleControl, general) {
     var busButtonElements = {};
 
