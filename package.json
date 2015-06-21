@@ -17,6 +17,7 @@
     "chokidar-cli": "^0.2.1",
     "concurrently": "0.0.5",
     "csv": "^0.4.1",
+    "less": "^2.5.1",
     "mustache": "^1.0.0",
     "node-static": "^0.7.6",
     "watchify": "^2.1.1"
