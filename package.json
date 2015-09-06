@@ -26,8 +26,9 @@
     "watchify": "^3.4.0"
   },
   "scripts": {
-    "start": "concurrent -p command 'npm run serve' 'npm run watch-js' 'npm run watch-less'",
+    "start": "./tools/tmux",
     "serve": "http-server -a 0.0.0.0 -p 8080 -c-1 ./src",
+    "watch": "concurrent -p command 'npm run serve' 'npm run watch-js' 'npm run watch-less'",
     "watch-js": "watchify ./src/scripts/main.js -t babelify -d -o ./src/bundle.js -v",
     "watch-less": "npm run build-less && chokidar '**/*.less' './src/styles/**/*.css' -c 'npm run build-less'",
     "build": "npm run build-js && npm run build-styles",
