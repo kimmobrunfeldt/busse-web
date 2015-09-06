@@ -1,5 +1,8 @@
 # Custom ignores
 
+bundle.js
+bundle.css
+
 .tmp
 .DS_Store
 
