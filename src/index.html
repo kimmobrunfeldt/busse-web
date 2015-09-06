@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Busse - Public transit real time on a map</title>
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="description" content="Public transit real time on a map. Currently supported areas are Tampere and Helsinki." />
+
+    <!-- Apple web app -->
+    <!--
+    Commented out because web apps in iOS have random freezing bugs etc..
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    -->
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+
+    <!-- Android web app -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <link rel="icon" sizes="120x120" href="images/apple-touch-icon.png">
+    <link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+
+    <!-- Social media -->
+    <meta property="og:image" content="http:/kimmobrunfeldt.github.io/busse-release/images/busse-social-share.png"/>
+    <meta property="og:image:secure_url" content="https://kimmobrunfeldt.github.io/busse-release/images/busse-social-share.png" />
+    <meta property="fb:admins" content="100002718050853" />
+
+    <link rel="shortcut icon" type="image/png" href="images/favicon.png"/>
+    <link rel="stylesheet" href="bundle.css">
+
+    <script src="scripts/libs/Modernizr.js"></script>
+  </head>
+
+  <body class="no-select">
+
+    <div id="container"></div>
+
+    <!-- Mapbox -->
+    <script src="scripts/libs/mapbox.js"></script>
+    <script src="scripts/libs/leaflet-providers.js"></script>
+    <script src="scripts/libs/leaflet-plugins.js"></script>
+
+    <script src="bundle.js"></script>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-59920422-1', 'auto');
+      ga('send', 'pageview');
+
+    </script>
+ </body>
+</html>
