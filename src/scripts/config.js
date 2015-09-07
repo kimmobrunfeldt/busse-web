@@ -6,8 +6,7 @@ const config = {
     // Supported values: mapbox, here
     mapProvider: 'mapbox',
     updateInterval: 3 * 1000,
-    initialZoom: 12,
-    zoomOnLocated: 16,
+
     hideMarkersAfterAmount: 20,
     markerHideDebounce: 500,
     normalBusFontSize: 14,

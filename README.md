@@ -2,7 +2,8 @@
 
 ## Tech stack
 
-* Cyclejs
+* Redux
+* React
 * Less
 * ES6
 

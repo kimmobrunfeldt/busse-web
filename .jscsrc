@@ -1,4 +1,5 @@
 {
+    "esnext": true,
     "disallowImplicitTypeConversion": ["string"],
     "disallowMixedSpacesAndTabs": true,
     "disallowMultipleLineBreaks": true,
@@ -68,9 +69,6 @@
 
     "validateLineBreaks": "LF",
     "validateIndentation": 4,
-    "validateQuoteMarks": {
-        "mark": "'", "escape": true
-    },
 
     "excludeFiles": ["node_modules/**", "src/scripts/libs/**", "src/bundle.js"]
 }
