@@ -1,8 +1,11 @@
 import React from 'react';
+import Map from '../components/Map';
 
 class IndexPage extends React.Component {
     render() {
-        return <div></div>;
+        return <div>
+            <Map />
+        </div>;
     }
 }
 

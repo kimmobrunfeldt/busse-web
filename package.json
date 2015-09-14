@@ -7,6 +7,7 @@
   "license": "-",
   "dependencies": {
     "bluebird": "^2.9.34",
+    "immutable": "^3.7.5",
     "lodash": "^3.10.1",
     "react": "^0.13.3",
     "react-redux": "^2.1.0",
@@ -26,6 +27,7 @@
     "http-server": "^0.8.0",
     "jscs": "^2.1.1",
     "less": "^2.5.1",
+    "less-plugin-glob": "^1.1.0",
     "redux-devtools": "^2.1.0",
     "uglify-js": "^2.4.24",
     "watchify": "^3.4.0"
@@ -40,7 +42,7 @@
     "build-js": "NODE_ENV=production browserify ./src/scripts/main.js -t babelify -o ./src/bundle.js && npm run minify-js",
     "build-styles": "npm run build-styles-dev && npm run minify-css",
     "build-styles-dev": "npm run build-less && npm run postcss",
-    "build-less": "lessc ./src/styles/main.less ./src/bundle.css",
+    "build-less": "lessc --glob ./src/styles/main.less ./src/bundle.css",
     "postcss": "postcss --use autoprefixer ./src/bundle.css -o ./src/bundle.css",
     "minify-js": "uglifyjs ./src/bundle.js -o ./src/bundle.js",
     "minify-css": "cleancss --skip-aggressive-merging --skip-restructuring ./src/bundle.css -o ./src/bundle.css",

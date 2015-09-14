@@ -1,0 +1,34 @@
+/* Overriding leaflet map CSS */
+
+/* Make zooming much faster on mobile */
+.touch {
+  .leaflet-zoom-anim .leaflet-zoom-animated {
+    -webkit-transition: -webkit-transform 0.03s cubic-bezier(0, 0, .25, 1);
+    -moz-transition: -moz-transform 0.03s cubic-bezier(0, 0, .25, 1);
+    -o-transition: -o-transform 0.03s cubic-bezier(0, 0, .25, 1);
+    transition: transform 0.03s cubic-bezier(0, 0, .25, 1)
+  }
+}
+
+.no-touch {
+  .leaflet-zoom-anim .leaflet-zoom-animated {
+    -webkit-transition: -webkit-transform 0.2s cubic-bezier(0, 0, .25, 1);
+    -moz-transition: -moz-transform 0.2s cubic-bezier(0, 0, .25, 1);
+    -o-transition: -o-transform 0.2s cubic-bezier(0, 0, .25, 1);
+    transition: transform 0.2s cubic-bezier(0, 0, .25, 1)
+  }
+}
+
+.hide-markers {
+  .leaflet-marker-pane {
+    .hidden();
+  }
+}
+
+/*
+Hide map box logo, we still attribute mapbox and open street maps in the right
+bottom corner
+*/
+.mapbox-logo {
+  .hidden();
+}

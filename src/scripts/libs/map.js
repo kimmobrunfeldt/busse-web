@@ -1,9 +1,9 @@
 import Promise from 'bluebird';
 import _ from 'lodash';
-import config from './config';
-import utils from './utils';
 
-function Map(containerId) {
+var MARKER_HIDE_DEBOUNCE = 500;
+
+function LeafletMap(container, opts) {
     // Options shared across providers
     var sharedMapOptions = {
         zoomControl: false,
@@ -11,37 +11,38 @@ function Map(containerId) {
     };
 
     var attribution;
-    if (config.mapProvider === 'mapbox') {
-        L.mapbox.accessToken = config.mapBoxKey;
+    if (opts.mapProvider === 'mapbox') {
+        L.mapbox.accessToken = opts.mapBoxKey;
 
-        this._map = L.mapbox.map(containerId, config.mapBoxMapId, sharedMapOptions);
+        this._map = L.mapbox.map(container, opts.mapBoxMapId, sharedMapOptions);
 
         attribution = '<a href="https://www.mapbox.com/about/maps/"';
         attribution += 'target="_blank">&copy; Mapbox &copy; OpenStreetMap</a>';
-    } else if (config.mapProvider === 'here') {
+    } else if (opts.mapProvider === 'here') {
         var tileLayer = L.tileLayer.provider('HERE.normalDayGrey', {
-            app_id: config.hereMapsAppId,
-            app_code: config.hereMapsAppCode
+            app_id: opts.hereMapsAppId,
+            app_code: opts.hereMapsAppCode
         });
 
-        this._map = L.map(containerId, sharedMapOptions);
+        this._map = L.map(container, sharedMapOptions);
         this._map.addLayer(tileLayer);
     } else {
-        throw new Error('Unknown map provider: ' + config.mapProvider);
+        throw new Error('Unknown map provider: ' + opts.mapProvider);
     }
 
     var credits = L.control.attribution({position: 'topright'}).addTo(this._map);
     credits.addAttribution(attribution);
 
     this._map.setView([
-        config.initialPosition.latitude,
-        config.initialPosition.longitude],
-        config.initialZoom
+        opts.initialPosition.latitude,
+        opts.initialPosition.longitude],
+        opts.initialZoom
     );
 
     // Because map with hundreds of markers is slow, we temporarily hide
     // all the markers when user interacts with the map to increase performance
-    this._container = document.querySelector('#' + containerId);
+    this._opts = opts;
+    this._container = container;
     this._interactions = 0;
     this._interactionStart = _.bind(this._interactionStart, this);
     this._interactionEnd = _.bind(this._interactionEnd, this);
@@ -53,7 +54,7 @@ function Map(containerId) {
     this._myLocationMarker = null;
 }
 
-Map.prototype.addMarker = function addMarker(id, opts) {
+LeafletMap.prototype.addMarker = function addMarker(id, opts) {
     // Init marker
     var pos = new L.LatLng(opts.position.latitude, opts.position.longitude);
     opts.pos = pos;
@@ -68,7 +69,7 @@ Map.prototype.addMarker = function addMarker(id, opts) {
     return marker;
 };
 
-Map.prototype.removeMarker = function removeMarker(id) {
+LeafletMap.prototype.removeMarker = function removeMarker(id) {
     var marker = this.markers[id];
 
     // Remove marker
@@ -76,21 +77,21 @@ Map.prototype.removeMarker = function removeMarker(id) {
     delete this.markers[id];
 };
 
-Map.prototype.hideMarker = function hideMarker(id) {
+LeafletMap.prototype.hideMarker = function hideMarker(id) {
     var marker = this.markers[id];
 
     marker.getIcon().style.visibility = 'hidden';
     marker.getIcon().style.display = 'none';
 };
 
-Map.prototype.showMarker = function showMarker(id) {
+LeafletMap.prototype.showMarker = function showMarker(id) {
     var marker = this.markers[id];
 
     marker.getIcon().style.visibility = 'visible';
     marker.getIcon().style.display = 'block';
 };
 
-Map.prototype.moveMarker = function moveMarker(id, position) {
+LeafletMap.prototype.moveMarker = function moveMarker(id, position) {
     if (this.isUserInteracting()) {
         return;
     }
@@ -101,7 +102,7 @@ Map.prototype.moveMarker = function moveMarker(id, position) {
     marker.setLatLng(pos);
 };
 
-Map.prototype.rotateMarker = function rotateMarker(id, rotation) {
+LeafletMap.prototype.rotateMarker = function rotateMarker(id, rotation) {
     if (this.isUserInteracting()) {
         return;
     }
@@ -109,13 +110,13 @@ Map.prototype.rotateMarker = function rotateMarker(id, rotation) {
     var marker = this.markers[id];
 
     // Rotate marker
-    var totalRotation = rotation + config.addRotation;
+    var totalRotation = rotation + this._opts.addRotation;
     var transform = ' rotate(' + totalRotation + 'deg)';
     var img = marker.getIcon().children[0];
     img.style[L.DomUtil.TRANSFORM] = transform;
 };
 
-Map.prototype.setMarkerIcon = function setMarkerIcon(id, iconSrc) {
+LeafletMap.prototype.setMarkerIcon = function setMarkerIcon(id, iconSrc) {
     if (this.isUserInteracting()) {
         return;
     }
@@ -127,7 +128,7 @@ Map.prototype.setMarkerIcon = function setMarkerIcon(id, iconSrc) {
     }
 };
 
-Map.prototype.centerToUserLocation = function centerToUserLocation() {
+LeafletMap.prototype.centerToUserLocation = function centerToUserLocation() {
     var self = this;
 
     return this._getUserLocation()
@@ -146,13 +147,13 @@ Map.prototype.centerToUserLocation = function centerToUserLocation() {
     });
 };
 
-Map.prototype.isUserInteracting = function isUserInteracting() {
+LeafletMap.prototype.isUserInteracting = function isUserInteracting() {
     return this._interactions > 0;
 };
 
-Map.prototype._setOrUpdateUserLocation = function _setOrUpdateUserLocation(pos) {
+LeafletMap.prototype._setOrUpdateUserLocation = function _setOrUpdateUserLocation(pos) {
     this._map.setView(pos);
-    this._map.setZoom(config.zoomOnLocated);
+    this._map.setZoom(this._opts.zoomOnLocated);
 
     if (this._myLocationMarker === null) {
         this._myLocationMarker = L.marker(pos, {
@@ -170,10 +171,10 @@ Map.prototype._setOrUpdateUserLocation = function _setOrUpdateUserLocation(pos) 
     }
 };
 
-Map.prototype._getUserLocation = function _getUserLocation() {
+LeafletMap.prototype._getUserLocation = function _getUserLocation() {
     var locationOpts = {
         enableHighAccuracy: true,
-        timeout: 5000,
+        timeout: 30000,
         maximumAge: 0
     };
 
@@ -187,14 +188,14 @@ Map.prototype._getUserLocation = function _getUserLocation() {
     });
 };
 
-Map.prototype._createMarkerIcon = function _createMarkerIcon(opts) {
+LeafletMap.prototype._createMarkerIcon = function _createMarkerIcon(opts) {
     return L.divIcon({
-        iconSize: [config.busIconSize, config.busIconSize],
-        iconAnchor: [config.busIconSize / 2, config.busIconSize / 2],
+        iconSize: [this._opts.markerIconSize, this._opts.markerIconSize],
+        iconAnchor: [this._opts.markerIconSize / 2, this._opts.markerIconSize / 2],
         className: 'map-marker',
         html: [
-            '<img width="' + config.busIconSize + 'px" height="'
-                + config.busIconSize + 'px" src="' + opts.iconSrc + '" />',
+            '<img width="' + this._opts.markerIconSize + 'px" height="'
+                + this._opts.markerIconSize + 'px" src="' + opts.iconSrc + '" />',
             '<div class="text-container">',
               '<p style="font-size:' + opts.fontSize + 'px">' + opts.text + '</p>',
             '</div>'
@@ -202,19 +203,19 @@ Map.prototype._createMarkerIcon = function _createMarkerIcon(opts) {
     });
 };
 
-Map.prototype._interactionStart = function _interactionStart() {
+LeafletMap.prototype._interactionStart = function _interactionStart() {
     this._interactions += 1;
     this._debouncedShowMarkers.cancel();
 
     if (this._interactions === 1) {
         var markerCount = _.keys(this.markers).length;
-        if (markerCount > config.hideMarkersAfterAmount) {
-            utils.addClass(this._container, 'hide-markers');
+        if (markerCount > this._opts.hideMarkersAfterAmount) {
+            addClass(this._container, 'hide-markers');
         }
     }
 };
 
-Map.prototype._interactionEnd = function _interactionEnd() {
+LeafletMap.prototype._interactionEnd = function _interactionEnd() {
     this._interactions -= 1;
 
     if (this._interactions === 0) {
@@ -222,8 +223,38 @@ Map.prototype._interactionEnd = function _interactionEnd() {
     }
 };
 
-Map.prototype._debouncedShowMarkers = _.debounce(function _debouncedShowMarkers(container) {
-    utils.removeClass(container, 'hide-markers');
-}, config.markerHideDebounce);
- 
-module.exports = Map;
+LeafletMap.prototype._debouncedShowMarkers = _.debounce(function _debouncedShowMarkers(container) {
+    removeClass(container, 'hide-markers');
+}, MARKER_HIDE_DEBOUNCE);
+
+function removeClass(element, className) {
+    var classes = element.className.split(' ');
+
+    var newClasses = [];
+    for (var i = 0; i < classes.length; ++i) {
+        if (classes[i] !== className) {
+            newClasses.push(classes[i]);
+        }
+    }
+
+    element.className = newClasses.join(' ');
+}
+
+function addClass(element, className) {
+    if (!hasClass(element, className)) {
+        element.className += ' ' + className;
+    }
+}
+
+function hasClass(element, className) {
+    var classes = element.className.split(' ');
+    for (var i = 0; i < classes.length; ++i) {
+        if (classes[i].trim() === className) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+module.exports = LeafletMap;
