@@ -57,9 +57,12 @@ function LeafletMap(container, opts) {
 LeafletMap.prototype.addMarker = function addMarker(id, opts) {
     // Init marker
     var pos = new L.LatLng(opts.position.latitude, opts.position.longitude);
-    opts.pos = pos;
+    var iconOpts = _.merge({
+        pos: pos
+    }, opts);
+
     var marker = L.marker(pos, {
-        icon: this._createMarkerIcon(opts),
+        icon: this._createMarkerIcon(iconOpts),
         keyboard: false
     });
 
@@ -133,9 +136,6 @@ LeafletMap.prototype.centerToUserLocation = function centerToUserLocation() {
 
     return this._getUserLocation()
     .then(function(gps) {
-        console.log('Got user location');
-        console.log('Accuracy:', gps.accuracy, 'meters');
-
         var pos = new L.LatLng(gps.coords.latitude, gps.coords.longitude);
         self._setOrUpdateUserLocation(pos);
     })
@@ -158,7 +158,7 @@ LeafletMap.prototype._setOrUpdateUserLocation = function _setOrUpdateUserLocatio
     if (this._myLocationMarker === null) {
         this._myLocationMarker = L.marker(pos, {
             icon: L.icon({
-                iconUrl: 'images/location.svg',
+                iconUrl: '/images/location.svg',
                 iconSize: [16, 16],
                 iconAnchor: [8, 8]
             }),

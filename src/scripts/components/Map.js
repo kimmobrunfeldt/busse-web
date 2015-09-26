@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import React from 'react';
+import mutations from 'arr-mutations';
 import LeafletMap from '../libs/map';
 import CONST from '../constants';
 
@@ -21,12 +22,7 @@ const Map = React.createClass({
             zoomOnLocated: 16,
 
             hiderMarkersAfterAmount: 20,
-            normalMarkerFontSize: 14,
-            smallMarkerFontSize: 12,
-            markerIconSize: 32,
-
-            // Compensate the angle because the icon is rotated in the image
-            addRotation: -45
+            markerIconSize: 32
         };
     },
 
@@ -37,27 +33,78 @@ const Map = React.createClass({
     },
 
     render() {
-        return <div className="map" ref="mapContainer"></div>;
+        return <div className="Map" ref="mapContainer"></div>;
     },
 
     componentWillReceiveProps(nextProps) {
-        _.each(this.props.markers, function(marker) {
-            this.state.map.addMarker(marker.id, {
-                latitude: marker.latitude,
-                longitude: marker.longitude
-            });
-        })
+        const markerMutations = mutations(this.props.markers, nextProps.markers, {
+            equals: (a, b) => a.id === b.id
+        });
+        console.log('this.props.markers', this.props.markers)
+        console.log('nextProps.markers', nextProps.markers)
+        console.log('markerMutations', markerMutations)
+
+        const adds = _.filter(markerMutations, m => m.type === 'add');
+        this._addMarkers(_.map(adds, mutation => mutation.item));
+
+        const removes = _.filter(markerMutations, m => m.type === 'remove');
+        this._removeMarkers(_.map(removes, mutation => mutation.item));
+
+        const changes = _.filter(markerMutations, m => m.type === 'change');
+        const markerChanges = _.map(changes, mutation => {
+            return {
+                oldMarker: mutation.old,
+                newMarker: mutation.item
+            };
+        });
+        this._changeMarkers(markerChanges);
+    },
+
+    shouldComponentUpdate() {
+        const map = this.state.map;
+        if (map && map.isUserInteracting()) {
+            return false;
+        }
+
+        return true;
     },
 
     componentDidMount() {
-        var container = React.findDOMNode(this.refs.mapContainer);
+        const container = React.findDOMNode(this.refs.mapContainer);
         this.state.map = new LeafletMap(container, this.props);
+        this._addMarkers(this.props.markers);
     },
 
     componentWillUnmount() {
         if (this.state.map) {
             this.state.map.remove();
         }
+    },
+
+    _addMarkers(markers) {
+        _.each(markers, marker => {
+            console.log('addMarker', marker)
+            this.state.map.addMarker(marker.id, marker);
+            this.state.map.rotateMarker(marker.id, marker.rotation);
+        })
+    },
+
+    _removeMarkers(markers) {
+        _.each(markers, marker => {
+            this.state.map.removeMarker(marker.id)
+        });
+    },
+
+    _changeMarkers(markerChanges) {
+        _.each(markerChanges, markerChange => {
+            const {oldMarker, newMarker} = markerChange;
+            this.state.map.moveMarker(oldMarker.id, newMarker.position);
+            this.state.map.rotateMarker(oldMarker.id, newMarker.rotation);
+
+            if (oldMarker.iconSrc !== newMarker.iconSrc) {
+                this.state.map.setMarkerIcon(oldMarker.id, newMarker.iconSrc);
+            }
+        });
     }
 });
 

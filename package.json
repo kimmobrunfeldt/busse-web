@@ -6,13 +6,21 @@
   "author": "",
   "license": "-",
   "dependencies": {
-    "bluebird": "^2.9.34",
+    "arr-mutations": "^0.1.2",
+    "bluebird": "^2.10.1",
+    "compression": "^1.5.2",
+    "express": "^4.13.3",
+    "history": "^1.11.0",
     "immutable": "^3.7.5",
     "lodash": "^3.10.1",
+    "morgan": "^1.6.1",
     "react": "^0.13.3",
-    "react-redux": "^2.1.0",
-    "react-router": "^0.13.3",
-    "redux": "^2.0.0"
+    "react-redux": "^3.0.0",
+    "react-router": "^1.0.0-rc1",
+    "redux": "^3.0.2",
+    "redux-logger": "^2.0.0",
+    "redux-thunk": "^1.0.0",
+    "superagent": "^1.4.0"
   },
   "devDependencies": {
     "babel": "^5.8.23",
@@ -28,13 +36,12 @@
     "jscs": "^2.1.1",
     "less": "^2.5.1",
     "less-plugin-glob": "^1.1.0",
-    "redux-devtools": "^2.1.0",
     "uglify-js": "^2.4.24",
     "watchify": "^3.4.0"
   },
   "scripts": {
     "start": "./tools/tmux",
-    "serve": "http-server -a 0.0.0.0 -p 8080 -c-1 ./src",
+    "serve": "babel-node ./tools/server.js",
     "watch": "concurrent -p command 'npm run serve' 'npm run watch-js' 'npm run watch-less'",
     "watch-js": "watchify ./src/scripts/main.js -t babelify -d -o ./src/bundle.js -v",
     "watch-less": "npm run build-less && chokidar '**/*.less' './src/styles/**/*.css' -c 'npm run build-less'",
