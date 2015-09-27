@@ -31,7 +31,8 @@ function createVehicleMap(props) {
     }
 
     return {
-        setProps
+        setProps,
+        map: state.map
     };
 }
 

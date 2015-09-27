@@ -1,5 +1,6 @@
 // Node.js ajax module
 
+import qs from 'qs';
 import _ from 'lodash';
 import Promise from 'bluebird';
 import request from 'superagent';
@@ -31,14 +32,8 @@ function ajax(url, options = {}) {
             'Accept': 'application/json'
         },
         method: 'GET',
-        query: {},
-        logPrefix: '',
-        verbose: false
+        query: {}
     }, options);
-
-    if (options.verbose) {
-        console.log(options.logPrefix + options.method + ' ' + url);
-    }
 
     const httpMethodName = options.method.toLowerCase();
     if (httpMethodName !== 'get') {
@@ -51,7 +46,7 @@ function ajax(url, options = {}) {
     const requestMethod = request[methodName];
     let promise = requestMethod(url)
         .set(options.headers)
-        .query(options.query)
+        .query(qs.stringify(options.query, { indices: false }))
         .send(options.data)
         .promise();
 

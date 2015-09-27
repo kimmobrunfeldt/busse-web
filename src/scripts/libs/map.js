@@ -144,6 +144,23 @@ LeafletMap.prototype.setMarkerIcon = function setMarkerIcon(id, iconSrc) {
     }
 };
 
+LeafletMap.prototype.getBounds = function getBounds(pad) {
+    const bounds = this._map.getBounds().pad(pad);
+    const latLngs = [
+        bounds.getNorthEast(),
+        bounds.getNorthWest(),
+        bounds.getSouthWest(),
+        bounds.getSouthEast()
+    ];
+
+    return _.map(latLngs, latLng => {
+        return {
+            latitude: latLng.lat,
+            longitude: latLng.lng
+        };
+    });
+};
+
 LeafletMap.prototype.centerToUserLocation = function centerToUserLocation() {
     var self = this;
 
