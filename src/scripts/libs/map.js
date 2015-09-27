@@ -161,6 +161,10 @@ LeafletMap.prototype.getBounds = function getBounds(pad) {
     });
 };
 
+LeafletMap.prototype.getZoom = function getZoom() {
+    return this._map.getZoom();
+};
+
 LeafletMap.prototype.centerToUserLocation = function centerToUserLocation() {
     var self = this;
 

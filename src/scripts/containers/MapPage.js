@@ -8,7 +8,15 @@ import createVehicleMap from '../components/VehicleMap';
 // When fetching vehicles, the data is fetched inside map boundaries
 // this value makes the fetch boundaries x times bigger then the visible map
 // area
-const PAD_BOUNDARIES_MULTIPLIER = 1.2;
+const BOUNDARIES_MULTIPLIERS = [
+    // If below or equal the first item, multiplier is 1.
+
+    // Items must be sorted so that zoomAbove is descending
+    {zoomAbove: 16, multiplier: 3.0},
+    {zoomAbove: 14, multiplier: 2.4},
+    {zoomAbove: 12, multiplier: 1.8},
+    {zoomAbove: 9, multiplier: 1.2}
+];
 
 function createMapPage(props) {
     let state = {
@@ -36,7 +44,9 @@ function createMapPage(props) {
 
 function createVehicleInterval(state, setState) {
     const interval = createInterval(() => {
-        const boundsArr = state.vehicleMap.map.getBounds(PAD_BOUNDARIES_MULTIPLIER);
+        const multiplier = resolveBoundsMultiplier(state);
+        console.log(multiplier)
+        const boundsArr = state.vehicleMap.map.getBounds(multiplier);
         const bounds = _.map(boundsArr, coord => {
             return coord.latitude + ':' + coord.longitude;
         });
@@ -59,6 +69,18 @@ function createVehicleInterval(state, setState) {
     }, {interval: CONST.UPDATE_INTERVAL});
 
     return interval;
+}
+
+function resolveBoundsMultiplier(state) {
+    const mapZoom = state.vehicleMap.map.getZoom();
+    const multiplierItem = _.find(BOUNDARIES_MULTIPLIERS, (item) => {
+        return mapZoom > item.zoomAbove;
+    });
+    const multiplier = _.isUndefined(multiplierItem)
+        ? 1.0
+        : multiplierItem.multiplier;
+
+    return multiplier;
 }
 
 export default createMapPage;
