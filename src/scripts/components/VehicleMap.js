@@ -8,7 +8,7 @@ import {merge} from '../utils';
 // this constant, vehicle is removed from map and added again instead
 // of animating it's movement to far away.
 // Animating these long movements makes vehicles seem to "fly"
-const MAX_MOVE_METERS = 200;
+const MAX_MOVE_METERS = 250;
 
 function createVehicleMap(props) {
     let state = {

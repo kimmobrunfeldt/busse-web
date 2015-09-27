@@ -8,6 +8,9 @@ import createVehicleMap from '../components/VehicleMap';
 // If loading vehicles takes longer than this, loader will be shown
 const SHOW_LOADER_FETCHING_TIMEOUT = 2000;
 
+// If loading vehicles takes longer then this, vehicles will be erased
+const KILL_SWITCH_TIMER = 15000;
+
 // When fetching vehicles, the data is fetched inside map boundaries
 // this value makes the fetch boundaries x times bigger then the visible map
 // area
@@ -67,6 +70,13 @@ function createVehicleInterval(state, setState) {
             });
         }, SHOW_LOADER_FETCHING_TIMEOUT);
 
+        const killSwitchTimer = setTimeout(() => {
+            setState({
+                errors: {main: 'Vehicle locations couldn\'t be loaded.'},
+                vehicles: []
+            });
+        }, KILL_SWITCH_TIMER);
+
         return api.getVehicles({query: query})
         .then(response => {
             setState({
@@ -80,6 +90,7 @@ function createVehicleInterval(state, setState) {
         })
         .finally(() => {
             clearTimeout(loaderTimer);
+            clearTimeout(killSwitchTimer);
             setState({
                 loading: false
             });

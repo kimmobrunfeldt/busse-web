@@ -18,7 +18,7 @@ function _mergeCustomizer(a, b) {
 }
 
 function removeClass(element, className) {
-    var classes = element.className.split(' ');
+    var classes = element.getAttribute('class').split(' ');
 
     var newClasses = [];
     for (var i = 0; i < classes.length; ++i) {
@@ -27,17 +27,19 @@ function removeClass(element, className) {
         }
     }
 
-    element.className = newClasses.join(' ');
+    element.setAttribute('class', newClasses.join(' '));
 }
 
 function addClass(element, className) {
     if (!hasClass(element, className)) {
-        element.className += ' ' + className;
+        var classes = element.getAttribute('class').split(' ');
+        classes.push(className);
+        element.setAttribute('class', classes.join(' '));
     }
 }
 
 function hasClass(element, className) {
-    var classes = element.className.split(' ');
+    var classes = element.getAttribute('class').split(' ');
     for (var i = 0; i < classes.length; ++i) {
         if (classes[i].trim() === className) {
             return true;
@@ -47,9 +49,18 @@ function hasClass(element, className) {
     return false;
 }
 
+function toggleClass(element, className) {
+    if (hasClass(element, className)) {
+        removeClass(element, className);
+    } else {
+        addClass(element, className);
+    }
+}
+
 export {
     merge,
     removeClass,
     addClass,
-    hasClass
+    hasClass,
+    toggleClass
 };

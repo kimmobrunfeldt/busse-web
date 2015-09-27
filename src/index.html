@@ -30,19 +30,40 @@
   </head>
 
   <body class="no-select">
-    <section id="MapPage" class="component MapPage">
-      <div id="Map" class="component Map"></div>
-    </section>
 
-    <footer id="MenuBar" class="component MenuBar">
+    <!-- Information by Iris Sun from the Noun Project -->
+    <svg version="1.1" id="InfoButton" class="Button InfoButton" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+       viewBox="0 0 200 200" style="enable-background:new 0 0 200 200;" xml:space="preserve">
+      <circle class="InfoButton-circle" cx="100" cy="100" r="88.7"/>
+      <g id="InfoButton-info" class="InfoButton-inner">
+        <circle cx="99.6" cy="65.4" r="10.8"/>
+        <polygon points="108.4,139 108.4,91 108.4,82.6 90.8,82.6 83.2,82.6 83.2,91 90.8,91 90.8,139 83.2,139 83.2,147.4
+          90.8,147.4 108.4,147.4 115.6,147.4 115.6,139 	"/>
+      </g>
+      <g id="InfoButton-close" class="InfoButton-inner hidden">
+      	<path d="M93.1,60.9v32.1l-32.1,0c-3.8,0-6.9,3.1-6.9,6.9c0,3.8,3.1,6.9,6.9,6.9l32.1,0l0,32.1c0,3.8,3.1,6.9,6.9,6.9
+      		c3.8,0,6.9-3.1,6.9-6.9l0-32.1h32.1c3.8,0,6.9-3.1,6.9-6.9c0-3.8-3.1-6.9-6.9-6.9h-32.1V60.9c0-3.8-3.1-6.9-6.9-6.9
+      		C96.2,54,93.1,57.1,93.1,60.9z"/>
+      </g>
+    </svg>
 
-    </footer>
+    <div id="page" class="page">
+      <section id="MapPage" class="MapPage">
+        <div id="Map" class="Map"></div>
+      </section>
 
-    <div id="Loader" class="component hidden Loader"></div>
+      <section id="MenuPage" class="slider down MenuPage">
+        <h2>Menu</h2>
+      </section>
 
-    <section id="MenuPage" class="component hidden MenuPage">
-      <h2>Menu</h2>
-    </section>
+      <section id="InfoPage" class="slider down InfoPage">
+        <h2>Info</h2>
+      </section>
+    </div>
+
+    <footer id="MenuBar" class="MenuBar"></footer>
+
+    <div id="Loader" class="hidden Loader"></div>
 
     <!-- Mapbox -->
     <script src="scripts/libs/mapbox.js"></script>
