@@ -65,15 +65,18 @@ LeafletMap.prototype.addMarker = function addMarker(id, opts) {
         icon: this._createMarkerIcon(iconOpts),
         keyboard: false
     });
+    this.markers[id] = marker;
 
     marker.addTo(this._map);
-
-    this.markers[id] = marker;
     return marker;
 };
 
 LeafletMap.prototype.removeMarker = function removeMarker(id) {
     var marker = this.markers[id];
+
+    if (!marker) {
+        throw new Error('Marker not found with id: ' + id);
+    }
 
     // Remove marker
     this._map.removeLayer(marker);
@@ -100,6 +103,10 @@ LeafletMap.prototype.moveMarker = function moveMarker(id, position) {
     }
 
     var marker = this.markers[id];
+    if (!marker) {
+        throw new Error('Marker not found with id: ' + id);
+    }
+
     // Move marker
     var pos = new L.LatLng(position.latitude, position.longitude);
     marker.setLatLng(pos);
@@ -111,10 +118,12 @@ LeafletMap.prototype.rotateMarker = function rotateMarker(id, rotation) {
     }
 
     var marker = this.markers[id];
+    if (!marker) {
+        throw new Error('Marker not found with id: ' + id);
+    }
 
     // Rotate marker
-    var totalRotation = rotation + this._opts.addRotation;
-    var transform = ' rotate(' + totalRotation + 'deg)';
+    var transform = ' rotate(' + rotation + 'deg)';
     var img = marker.getIcon().children[0];
     img.style[L.DomUtil.TRANSFORM] = transform;
 };
@@ -125,6 +134,10 @@ LeafletMap.prototype.setMarkerIcon = function setMarkerIcon(id, iconSrc) {
     }
 
     var marker = this.markers[id];
+    if (!marker) {
+        throw new Error('Marker not found with id: ' + id);
+    }
+
     var img = marker.getIcon().children[0];
     if (img.src !== iconSrc) {
         img.setAttribute('src', iconSrc);

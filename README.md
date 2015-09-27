@@ -3,7 +3,6 @@
 ## Tech stack
 
 * Redux
-* React
 * Less
 * ES6
 

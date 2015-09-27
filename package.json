@@ -8,6 +8,7 @@
   "dependencies": {
     "arr-mutations": "^0.1.2",
     "bluebird": "^2.10.1",
+    "geolib": "^2.0.18",
     "lodash": "^3.10.1",
     "superagent": "^1.4.0"
   },

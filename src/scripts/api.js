@@ -1,8 +1,8 @@
+import CONST from './constants';
+import ajax from './utils/ajax';
 
 function getVehicles(opts) {
-    return utils.get(config.apiUrl).then(function(req) {
-        var response = JSON.parse(req.responseText);
-    });
+    return _callApi('/vehicles', opts);
 }
 
 function _callApi(endpoint, opts) {
