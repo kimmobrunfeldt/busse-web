@@ -1,5 +1,6 @@
 import CONST from './constants';
 import createMapPage from './containers/MapPage';
+import * as utils from './utils';
 
 createMapPage({
     initialPosition: {latitude: 61.487881, longitude: 23.7810259},
@@ -9,9 +10,20 @@ createMapPage({
     hereMapsAppId: CONST.HERE_MAPS_APP_ID,
     hereMapsAppCode: CONST.HERE_MAPS_APP_CODE,
 
-    initialZoom: 7,
+    initialZoom: 16,
     zoomOnLocated: 16,
 
     hideMarkersAfterAmount: 20,
-    markerIconSize: 32
+    markerIconSize: 32,
+    showLoader: showLoader,
+    hideLoader: hideLoader
 });
+
+const loaderElement = document.querySelector('#Loader')
+function showLoader() {
+    utils.removeClass(loaderElement, 'hidden');
+}
+
+function hideLoader() {
+    utils.addClass(loaderElement, 'hidden');
+}

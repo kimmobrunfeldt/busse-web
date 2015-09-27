@@ -1,16 +1,33 @@
 .Loader {
   z-index: 99999;
-  animation: rotating 0.9s linear infinite;
   position: absolute;
-  top: 10px;
+  top: 14px;
   left: 10px;
+
+  width: 50px;
+  height: 50px;
+  background-color: #888;
+
+  border-radius: 100%;
+  -webkit-animation: sk-scaleout 1.0s infinite ease-in-out;
+  animation: sk-scaleout 1.0s infinite ease-in-out;
 }
 
-@keyframes rotating {
-  from {
-    transform: rotate(0deg);
+@-webkit-keyframes sk-scaleout {
+  0% { -webkit-transform: scale(0) }
+  100% {
+    -webkit-transform: scale(1.0);
+    opacity: 0;
   }
-  to {
-    transform: rotate(360deg);
+}
+
+@keyframes sk-scaleout {
+  0% {
+    -webkit-transform: scale(0);
+    transform: scale(0);
+  } 100% {
+    -webkit-transform: scale(1.0);
+    transform: scale(1.0);
+    opacity: 0;
   }
 }

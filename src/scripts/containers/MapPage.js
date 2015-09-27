@@ -5,6 +5,9 @@ import {merge} from '../utils';
 import CONST from '../constants';
 import createVehicleMap from '../components/VehicleMap';
 
+// If loading vehicles takes longer than this, loader will be shown
+const SHOW_LOADER_FETCHING_TIMEOUT = 2000;
+
 // When fetching vehicles, the data is fetched inside map boundaries
 // this value makes the fetch boundaries x times bigger then the visible map
 // area
@@ -31,11 +34,15 @@ function createMapPage(props) {
     }
 
     function render() {
+        if (state.loading) {
+            props.showLoader();
+        } else {
+            props.hideLoader();
+        }
+
         state.vehicleMap.setProps({
             vehicles: state.vehicles
         });
-
-        // TODO: show new errors
     }
 
     const interval = createVehicleInterval(state, setState);
@@ -45,7 +52,6 @@ function createMapPage(props) {
 function createVehicleInterval(state, setState) {
     const interval = createInterval(() => {
         const multiplier = resolveBoundsMultiplier(state);
-        console.log(multiplier)
         const boundsArr = state.vehicleMap.map.getBounds(multiplier);
         const bounds = _.map(boundsArr, coord => {
             return coord.latitude + ':' + coord.longitude;
@@ -54,6 +60,12 @@ function createVehicleInterval(state, setState) {
         const query = merge({}, state.fetchOpts, {
             bounds: bounds
         });
+
+        const loaderTimer = setTimeout(() => {
+            setState({
+                loading: true
+            });
+        }, SHOW_LOADER_FETCHING_TIMEOUT);
 
         return api.getVehicles({query: query})
         .then(response => {
@@ -64,6 +76,12 @@ function createVehicleInterval(state, setState) {
         }, err => {
             setState({
                 errors: {main: err.message}
+            });
+        })
+        .finally(() => {
+            clearTimeout(loaderTimer);
+            setState({
+                loading: false
             });
         });
     }, {interval: CONST.UPDATE_INTERVAL});
