@@ -51,7 +51,9 @@ function LeafletMap(container, opts) {
         },
         showCoverageOnHover: false,
         spiderfyOnMaxZoom: false,
-        disableClusteringAtZoom: 9
+        disableClusteringAtZoom: 9,
+        // Removing and adding markers made panning slower in mobile
+        removeOutsideVisibleBounds: false
     });
     this._map.addLayer(this._cluster);
 
