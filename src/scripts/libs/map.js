@@ -39,6 +39,22 @@ function LeafletMap(container, opts) {
         opts.initialZoom
     );
 
+    var self = this;
+    this._cluster = new L.MarkerClusterGroup({
+        iconCreateFunction: function(cluster) {
+            return self._createMarkerIcon({
+                text: cluster.getChildCount(),
+                iconSize: 40,
+                fontSize: 14,
+                iconSrc: 'images/cluster.svg'
+            });
+        },
+        showCoverageOnHover: false,
+        spiderfyOnMaxZoom: false,
+        disableClusteringAtZoom: 9
+    });
+    this._map.addLayer(this._cluster);
+
     // Because map with hundreds of markers is slow, we temporarily hide
     // all the markers when user interacts with the map to increase performance
     this._opts = opts;
@@ -67,7 +83,7 @@ LeafletMap.prototype.addMarker = function addMarker(id, opts) {
     });
     this.markers[id] = marker;
 
-    marker.addTo(this._map);
+    marker.addTo(this._cluster);
     return marker;
 };
 
@@ -79,22 +95,32 @@ LeafletMap.prototype.removeMarker = function removeMarker(id) {
     }
 
     // Remove marker
-    this._map.removeLayer(marker);
+    this._cluster.removeLayer(marker);
     delete this.markers[id];
 };
 
 LeafletMap.prototype.hideMarker = function hideMarker(id) {
     var marker = this.markers[id];
 
-    marker.getIcon().style.visibility = 'hidden';
-    marker.getIcon().style.display = 'none';
+    const icon = marker.getIcon();
+    if (!icon) {
+        return;
+    }
+
+    icon.style.visibility = 'hidden';
+    icon.style.display = 'none';
 };
 
 LeafletMap.prototype.showMarker = function showMarker(id) {
     var marker = this.markers[id];
 
-    marker.getIcon().style.visibility = 'visible';
-    marker.getIcon().style.display = 'block';
+    const icon = marker.getIcon();
+    if (!icon) {
+        return;
+    }
+
+    icon.style.visibility = 'visible';
+    icon.style.display = 'block';
 };
 
 LeafletMap.prototype.moveMarker = function moveMarker(id, position) {
@@ -122,9 +148,13 @@ LeafletMap.prototype.rotateMarker = function rotateMarker(id, rotation) {
         throw new Error('Marker not found with id: ' + id);
     }
 
+    const icon = marker.getIcon();
+    if (!icon) {
+        return;
+    }
     // Rotate marker
     var transform = ' rotate(' + rotation + 'deg)';
-    var img = marker.getIcon().children[0];
+    var img = icon.children[0];
     img.style[L.DomUtil.TRANSFORM] = transform;
 };
 
@@ -138,7 +168,12 @@ LeafletMap.prototype.setMarkerIcon = function setMarkerIcon(id, iconSrc) {
         throw new Error('Marker not found with id: ' + id);
     }
 
-    var img = marker.getIcon().children[0];
+    const icon = marker.getIcon();
+    if (!icon) {
+        return;
+    }
+
+    var img = icon.children[0];
     if (img.src !== iconSrc) {
         img.setAttribute('src', iconSrc);
     }
@@ -223,13 +258,15 @@ LeafletMap.prototype._getUserLocation = function _getUserLocation() {
 };
 
 LeafletMap.prototype._createMarkerIcon = function _createMarkerIcon(opts) {
+    var iconSize = opts.iconSize || this._opts.markerIconSize;
+
     return L.divIcon({
-        iconSize: [this._opts.markerIconSize, this._opts.markerIconSize],
-        iconAnchor: [this._opts.markerIconSize / 2, this._opts.markerIconSize / 2],
+        iconSize: [iconSize, iconSize],
+        iconAnchor: [iconSize / 2, iconSize / 2],
         className: 'map-marker',
         html: [
-            '<img width="' + this._opts.markerIconSize + 'px" height="'
-                + this._opts.markerIconSize + 'px" src="' + opts.iconSrc + '" />',
+            '<img width="' + iconSize + 'px" height="'
+                + iconSize + 'px" src="' + opts.iconSrc + '" />',
             '<div class="text-container">',
               '<p style="font-size:' + opts.fontSize + 'px">' + opts.text + '</p>',
             '</div>'

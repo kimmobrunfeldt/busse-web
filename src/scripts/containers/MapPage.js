@@ -1,3 +1,4 @@
+import Promise from 'bluebird';
 import _ from 'lodash';
 import * as api from '../api';
 import createInterval from '../utils/interval';
@@ -23,6 +24,11 @@ const BOUNDARIES_MULTIPLIERS = [
     {zoomAbove: 12, multiplier: 1.8},
     {zoomAbove: 9, multiplier: 1.2}
 ];
+
+// If you want the server to cluster areas together, increase this
+// It was hard to setup with clustered marker so currently clustering is
+// done only in the frontend
+const CLUSTER_WHEN_BELOW_ZOOM = 0;
 
 function createMapPage(props) {
     let state = {
@@ -54,15 +60,9 @@ function createMapPage(props) {
 
 function createVehicleInterval(state, setState) {
     const interval = createInterval(() => {
-        const multiplier = resolveBoundsMultiplier(state);
-        const boundsArr = state.vehicleMap.map.getBounds(multiplier);
-        const bounds = _.map(boundsArr, coord => {
-            return coord.latitude + ':' + coord.longitude;
-        });
-
-        const query = merge({}, state.fetchOpts, {
-            bounds: bounds
-        });
+        if (state.vehicleMap.map.isUserInteracting()) {
+            return Promise.resolve(null);
+        }
 
         const loaderTimer = setTimeout(() => {
             setState({
@@ -76,6 +76,17 @@ function createVehicleInterval(state, setState) {
                 vehicles: []
             });
         }, KILL_SWITCH_TIMER);
+
+        const multiplier = resolveBoundsMultiplier(state);
+        const boundsArr = state.vehicleMap.map.getBounds(multiplier);
+        const bounds = _.map(boundsArr, coord => {
+            return coord.latitude + ':' + coord.longitude;
+        });
+
+        const query = merge({}, state.fetchOpts, {
+            bounds: bounds,
+            cluster: state.vehicleMap.map.getZoom() < CLUSTER_WHEN_BELOW_ZOOM
+        });
 
         return api.getVehicles({query: query})
         .then(response => {

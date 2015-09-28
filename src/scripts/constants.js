@@ -1,5 +1,5 @@
 const CONST = {
-    API_URL: 'https://busse-api.herokuapp.com/api',
+    API_URL: 'http://localhost:9000/api',
 
     MAP_BOX_KEY: 'pk.eyJ1Ijoia2ltbW9icnVuZmVsZHQiLCJhIjoiX21FOWpGbyJ9.PeLVL2Rm1OZHJPYBM0lymA',
     MAP_BOX_MAP_ID: 'kimmobrunfeldt.l6efcofl',

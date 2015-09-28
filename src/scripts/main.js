@@ -18,7 +18,7 @@ createMapPage({
     hereMapsAppId: CONST.HERE_MAPS_APP_ID,
     hereMapsAppCode: CONST.HERE_MAPS_APP_CODE,
 
-    initialZoom: 16,
+    initialZoom: 5,
     zoomOnLocated: 16,
 
     hideMarkersAfterAmount: 20,

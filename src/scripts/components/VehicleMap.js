@@ -95,10 +95,14 @@ function changeMarkers(state, markerChanges) {
 }
 
 function vehicleToMarker(vehicle) {
+    if (vehicle.type === 'cluster') {
+        return clusterToMarker(vehicle);
+    }
+
     const isMoving = vehicle.rotation !== 0;
     const iconSrc = isMoving
-        ? `/images/${vehicle.type}-moving.svg`
-        : `/images/${vehicle.type}.svg`;
+        ? `images/${vehicle.type}-moving.svg`
+        : `images/${vehicle.type}.svg`;
 
     return {
         id: vehicle.area + '-' + vehicle.id,
@@ -112,6 +116,20 @@ function vehicleToMarker(vehicle) {
         fontSize: resolveFontSize(vehicle.line),
         iconSrc: iconSrc
     }
+}
+
+function clusterToMarker(cluster) {
+    return {
+        id: cluster.id,
+        position: {
+            latitude: cluster.latitude,
+            longitude: cluster.longitude
+        },
+        text: cluster.vehicleCount,
+        fontSize: resolveFontSize(String(cluster.vehicleCount)),
+        iconSrc: 'images/cluster.svg',
+        iconSize: 60
+    };
 }
 
 function resolveFontSize(text) {
