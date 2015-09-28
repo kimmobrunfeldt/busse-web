@@ -1,9 +1,12 @@
+import attachFastClick from 'fastclick';
 import Velocity from 'velocity-animate';
 import CONST from './constants';
 import * as utils from './utils';
 import createInfoPage from './containers/InfoPage';
 import createMapPage from './containers/MapPage';
 import createLoader from './components/Loader';
+
+attachFastClick(document.body);
 
 const infoPageSelector = '#InfoPage';
 const pageContainer = document.querySelector('#page');
