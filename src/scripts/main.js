@@ -39,10 +39,10 @@ function showPage(selector) {
     const element = document.querySelector(selector);
     if (selector === '#MapPage') {
         const openSliderElement = getOpenSlider();
-        Velocity(openSliderElement, {top: '100%'}, 100);
+        Velocity(openSliderElement, {bottom: '100%'}, 100);
         utils.addClass(openSliderElement, 'down');
     } else {
-        Velocity(element, {top: '0%'}, 100);
+        Velocity(element, {bottom: '0%'}, 100);
         utils.removeClass(element, 'down');
     }
 }

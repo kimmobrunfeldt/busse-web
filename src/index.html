@@ -25,6 +25,7 @@
     <meta property="og:image:secure_url" content="https://kimmobrunfeldt.github.io/busse-release/images/busse-social-share.png" />
     <meta property="fb:admins" content="100002718050853" />
 
+    <link href='https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700' rel='stylesheet' type='text/css'>
     <link rel="shortcut icon" type="image/png" href="images/favicon.png"/>
     <link rel="stylesheet" href="bundle.css">
   </head>
@@ -49,17 +50,6 @@
 
     <div id="page" class="page">
       <section id="MapPage" class="MapPage">
-        <svg version="1.1" class="Button AlertButton" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-        	 viewBox="0 0 200 200" style="enable-background:new 0 0 200 200;" xml:space="preserve">
-          <path class="AlertButton-border" d="M188,163.3L109.4,27.1c-5.2-8.9-13.6-8.9-18.7,0L12,163.3c-5.2,8.9-0.9,16.2,9.4,16.2h157.3
-           	C188.9,179.6,193.2,172.3,188,163.3z"/>
-          <path id="AlertButton-fill" class="AlertButton-fill" d="M188,163.3L109.4,27.1c-5.2-8.9-13.6-8.9-18.7,0L12,163.3c-5.2,8.9-0.9,16.2,9.4,16.2h157.3
-          	C188.9,179.6,193.2,172.3,188,163.3z"/>
-          <g id="AlertButton-inner" class="AlertButton-inner">
-            <path d="M100.1,158.6H100c-5.6,0-9.8-4.2-9.8-10.3c0-5.9,4.2-10.2,9.9-10.2c5.8,0,9.9,4.3,9.9,10.2
-             	C110.1,154.5,105.9,158.6,100.1,158.6z"/>
-            <path d="M104.8,128.6c-0.4,1.6-9.5,1.7-9.8,0l-5.8-52.9c0-3.1,2.2-5.6,10.7-5.6h0.1c8.1,0,10.6,2.5,10.6,5.6"/>
-          </g>
         </svg>
         <div id="Map" class="Map"></div>
       </section>
@@ -69,7 +59,79 @@
       </section>
 
       <section id="InfoPage" class="slider down InfoPage">
-        <h2>Info</h2>
+        <div class="container">
+          <h3>Info</h3>
+
+          <p>
+            With Busse, you can see public transit real time on a map.
+            No more waiting for the bus in the rain.
+            Vehicle locations are open data provided by cities.
+          </p>
+
+          <div class="InfoPage-vehicle-types">
+            <h4>Vehicle types</h4>
+            <table>
+              <tr>
+                <td>
+                  <img src="images/bus.svg" alt="Bus" />
+                </td>
+                <td>
+                  Bus
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <img src="images/train.svg" alt="Train" />
+                </td>
+                <td>
+                  Train
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <img src="images/tram.svg" alt="Tram" />
+                </td>
+                <td>
+                  Tram
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <img src="images/subway.svg" alt="Subway" />
+                </td>
+                <td>
+                  Subway
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <img src="images/ferry.svg" alt="Ferry" />
+                </td>
+                <td>
+                  Ferry
+                </td>
+              </tr>
+            </table>
+          </div>
+
+
+          <p>
+            The service has been created by <a class="link" href="https://twitter.com/kimmobrunfeldt">@kimmobrunfeldt</a>.
+            You can give feedback via Twitter or
+            <a class="link" href="mailto:kimmobrunfeldt+busse@gmail.com?subject=Busse: ">email</a>.
+          </p>
+        </div>
+
+        <footer>
+            <div class="scene-item scene-bg"></div>
+
+            <div class="scene-item bus-container">
+                <img class="scene-item bus" src="images/big-bus.svg">
+            </div>
+
+            <div class="scene-item street-lights">
+            </div>
+        </footer>
       </section>
     </div>
 

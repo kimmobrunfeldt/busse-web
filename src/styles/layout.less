@@ -5,12 +5,31 @@ body, html, .page, .page > section {
   height: 100%;
 }
 
-body, .page {
+body {
   overflow: hidden;
+}
+
+.page {
+  overflow:auto;
+}
+
+html {
+  box-sizing: border-box;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
 }
 
 .slider {
   z-index: 10000;
   position: absolute;
-  top: 100%;
+  bottom: 100%;
+}
+
+.container {
+  padding-left: 15px;
+  padding-right: 15px;
+  margin: 0 auto;
+  max-width: 600px;
 }

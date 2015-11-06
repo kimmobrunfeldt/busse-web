@@ -96,7 +96,8 @@ function createVehicleInterval(state, setState) {
             });
         }, err => {
             setState({
-                errors: {main: err.message}
+                errors: {main: err.message},
+                vehicles: []
             });
         })
         .finally(() => {

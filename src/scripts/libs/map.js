@@ -30,7 +30,7 @@ function LeafletMap(container, opts) {
         throw new Error('Unknown map provider: ' + opts.mapProvider);
     }
 
-    var credits = L.control.attribution({position: 'topright'}).addTo(this._map);
+    var credits = L.control.attribution({position: 'topleft'}).addTo(this._map);
     credits.addAttribution(attribution);
 
     this._map.setView([

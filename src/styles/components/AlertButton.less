@@ -3,7 +3,7 @@
   height: 30px;
   position: absolute;
   z-index: 100;
-  top: 26px;
+  top: 10px;
   right: 48px;
 
   .AlertButton-inner {
@@ -24,14 +24,16 @@
     animation: alert-pulse 1.5s ease-out 3;
   }
 
-  &:hover {
-    .AlertButton-inner {
-      fill: #fff;
-    }
+  &:not(:focus) {
+    &:hover {
+      .AlertButton-inner {
+        fill: #fff;
+      }
 
-    .AlertButton-border {
-      opacity: 1;
-      fill: #B74444;
+      .AlertButton-border {
+        opacity: 1;
+        fill: #B74444;
+      }
     }
   }
 }

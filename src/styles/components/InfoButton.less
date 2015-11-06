@@ -3,7 +3,7 @@
   height: 30px;
   position: absolute;
   z-index: 99999;
-  top: 26px;
+  top: 10px;
   right: 8px;
 
   .InfoButton-inner {
@@ -17,13 +17,15 @@
     stroke-miterlimit: 10;
   }
 
-  &:hover {
-    .InfoButton-inner {
-      fill: #fff;
-    }
+  &:not(:focus) {
+    &:hover {
+      .InfoButton-inner {
+        fill: #fff;
+      }
 
-    .InfoButton-circle {
-      fill: #555;
+      .InfoButton-circle {
+        fill: #555;
+      }
     }
   }
 }
