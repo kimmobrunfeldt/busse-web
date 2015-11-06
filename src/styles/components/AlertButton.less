@@ -1,0 +1,43 @@
+.AlertButton {
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  z-index: 100;
+  top: 10px;
+  right: 48px;
+
+  .AlertButton-inner {
+    fill: #B74444;
+  }
+
+  .AlertButton-border {
+    fill: none;
+    stroke: #B74444;
+    stroke-width: 11;
+    stroke-miterlimit: 10;
+  }
+
+  .AlertButton-fill {
+    fill: #B74444;
+    stroke-width: 0;
+    opacity: 0;
+    animation: alert-pulse 1.5s ease-out 3;
+  }
+
+  &:not(:focus) {
+    &:hover {
+      .AlertButton-inner {
+        fill: #fff;
+      }
+
+      .AlertButton-border {
+        opacity: 1;
+        fill: #B74444;
+      }
+    }
+  }
+}
+
+@keyframes alert-pulse {
+  50% { opacity: 0.5; }
+}

@@ -1,2 +1,0 @@
-﻿agency_id,agency_name,agency_url,agency_timezone,agency_lang,agency_phone
-JOLI,Tampereen joukkoliikenne,http://joukkoliikenne.tampere.fi/,Europe/Helsinki,fi,+358356564700

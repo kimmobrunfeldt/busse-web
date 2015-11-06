@@ -8,7 +8,7 @@
 # See tmux cheatsheet https://gist.github.com/MohamedAlaa/2961058
 
 # Change to your needs, each project should have unique name
-PROJECT="frontend-starter"
+PROJECT="busse-web"
 COMMAND[0]="npm run serve"
 COMMAND[1]="npm run watch-less"
 COMMAND[2]="npm run watch-js"
@@ -20,7 +20,7 @@ function run-command {
     tmux send-keys -t "$PROJECT:0.$_INDEX" '' C-m
     tmux send-keys -t "$PROJECT:0.$_INDEX" "$1" C-m
 
-    # Increase the pane counter(or whatever it is??)
+    # Increase the pane counter
     _INDEX=$(($_INDEX + 1))
 
     # Run splitw for each time but last
@@ -48,7 +48,7 @@ if [ "$?" -eq 1 ]; then
     tmux select-window -t 0
 
     # Add possible configuration here
-    # tmux set-option -t $PROJECT mouse-select-pane on
+    tmux set-option -t $PROJECT mouse-select-pane on
     tmux bind-key -n M-c kill-session
     tmux bind-key -n M-Up    select-pane -U
     tmux bind-key -n M-Down  select-pane -D
@@ -66,4 +66,3 @@ if [ -z "$TMUX" ]; then
 else
     tmux -u switch-client -t $PROJECT
 fi
-

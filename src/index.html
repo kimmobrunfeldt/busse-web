@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Busse - Public transit real time on a map</title>
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="description" content="Public transit real time on a map. Currently supported areas are Tampere and Helsinki." />
+
+    <!-- Apple web app -->
+    <!--
+    Commented out because web apps in iOS have random freezing bugs etc..
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    -->
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+
+    <!-- Android web app -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <link rel="icon" sizes="120x120" href="images/apple-touch-icon.png">
+
+    <!-- Social media -->
+    <meta property="og:image" content="http:/kimmobrunfeldt.github.io/busse-release/images/busse-social-share.png"/>
+    <meta property="og:image:secure_url" content="https://kimmobrunfeldt.github.io/busse-release/images/busse-social-share.png" />
+    <meta property="fb:admins" content="100002718050853" />
+
+    <link href='https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700' rel='stylesheet' type='text/css'>
+    <link rel="shortcut icon" type="image/png" href="images/favicon.png"/>
+    <link rel="stylesheet" href="bundle.css">
+  </head>
+
+  <body class="no-select">
+
+    <!-- Information by Iris Sun from the Noun Project -->
+    <svg version="1.1" id="InfoButton" class="Button InfoButton" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+       viewBox="0 0 200 200" style="enable-background:new 0 0 200 200;" xml:space="preserve">
+      <circle class="InfoButton-circle" cx="100" cy="100" r="88.7"/>
+      <g id="InfoButton-info" class="InfoButton-inner">
+        <circle cx="99.6" cy="65.4" r="10.8"/>
+        <polygon points="108.4,139 108.4,91 108.4,82.6 90.8,82.6 83.2,82.6 83.2,91 90.8,91 90.8,139 83.2,139 83.2,147.4
+          90.8,147.4 108.4,147.4 115.6,147.4 115.6,139 	"/>
+      </g>
+      <g id="InfoButton-close" class="InfoButton-inner hidden">
+      	<path d="M93.1,60.9v32.1l-32.1,0c-3.8,0-6.9,3.1-6.9,6.9c0,3.8,3.1,6.9,6.9,6.9l32.1,0l0,32.1c0,3.8,3.1,6.9,6.9,6.9
+      		c3.8,0,6.9-3.1,6.9-6.9l0-32.1h32.1c3.8,0,6.9-3.1,6.9-6.9c0-3.8-3.1-6.9-6.9-6.9h-32.1V60.9c0-3.8-3.1-6.9-6.9-6.9
+      		C96.2,54,93.1,57.1,93.1,60.9z"/>
+      </g>
+    </svg>
+
+    <div id="page" class="page">
+      <section id="MapPage" class="MapPage">
+        </svg>
+        <div id="Map" class="Map"></div>
+      </section>
+
+      <section id="MenuPage" class="slider down MenuPage">
+        <h2>Menu</h2>
+      </section>
+
+      <section id="InfoPage" class="slider down InfoPage">
+        <div class="container">
+          <h3>Info</h3>
+
+          <p>
+            With Busse, you can see public transit real time on a map.
+            No more waiting for the bus in the rain.
+            Vehicle locations are open data provided by cities.
+          </p>
+
+          <div class="InfoPage-vehicle-types">
+            <h4>Vehicle types</h4>
+            <table>
+              <tr>
+                <td>
+                  <img src="images/bus.svg" alt="Bus" />
+                </td>
+                <td>
+                  Bus
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <img src="images/train.svg" alt="Train" />
+                </td>
+                <td>
+                  Train
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <img src="images/tram.svg" alt="Tram" />
+                </td>
+                <td>
+                  Tram
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <img src="images/subway.svg" alt="Subway" />
+                </td>
+                <td>
+                  Subway
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <img src="images/ferry.svg" alt="Ferry" />
+                </td>
+                <td>
+                  Ferry
+                </td>
+              </tr>
+            </table>
+          </div>
+
+
+          <p>
+            The service has been created by <a class="link" href="https://twitter.com/kimmobrunfeldt">@kimmobrunfeldt</a>.
+            You can give feedback via Twitter or
+            <a class="link" href="mailto:kimmobrunfeldt+busse@gmail.com?subject=Busse: ">email</a>.
+          </p>
+        </div>
+
+        <footer>
+            <div class="scene-item scene-bg"></div>
+
+            <div class="scene-item bus-container">
+                <img class="scene-item bus" src="images/big-bus.svg">
+            </div>
+
+            <div class="scene-item street-lights">
+            </div>
+        </footer>
+      </section>
+    </div>
+
+    <footer id="MenuBar" class="MenuBar"></footer>
+
+    <div id="Loader" class="hidden Loader"></div>
+
+    <!-- Mapbox -->
+    <script src="scripts/libs/mapbox.js"></script>
+    <script src="scripts/libs/modernizr.js"></script>
+    <script src="scripts/libs/leaflet-providers.js"></script>
+    <script src="scripts/libs/leaflet-plugins.js"></script>
+    <script src="scripts/libs/leaflet-markercluster.js"></script>
+
+    <script src="bundle.js"></script>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-59920422-1', 'auto');
+      ga('send', 'pageview');
+
+    </script>
+ </body>
+</html>

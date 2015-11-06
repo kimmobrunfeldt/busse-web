@@ -1,0 +1,71 @@
+/* Overriding leaflet map CSS */
+
+/* Make zooming much faster on mobile */
+.touch {
+  .leaflet-zoom-anim .leaflet-zoom-animated {
+    -webkit-transition: -webkit-transform 0.03s cubic-bezier(0, 0, .25, 1);
+    -moz-transition: -moz-transform 0.03s cubic-bezier(0, 0, .25, 1);
+    -o-transition: -o-transform 0.03s cubic-bezier(0, 0, .25, 1);
+    transition: transform 0.03s cubic-bezier(0, 0, .25, 1)
+  }
+}
+
+.no-touch {
+  .leaflet-zoom-anim .leaflet-zoom-animated {
+    -webkit-transition: -webkit-transform 0.2s cubic-bezier(0, 0, .25, 1);
+    -moz-transition: -moz-transform 0.2s cubic-bezier(0, 0, .25, 1);
+    -o-transition: -o-transform 0.2s cubic-bezier(0, 0, .25, 1);
+    transition: transform 0.2s cubic-bezier(0, 0, .25, 1)
+  }
+}
+
+.hide-markers {
+  .leaflet-marker-pane {
+    .hidden();
+  }
+}
+
+/*
+Hide map box logo, we still attribute mapbox and open street maps in the right
+bottom corner
+*/
+.mapbox-logo {
+  .hidden();
+}
+
+/* Map marker */
+.map-marker {
+  /* Comment out to enable transitions in bus movements */
+  transition: transform 0.2s ease;
+
+  img {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    transform-origin: 50% 50%;
+  }
+
+  .text-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+
+    p {
+      color: white;
+      .center();
+    }
+  }
+
+}
+
+.map-marker-text {
+  position: relative;
+  width: 100%;
+  height: 100%;
+
+  > p {
+    color: white;
+    margin: 0 !important;
+    .center();
+  }
+}
