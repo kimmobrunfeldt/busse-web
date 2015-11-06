@@ -28,7 +28,8 @@ const BOUNDARIES_MULTIPLIERS = [
 // If you want the server to cluster areas together, increase this
 // It was hard to setup with clustered marker so currently clustering is
 // done only in the frontend
-const CLUSTER_WHEN_BELOW_ZOOM = 0;
+// To disable, set it to 0
+const CLUSTER_WHEN_BELOW_ZOOM = 9;
 
 function createMapPage(props) {
     let state = {
@@ -56,60 +57,91 @@ function createMapPage(props) {
 
     const interval = createVehicleInterval(state, setState);
     interval.start();
+
+    state.vehicleMap.map.onZoomEnd(function(startZoomLevel, endZoomLevel) {
+        // Fetch vehicles from API instantly if user zooms pass the cluster
+        // level
+        if (startZoomLevel >= CLUSTER_WHEN_BELOW_ZOOM && endZoomLevel < CLUSTER_WHEN_BELOW_ZOOM) {
+            // Cluster mode -> no clustering
+            fetchVehicles(state, setState);
+            setState({
+                loading: true
+            });
+        } else if (startZoomLevel < CLUSTER_WHEN_BELOW_ZOOM &&
+                   endZoomLevel >= CLUSTER_WHEN_BELOW_ZOOM
+        ) {
+            // No clustering -> cluster mode
+            fetchVehicles(state, setState);
+            setState({
+                loading: true
+            });
+        }
+    });
 }
 
 function createVehicleInterval(state, setState) {
     const interval = createInterval(() => {
-        if (state.vehicleMap.map.isUserInteracting()) {
-            return Promise.resolve(null);
-        }
-
-        const loaderTimer = setTimeout(() => {
-            setState({
-                loading: true
-            });
-        }, SHOW_LOADER_FETCHING_TIMEOUT);
-
-        const killSwitchTimer = setTimeout(() => {
-            setState({
-                errors: {main: 'Vehicle locations couldn\'t be loaded.'},
-                vehicles: []
-            });
-        }, KILL_SWITCH_TIMER);
-
-        const multiplier = resolveBoundsMultiplier(state);
-        const boundsArr = state.vehicleMap.map.getBounds(multiplier);
-        const bounds = _.map(boundsArr, coord => {
-            return coord.latitude + ':' + coord.longitude;
-        });
-
-        const query = merge({}, state.fetchOpts, {
-            bounds: bounds,
-            cluster: state.vehicleMap.map.getZoom() < CLUSTER_WHEN_BELOW_ZOOM
-        });
-
-        return api.getVehicles({query: query})
-        .then(response => {
-            setState({
-                errors: response.errors,
-                vehicles: response.vehicles
-            });
-        }, err => {
-            setState({
-                errors: {main: err.message},
-                vehicles: []
-            });
-        })
-        .finally(() => {
-            clearTimeout(loaderTimer);
-            clearTimeout(killSwitchTimer);
-            setState({
-                loading: false
-            });
-        });
+        return fetchVehicles(state, setState);
     }, {interval: CONST.UPDATE_INTERVAL});
 
     return interval;
+}
+
+function fetchVehicles(state, setState) {
+    if (state.vehicleMap.map.isUserInteracting()) {
+        return Promise.resolve(null);
+    }
+
+    const loaderTimer = setTimeout(() => {
+        setState({
+            loading: true
+        });
+    }, SHOW_LOADER_FETCHING_TIMEOUT);
+
+    const killSwitchTimer = setTimeout(() => {
+        setState({
+            errors: {main: 'Vehicle locations couldn\'t be loaded.'},
+            vehicles: []
+        });
+    }, KILL_SWITCH_TIMER);
+
+    const multiplier = resolveBoundsMultiplier(state);
+    const boundsArr = state.vehicleMap.map.getBounds(multiplier);
+    const bounds = _.map(boundsArr, coord => {
+        return coord.latitude + ':' + coord.longitude;
+    });
+
+    const query = merge({}, state.fetchOpts, {
+        bounds: bounds,
+        cluster: state.vehicleMap.map.getZoom() < CLUSTER_WHEN_BELOW_ZOOM
+    });
+
+    return api.getVehicles({query: query})
+    .then(response => {
+        if (!response) {
+            return setState({
+                errors: {main: 'No response from server'},
+                vehicles: []
+            });
+        }
+
+        setState({
+            errors: response.errors,
+            vehicles: response.vehicles
+        });
+    }, err => {
+        setState({
+            errors: {main: err.message},
+            vehicles: []
+        });
+    })
+    .finally(() => {
+        clearTimeout(loaderTimer);
+        clearTimeout(killSwitchTimer);
+        setState({
+            loading: false
+        });
+    });
 }
 
 function resolveBoundsMultiplier(state) {
