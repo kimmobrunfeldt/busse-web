@@ -1,0 +1,35 @@
+.icon-button {
+  position: absolute;
+  z-index: 1000;
+  height: @button-size;
+  width: @button-size;
+  border-radius: 50%;
+  background: @grey-dark;
+  transition: all 0.1s ease-in-out;
+
+  // Center children
+  & > * {
+    .center();
+    height: 55%;
+  }
+}
+
+.button-settings {
+  left: @button-side-margin;
+  bottom: @button-bottom-margin;
+}
+
+.button-locate-me {
+  right: @button-side-margin + 54px;
+  bottom: @button-bottom-margin;
+}
+
+.button-zoom-in {
+  right: @button-side-margin;
+  bottom: @button-bottom-margin + 54px;
+}
+
+.button-zoom-out {
+  right: @button-side-margin;
+  bottom: @button-bottom-margin;
+}
