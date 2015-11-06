@@ -40,23 +40,6 @@ function LeafletMap(container, opts) {
     );
 
     var self = this;
-    this._cluster = new L.MarkerClusterGroup({
-        iconCreateFunction: function(cluster) {
-            return self._createMarkerIcon({
-                text: cluster.getChildCount(),
-                iconSize: 40,
-                fontSize: 14,
-                iconSrc: 'images/cluster.svg'
-            });
-        },
-        showCoverageOnHover: false,
-        spiderfyOnMaxZoom: false,
-        disableClusteringAtZoom: 9,
-        // Removing and adding markers made panning slower in mobile
-        removeOutsideVisibleBounds: false
-    });
-    this._map.addLayer(this._cluster);
-
     // Because map with hundreds of markers is slow, we temporarily hide
     // all the markers when user interacts with the map to increase performance
     this._opts = opts;
@@ -85,7 +68,7 @@ LeafletMap.prototype.addMarker = function addMarker(id, opts) {
     });
     this.markers[id] = marker;
 
-    marker.addTo(this._cluster);
+    marker.addTo(this._map);
     return marker;
 };
 
@@ -97,7 +80,7 @@ LeafletMap.prototype.removeMarker = function removeMarker(id) {
     }
 
     // Remove marker
-    this._cluster.removeLayer(marker);
+    this._map.removeLayer(marker);
     delete this.markers[id];
 };
 
@@ -220,6 +203,19 @@ LeafletMap.prototype.centerToUserLocation = function centerToUserLocation() {
 
 LeafletMap.prototype.isUserInteracting = function isUserInteracting() {
     return this._interactions > 0;
+};
+
+LeafletMap.prototype.onZoomEnd = function onZoomEnd(callback) {
+    var self = this;
+
+    var startZoom;
+    this._map.on('zoomstart', function(event) {
+        startZoom = self.getZoom();
+    });
+    this._map.on('zoomend', function(event) {
+        var endZoom = self.getZoom();
+        callback(startZoom, endZoom);
+    });
 };
 
 LeafletMap.prototype._setOrUpdateUserLocation = function _setOrUpdateUserLocation(pos) {
