@@ -8,10 +8,14 @@
   transition: all 0.1s ease-in-out;
 
   // Center children
-  & > * {
+  > * {
     .center();
     height: 55%;
   }
+}
+
+.no-touch .icon-button:hover {
+  transform: scale(1.08);
 }
 
 .button-settings {
@@ -19,9 +23,29 @@
   bottom: @button-bottom-margin;
 }
 
-.button-locate-me {
+.locate-me-container {
+  z-index: 1000;
+  position: absolute;
   right: @button-side-margin + 54px;
   bottom: @button-bottom-margin;
+
+  .icon-button {
+    bottom: 0;
+    right: 0;
+  }
+
+  .Loader {
+    margin-left: -25px;
+    margin-top: -25px;
+  }
+}
+
+.button-locate-me {
+  transition: all 0.2s ease-in-out;
+
+  &.disabled {
+    transform: scale(0);
+  }
 }
 
 .button-zoom-in {

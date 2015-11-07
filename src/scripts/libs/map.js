@@ -185,6 +185,14 @@ LeafletMap.prototype.getZoom = function getZoom() {
     return this._map.getZoom();
 };
 
+LeafletMap.prototype.zoomIn = function zoomIn() {
+    return this._map.zoomIn();
+};
+
+LeafletMap.prototype.zoomOut = function zoomOut() {
+    return this._map.zoomOut();
+};
+
 LeafletMap.prototype.centerToUserLocation = function centerToUserLocation() {
     var self = this;
 

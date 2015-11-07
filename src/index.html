@@ -119,11 +119,16 @@
          <img src="images/settings.svg" alt="Settings" />
        </a>
 
-       <a tabindex="2" class="icon-button button-locate-me" id="locate-me" title="Locate me">
-           <!-- Icon by useiconic.com -->
-           <!-- http://thenounproject.com/term/location/45580/ -->
-           <img src="images/locate-me.svg" alt="Locate me" />
-       </a>
+       <div id="locate-me-container" class="locate-me-container">
+         <a tabindex="2" class="icon-button button-locate-me" id="locate-me" title="Locate me">
+            <!-- Icon by useiconic.com -->
+            <!-- http://thenounproject.com/term/location/45580/ -->
+            <img src="images/locate-me.svg" alt="Locate me" />
+         </a>
+
+         <div id="LocationLoader" class="Loader LocationLoader hidden"></div>
+       </div>
+
        <a tabindex="3" class="icon-button button-zoom-in" id="zoom-in" title="Zoom in">
            <img src="images/plus.svg" alt="Zoom in" />
        </a>
@@ -132,7 +137,7 @@
        </a>
     </footer>
 
-    <div id="Loader" class="hidden Loader"></div>
+    <div id="Loader" class="hidden Loader MainLoader"></div>
 
     <!-- Mapbox -->
     <script src="scripts/libs/mapbox.js"></script>

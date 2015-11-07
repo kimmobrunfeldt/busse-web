@@ -2,7 +2,7 @@ import _ from 'lodash';
 import geolib from 'geolib';
 import mutations from 'arr-mutations';
 import LeafletMap from '../libs/map';
-import {merge} from '../utils';
+import {merge, addClass, removeClass} from '../utils';
 
 // If distance between the vehicles previous and new position is greater than
 // this constant, vehicle is removed from map and added again instead
@@ -14,6 +14,34 @@ function createVehicleMap(props) {
     let state = {
         map: new LeafletMap(document.querySelector('#Map'), props)
     };
+
+    var zoomInButton = document.querySelector('#zoom-in');
+    zoomInButton.addEventListener('click', function zoomInClicked() {
+        // We don't want to pass any params to zoomIn
+        state.map.zoomIn();
+    });
+    var zoomOutButton = document.querySelector('#zoom-out');
+    zoomOutButton.addEventListener('click', function zoomOutClicked() {
+        state.map.zoomOut();
+    });
+    var locationLoader = document.querySelector('#LocationLoader');
+    var locateMeButton = document.querySelector('#locate-me');
+    locateMeButton.addEventListener('click', function zoomOutClicked() {
+        var showLoaderTimer = setTimeout(function() {
+            removeClass(locationLoader, 'hidden');
+        }, 400);
+        addClass(locateMeButton, 'disabled');
+
+        state.map.centerToUserLocation()
+        .finally(function() {
+            if (showLoaderTimer) {
+                clearTimeout(showLoaderTimer);
+            }
+
+            addClass(locationLoader, 'hidden');
+            removeClass(locateMeButton, 'disabled');
+        });
+    });
 
     const markers = _.map(props.vehicles, vehicleToMarker);
     addMarkers(state, markers);
