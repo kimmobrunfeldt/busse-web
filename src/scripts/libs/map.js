@@ -233,7 +233,7 @@ LeafletMap.prototype._setOrUpdateUserLocation = function _setOrUpdateUserLocatio
     if (this._myLocationMarker === null) {
         this._myLocationMarker = L.marker(pos, {
             icon: L.icon({
-                iconUrl: '/images/location.svg',
+                iconUrl: 'images/location.svg',
                 iconSize: [16, 16],
                 iconAnchor: [8, 8]
             }),
