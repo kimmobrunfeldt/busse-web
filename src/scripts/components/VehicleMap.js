@@ -154,9 +154,9 @@ function clusterToMarker(cluster) {
             longitude: cluster.longitude
         },
         text: cluster.vehicleCount,
-        fontSize: resolveFontSize(String(cluster.vehicleCount)),
-        iconSrc: 'images/cluster.svg',
-        iconSize: 60
+        fontSize: resolveClusterFontSize(String(cluster.vehicleCount)),
+        iconSrc: 'images/bus.svg',
+        iconSize: 50
     };
 }
 
@@ -171,6 +171,18 @@ function resolveFontSize(text) {
     }
 
     return fontSize;
+}
+
+function resolveClusterFontSize(text) {
+    if (text.length > 4) {
+        return 8
+    } else if (text.length > 3) {
+        return 11;
+    } else if (text.length > 2) {
+        return 13;
+    } 
+
+    return 16;
 }
 
 export default createVehicleMap;
