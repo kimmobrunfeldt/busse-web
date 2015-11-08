@@ -227,8 +227,8 @@ LeafletMap.prototype.onZoomEnd = function onZoomEnd(callback) {
 };
 
 LeafletMap.prototype._setOrUpdateUserLocation = function _setOrUpdateUserLocation(pos) {
-    this._map.setView(pos);
     this._map.setZoom(this._opts.zoomOnLocated);
+    this._map.setView(pos);
 
     if (this._myLocationMarker === null) {
         this._myLocationMarker = L.marker(pos, {
