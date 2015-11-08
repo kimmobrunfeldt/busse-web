@@ -26,7 +26,7 @@ function createVehicleMap(props) {
     });
     var locationLoader = document.querySelector('#LocationLoader');
     var locateMeButton = document.querySelector('#locate-me');
-    locateMeButton.addEventListener('click', function zoomOutClicked() {
+    locateMeButton.addEventListener('click', function locateMeClicked() {
         var showLoaderTimer = setTimeout(function() {
             removeClass(locationLoader, 'hidden');
         }, 400);

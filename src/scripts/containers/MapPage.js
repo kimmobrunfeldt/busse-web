@@ -7,7 +7,7 @@ import CONST from '../constants';
 import createVehicleMap from '../components/VehicleMap';
 
 // If loading vehicles takes longer than this, loader will be shown
-const SHOW_LOADER_FETCHING_TIMEOUT = 2000;
+const SHOW_LOADER_FETCHING_TIMEOUT = 1000;
 
 // If loading vehicles takes longer then this, vehicles will be erased
 const KILL_SWITCH_TIMER = 15000;
