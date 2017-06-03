@@ -35,6 +35,7 @@ var config = _.merge({
     zoomOnLocated: 16,
     normalBusFontSize: 14,
     smallBusFontSize: 12,
+    extraSmallBusFontSize: 9,
 
     hideMarkersAfterAmount: 20,
     markerHideDebounce: 500,

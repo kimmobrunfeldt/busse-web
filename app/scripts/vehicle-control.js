@@ -74,9 +74,13 @@ function updateVehicles(map, vehicles) {
 function addVehicle(map, vehicle) {
     var isMoving = vehicle.rotation !== 0;
     var iconSrc = isMoving ? 'images/bus-moving.png' : 'images/bus.png';
-    var fontSize = vehicle.line.length > 2
-        ? config.smallBusFontSize
-        : config.normalBusFontSize;
+
+    var fontSize = config.normalBusFontSize;
+    if (vehicle.line.length > 3) {
+        fontSize = config.extraSmallBusFontSize;
+    } else if (vehicle.line.length > 2) {
+        fontSize = config.smallBusFontSize;
+    }
 
     map.addMarker(vehicle.id, {
         position: {
