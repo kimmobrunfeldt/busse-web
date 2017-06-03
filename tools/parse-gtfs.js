@@ -24,7 +24,7 @@ var _ = require('lodash');
 var csv = Promise.promisifyAll(require('csv'));
 
 
-var OUTPUT_DIR = '../data/';
+var OUTPUT_DIR = '../app/data/';
 
 
 var gtfsPath = path.resolve(__dirname, '../tampere_gtfs_latest');
@@ -116,12 +116,15 @@ Promise.join(
         var outputPath = path.resolve(__dirname, OUTPUT_DIR, 'routes.json');
         fs.writeFileSync(outputPath, JSON.stringify(routes));
 
-        /*
-        Dont write this since we have manually grouped routeIds to their
-        travel agencies
+        // Dont write this since we have manually grouped routeIds to their
+        // travel agencies
 
         var outputPath = path.resolve(__dirname, OUTPUT_DIR, 'general.json');
-        fs.writeFileSync(outputPath, JSON.stringify({routes: routeIds}));
-        */
+        fs.writeFileSync(outputPath, JSON.stringify({
+            routes: _.map(routeIds, id => ({
+                id: id,
+                operator: 'TKL',
+            })),
+        }, null, 2));
     }
 );
