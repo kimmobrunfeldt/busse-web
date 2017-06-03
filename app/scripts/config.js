@@ -4,14 +4,14 @@ var utils = require('./utils');
 // These location specific configurations override the defaults
 var locationConfigs = {
     helsinki: {
-        apiUrl: 'http://busse-api-helsinki.herokuapp.com',
+        apiUrl: 'https://busse-api-helsinki.herokuapp.com',
         initialPosition: {latitude: 60.200763, longitude: 24.936219},
         initialZoom: 12
     },
 
     // The default, main domain
     tampere: {
-        apiUrl: 'http://lissu-api-backup.herokuapp.com',
+        apiUrl: 'https://lissu-api-backup.herokuapp.com',
         initialPosition: {latitude: 61.487881, longitude: 23.7810259},
         initialZoom: 12
     }
