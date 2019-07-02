@@ -3,56 +3,58 @@
 1A,1A,Vatiala - Pirkkala,3
 1B,1B,Vatiala - Pirkkala,3
 1C,1C,Vatiala - Pirkkala,3
+1H,1H,Härmälä - Koskipuisto,3
 10,10,Kaukajärvi - Keskustori,3
 100,100,Tampere-Talo - Särkänniemi,3
 11,11,Toivio - Rahola,3
-11N,11N,Toivio - Rahola,3
-11P,11P,Toivio - Rahola,3
+11B,11B,Toivio - Rahola,3
+11C,11C,Toivio - Rahola,3
+115,115,Keskustori - Pispalanharju,3
 12,12,Hallila - Keskustori,3
-13,13,Hermia - Lamminpää - Ylöjärvi,3
-13L,13L,Hermia-Lamminpää,3
-13R,13R,Hermia - Lamminpää,3
 137,137,Tasanne-Takahuhdin koulu,3
-14,14,Petsamo - Pere,3
-14N,14N,Petsamo - Pere - Nokia,3
-14NPo,14NPo,Petsamo - Pere - Nokia,3
-14Po,14Po,Petsamo - Pere,3
-14U,14U,Petsamo - Pere - Nokia,3
+14,14,Ryydynpohja - Pere,3
+14R,14R,Pere - Ryydynpohja,3
+14T,14T,Petsamo - Pere,3
+14V,14V,Petsamo - Pere,3
 15,15,Järvensivu - Pispalanharju,3
 17,17,Vehmainen - Kalkku,3
 2,2,Rauhaniemi - Pyynikintori,3
 2S,2S,Rauhaniemi - Kaupin sairaala - Pyynikintori,3
-20,20,Hikivuori - Pyynikintori,3
+20,20,Hikivuori - Lamminpää,3
 20R,20R,Lamminpää-Keskustori,3
 21,21,Turtola - Tesoma,3
 21Y,21Y,Tesoma - TAYS,3
-24,24,Itä-Hervanta - Vanha kirkko,3
-24L,24L,Itä-Hervanta - Vanha kirkko,3
+24,24,Hermia - Vanha kirkko,3
 25,25,Janka - Tahmela,3
 26,26,Höytämö - Kaarila,3
+27,27,Keskustori - Partola,3
 28,28,Sorila - Siivikkala,3
 28A,28A,Sorila - Siivikkala,3
 28B,28B,Ruutana - Siivikkala,3
 28C,28C,Suinula - Ruutana - Siivikkala,3
 28Y,28Y,Nurmi - Keskustori,3
 29,29,Linnainmaa - Pitkäniemi,3
+29A,29A,Linnainmaa - Pitkäniemi ,3
+29B,29B,Linnainmaa - Kalkku,3
 29K,29K,Linnainmaa - Kalkku,3
+29R,29R,Linnainmaa - Pitkäniemi,3
 3,3,Hervanta - Lentävänniemi,3
 3A,3A,Hervanta - Lentävänniemi,3
 3B,3B,Lintuhytti - Lentävänniemi,3
 3R,3R,Hervanta - Lentävänniemi,3
 3V,3V,Hervanta - Lentävänniemi,3
-31,31,Korkinmäki - Keskustori,3
-32,32,TAYS - Hervanta - Hatanpää,3
+31,31,Korkinmäki - Pyynikintori,3
+32,32,TAYS - Hervanta - Hatanpää-Tampella,3
+32T,32T,TAYS - Hervanta - Hatanpää,3
 33,33,Keskustori - Lahdesjärvi,3
 33Y,33Y,Keskustori - Lahdesjärvi mt,3
 34,34,Keskustori - Linnakallio-Pirkkala,3
 35,35,Multisilta- Reuharinniemi,3
-35R,35R, Reuharinniemi-Tays,3
-36,36,Multisilta - Hatanpää - Myllypuro,3
-36T,36T,Multisilta - Hatanpää - Teollisuustie - Myllypuro,3
+35Pi,35Pi,Multisilta- Reuharinniemi,3
+35T,35T,Multisilta- Reuharinniemi,3
 37,37,Risso-Ryydynpohja,3
 38,38,Atala - TTY,3
+38L,38L,Atala - Rusko,3
 38R,38R,Atala - Rusko,3
 4,4,Hervanta - Keskustori,3
 4Y,4Y,Länsi-Hervanta - Keskustori,3
@@ -61,12 +63,13 @@
 40A,40A,Tampere - Kangasala,3
 40B,40B,Tampere - Kangasala,3
 40C,40C,Tampere - Kangasala,3
-40K,40K,Tampere - Kangasala,3
 40T,40T,Tampere - Kangasala,3
 41,41,Kangasala - Ponsa - Orivesi,3
 42,42,Tampere - Sahalahti - Kuhmalahti - Kuhmoinen,3
 42K,42K,Tampere - Pakkala - Kivisalmi - Kuhmalahti kk,3
+42KP,42KP,Tampere - Sahalahti - Saarionen - Pakkala,3
 42O,42O,Orivesi - Eräjärvi - Pohja,3
+42P,42P,Tampere - Sahalahti  - Pakkala,3
 42S,42S,Tampere - Sahalahti - Saarionen - Pakkala,3
 44,44,Kangasala - Valkeakoski,3
 44A,44A,Kangasala - Alanko - Valkeakoski,3
@@ -81,41 +84,52 @@
 47,47,Tampere - Ruutana - Suinula,3
 47H,47H,Tampere - Ruutana,3
 47L,47L,Tampere - Ruutana,3
+49,49,Orivesi - Eräjärvi - Pohja,3
 5,5,Tays - Vuores - Keskustori,3
 50,50,Lempäälä - Tampere,3
-50K,50K,Lempäälä - Tampere ,3
+50A,50A,Lempäälä - Tampere ,3
+50B,50B,Lempäälä - Tampere ,3
+50C,50C,Lempäälä - Tampere ,3
 50V,50V,Lempäälä - Tampere ,3
 51,51,Valkeakoski - Ideapark - Moottoritie - Tampere,3
 51I,51I,Valkeakoski - Ideapark - Moottoritie - Tampere,3
 52,52,Valkeakoski - Ideapark - Kulju - Tampere,3
 52I,52I,Ideapark - Kulju - Tampere,3
 53,53,Valkeakoski - Lempäälä kk - Tampere,3
+53K,53K,Valkeakoski - Lempäälä - Ideapark - Kulju ,3
 53T,53T,Valkeakoski - Lempäälä kk - Tampere,3
-54,54,Tampere - Ideapark - Urjala,3
+54,54,Tampere - Urjala,3
+54x,54x,Tampere - Urjala,3
 55,55,Vesilahti - Lempäälä - Tampere,3
+55K,55K,Vesilahti - Lempäälä - Tampere,3
+55L,55L,Vesilahti - Lempäälä - Tampere,3
+55T,55T,Vesilahti-Lempäälä-Tampere,3
+56,56,Lempäälä - Säijä,3
+57,57,Lastunen - Lempäälä - Lastunen,3
+58,58,Hervanta - Sääksjärvi,3
+58S,58S,Sääksjärven koulu  Hervanta,3
 6,6,Hermia-Pyynikintori,3
 63,63,Pirkkala - Äijälä,3
-65,65,Pirkkala - Hervanta,3
+65,65,Nokia - Pirkkala - Hermia,3
 65x,65x,Pirkkala - Hervanta,3
-65z,65z,Pirkkala - Hervanta,3
+65xx,65xx,Pirkkala - Hervanta,3
 70,70,Nokia - Tampere,3
 70Y,70Y,Nokia - Rahola - Tampere,3
 71,71,Tampere - Nokia - Keho,3
 71K,71K,Tampere - Nokia - Keho,3
-71Ka,71Ka,Tampere -Kankaantaka- Nokia - Keho,3
-71M,71M,Kalkku - Nokia - Keho,3
 71S,71S,Tampere - Nokia - Keho,3
 71SK,71SK,Tampere- Nokia - Keho,3
-71SKa,71SKa,Tampere - Nokia ,3
-71T,71T,Tampere - Nokia - Keho,3
 72,72,Tervasuo - Nokia - Tampere,3
 73,73,Harjuniitty - Nokia - Keho,3
+73K,73K,Harjuniitty - Nokia (paloasema) ,3
 74,74,Myllyhaka - vt12 - Tampere,3
 77,77,Nokia - Tottijärvi,3
 77x,77x,Nokia - Tottijärvi,3
 78,78,Nokia - Sarkola,3
 78x,78x,Nokia - Sarkola,3
 79,79,Tampere - Moottoritie - Nokia - Siuro - Linnavuori,3
+79A,79A,Tampere - Nokia - Siuro - Linnavuori - Purso ,3
+79B,79B,Tampere - Nokia - Linnavuori -Purso - Siuro- Nokia,3
 79Li,79Li,Tampere - Moottoritie - Nokia - Siuro - Linnavuori,3
 79Si,79Si,Tampere - Moottoritie - Nokia - Siuro - Linnavuori,3
 8,8,Atala - Haukiluoma,3
@@ -131,6 +145,8 @@
 86,86,Siivikkala - Matkatie,3
 86x,86x,Siivikkala - Matkatie,3
 9,9,Annala - Keskustori,3
+9A,9A,Annala - Keskustori,3
+9B,9B,Annala - Keskustori,3
 9K,9K,Annala - Keskustori,3
 90,90,Pyynikintori - Teisko,3
 90M,90M,Pyynikintori - Maisansalo - Teisko,3

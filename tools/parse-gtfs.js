@@ -34,7 +34,7 @@ var gtfsPath = path.resolve(__dirname, '../tampere_gtfs_latest');
 var shapesText = fs.readFileSync(path.join(gtfsPath, 'shapes.txt'));
 
 // Format:
-// route_id,service_id,trip_id,trip_headsign,direction_id,shape_id
+// route_id,service_id,trip_id,trip_headsign,direction_id,block_id,shape_id
 var tripsText = fs.readFileSync(path.join(gtfsPath, 'trips.txt'));
 
 
@@ -76,7 +76,7 @@ function groupTripsToShapes(trips, shapes) {
     var routes = {};
     _.each(routeIds, function(routeId) {
         var shapeIds = _.map(groupedTrips[routeId], function(trip) {
-            return trip[5];
+            return trip[6];
         });
 
         var shapes = _.map(shapeIds, function(shapeId) {
@@ -84,8 +84,9 @@ function groupTripsToShapes(trips, shapes) {
         });
 
         var coordinates = _.flatten(_.map(shapes, shapeToCoords));
+
         var uniqCoordinates = _.uniq(coordinates, function(coord) {
-            return coord.lat + coord.lng;
+            return `${coord.lat}${coord.lng}`
         });
 
         var numberCoordinates = _.map(uniqCoordinates, coordinateToNumber);
