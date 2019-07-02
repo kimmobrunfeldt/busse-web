@@ -16,7 +16,7 @@ var KEY_CODE = {
 };
 
 // Instead of semver, incrementing version from 0 - n is used
-var dataVersion = require('../../package.json').dataVersion;
+var dataVersion = "1"
 
 // Clear old data if new format applies
 var appData = storage.get('appData');
