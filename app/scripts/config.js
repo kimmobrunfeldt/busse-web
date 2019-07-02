@@ -11,7 +11,7 @@ var locationConfigs = {
 
     // The default, main domain
     tampere: {
-        apiUrl: 'https://lissu-api-backup.herokuapp.com',
+        apiUrl: 'https://lissu-api.herokuapp.com',
         initialPosition: {latitude: 61.487881, longitude: 23.7810259},
         initialZoom: 12
     }
