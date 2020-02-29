@@ -23,7 +23,7 @@ function Map(containerId) {
     } else if (config.mapProvider === 'here') {
         var tileLayer = L.tileLayer.provider('HERE.normalDayGrey', {
             app_id: config.hereMapsAppId,
-            app_code: config.hereMapsAppCode
+            api_key: config.hereMapsApiKey
         });
 
         this._map = L.map(containerId, sharedMapOptions);

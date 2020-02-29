@@ -6,23 +6,23 @@
   "main": "",
   "dependencies": {
     "bluebird": "^2.9.9",
+    "concurrently": "^5.1.0",
     "fastclick": "^1.0.6",
     "humane-js": "^3.2.2",
-    "lodash": "^3.2.0"
+    "lodash": "^3.2.0",
+    "watchify": "^3.11.1"
   },
   "devDependencies": {
     "autoprefixer": "^5.1.0",
     "browserify": "^6.3.2",
     "chokidar-cli": "^0.2.1",
-    "concurrently": "0.0.5",
     "csv": "^0.4.1",
     "less": "^2.5.1",
     "mustache": "^1.0.0",
-    "node-static": "^0.7.6",
-    "watchify": "^2.1.1"
+    "node-static": "^0.7.6"
   },
   "scripts": {
-    "start": "./tools/tmux",
+    "start": "concurrently 'npm run serve' 'npm run watch-js' 'npm run watch-less'",
     "serve": "static -a 0.0.0.0 -c 0 app",
     "build": "npm run build-js && npm run build-less",
     "build-js": "browserify app/scripts/main.js -o app/bundle.js",
